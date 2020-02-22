@@ -1,13 +1,81 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+<cu-custom bgColor="bg-white1">
+  <view slot="content">中医音乐</view>
+</cu-custom>
+<swiper class="swiper1"  circular="true">
+  <swiper-item>
+    <view style="height: 100%;background-image: url(https://hbimg.huabanimg.com/0b37de09d2f8307f5bd45700d96a15ec4ed7f0a3ceb46-MdW48P_fw658);width:100%;background-size:100% 100%;">
+
+      <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
+
+        <view class="padding-xl radius shadow shadow-lg text-center"  bindtap="showModal" data-target="bottomModal">
+          <image class="fan_image" src="{{fan_url}}" mode="aspectFit" ></image>
+        </view>
+
+        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" hidden="{{fan_hidden}}" data-target="bottomModal"> 
+          <image class="first_page_image" src="{{first_page_url}}" mode="aspectFit" ></image>
+        </view>
+
+        <view class="padding-0 margin-top text-center"  hidden="{{1-fan_hidden}}">
+          <image class="first_page_image2" src="{{first_page_url2}}" mode="aspectFit" ></image>
+        </view>
+
+        <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
+          <view class="flex justify-end">
+            <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-gray shadow'> 
+              获取头像昵称 
+            </button>
+            <block wx:else>
+              <view class='text-center'>
+                <view class="cu-avatar lg round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>
+                <!-- <view class="padding">{{userInfo.nickName}}</view> -->
+              </view>
+            </block>
+          </view>
+        </view>
+
+        <!-- <view class="text-center margin-top {{modalName=='bottomModal'?'hidden':''}}">
+          <text class="text-grey text-xl">{{time}}</text>
+        </view> -->
+
+
+      </view>
+
+      <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+        <view class="cu-dialog">
+          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:300px;">
+            <view class="cu-bar justify-end text-white">
+              <view class="action" bindtap="hideModal">
+                <text class="cuIcon-close "></text>
+              </view>
+            </view>
+          </view>
+          <view class="cu-bar">
+            <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">关闭</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+
+  <swiper-item wx:for="{{swiperList}}" wx:key>
+    <image class="sw_image" src="{{item.url}}" mode="aspectFill" bindtap="showModal" data-target="Modal"></image>
+
+    <view class="cu-modal bottom-modal show}}">
+      <view class="cu-dialog">
+        <view class="cu-bar bg-white1 justify-end">
+          <view class="content">请放松~</view>
+          <view class="action" bindtap="hideModal">
+            <text class="cuIcon-like text-red"></text>
+          </view>
+        </view>
+        <view class="padding-xl">
+          <audio poster="{{music_list[0].poster}}" name="{{music_list[0].name}}" author="{{music_list[0].author}}"  src="{{music_list[0].src}}" id="myAudio" controls loop></audio>
+          <!-- <button type="primary" bindtap="audioPlay">播放</button>
+          <button type="primary" bindtap="audioPause">暂停</button>
+          <button type="primary" bindtap="audio14">设置当前播放时间为14秒</button>
+          <button type="primary" bindtap="audioStart">回到开头</button> -->
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>

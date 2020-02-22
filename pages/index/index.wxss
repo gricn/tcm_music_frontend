@@ -1,21 +1,44 @@
-/**index.wxss**/
-.userinfo {
+page{
+  height: 100%;
+}
+
+.swiper1{
+  height: 90%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.sw_image{
+  height: 100%;
+  width: 100%
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.fan_image{
+  height: 220rpx;
 }
 
-.usermotto {
-  margin-top: 200px;
+.first_page_image{
+  height: 700rpx;
+  width: 630rpx;
+  padding: 0rpx;
+  margin: 0rpx;
+  overflow: hidden;
+}
+
+.first_page_image2{
+  height: 700rpx;
+  width: 750rpx;
+  padding: 0rpx;
+  margin: 0rpx;
+  overflow: hidden;
+}
+
+.menu_image{
+  height: 660rpx;
+}
+
+image {
+  max-width: 100%;
+  display: inline-block;
+  position: relative;
+  z-index: 0;
 }

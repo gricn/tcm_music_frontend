@@ -1,0 +1,659 @@
+<!--pages/tr_test/tc_test.wxml-->
+<cu-custom bgColor="bg-white1" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">表单</view>
+</cu-custom>
+<form>
+
+  <view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-titles text-yellow"></text> 中医体质测试
+    </view>
+  </view>
+  <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+    <view class="cu-item {{index==TabCur?'text-yellow cur':''}}" wx:for="{{test_tittle}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <view wx:key wx:if="{{TabCur==0}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您手脚发凉吗？</view>
+      <picker bindchange="PickerChange" value="{{index1_1}}" range="{{picker}}" id="index1_1">
+        <view class="picker">
+          {{index1_1?picker[index1_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您胃脘部、背部或腰膝部怕冷吗？</view>
+      <picker bindchange="PickerChange" value="{{index1_2}}" range="{{picker}}" id="index1_2">
+        <view class="picker">
+          {{index1_2?picker[index1_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您感到怕冷、衣服比别人穿得多吗？</view>
+      <picker bindchange="PickerChange" value="{{index1_3}}" range="{{picker}}" id="index1_3">
+        <view class="picker">
+          {{index1_3?picker[index1_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您比一般人受不了寒冷吗</view>
+      <picker bindchange="PickerChange" value="{{index1_4}}" range="{{picker}}" id="index1_4">
+        <view class="picker">
+          {{index1_4?picker[index1_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您比别人容易感冒吗？</view>
+      <picker bindchange="PickerChange" value="{{index1_5}}" range="{{picker}}" id="index1_5">
+        <view class="picker">
+          {{index1_5?picker[index1_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您吃凉的东西会感到不舒服吗？</view>
+      <picker bindchange="PickerChange" value="{{index1_6}}" range="{{picker}}" id="index1_6">
+        <view class="picker">
+          {{index1_6?picker[index1_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您吃凉的东西后，容易腹泻吗？</view>
+      <picker bindchange="PickerChange" value="{{index1_7}}" range="{{picker}}" id="index1_7">
+        <view class="picker">
+          {{index1_7?picker[index1_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+	</view>
+
+  <view wx:key wx:if="{{TabCur==1}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您感到手脚心发热吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_1}}" range="{{picker}}" id="index2_1">
+        <view class="picker">
+          {{index2_1?picker[index2_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您感觉身体、脸上发热吗吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_2}}" range="{{picker}}" id="index2_2">
+        <view class="picker">
+          {{index2_2?picker[index2_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您皮肤或口唇干吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_3}}" range="{{picker}}" id="index2_3">
+        <view class="picker">
+          {{index2_3?picker[index2_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您容易便秘或大便干燥吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_4}}" range="{{picker}}" id="index2_4">
+        <view class="picker">
+          {{index2_4?picker[index2_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您口唇的颜色比一般人红吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_5}}" range="{{picker}}" id="index2_5">
+        <view class="picker">
+          {{index2_5?picker[index2_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您面部两潮红或偏红吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_6}}" range="{{picker}}" id="index2_6">
+        <view class="picker">
+          {{index2_6?picker[index2_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您感到眼睛干涩吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_7}}" range="{{picker}}" id="index2_7">
+        <view class="picker">
+          {{index2_7?picker[index2_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（8）您感到口干舌燥、总想喝水吗？</view>
+      <picker bindchange="PickerChange" value="{{index2_8}}" range="{{picker}}" id="index2_8">
+        <view class="picker">
+          {{index2_8?picker[index2_8]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+  <view wx:key wx:if="{{TabCur==2}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您容易疲乏吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_1}}" range="{{picker}}" id="index3_1">
+        <view class="picker">
+          {{index3_1?picker[index3_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您容易气短（呼吸急促，接不上气）吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_2}}" range="{{picker}}" id="index3_2">
+        <view class="picker">
+          {{index3_2?picker[index3_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您容易心慌吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_3}}" range="{{picker}}" id="index3_3">
+        <view class="picker">
+          {{index3_3?picker[index3_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您容易头晕或站起时晕眩吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_4}}" range="{{picker}}" id="index3_4">
+        <view class="picker">
+          {{index3_4?picker[index3_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您比别人容易患感冒吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_5}}" range="{{picker}}" id="index3_5">
+        <view class="picker">
+          {{index3_5?picker[index3_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您喜欢安静、懒得说话吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_6}}" range="{{picker}}" id="index3_6">
+        <view class="picker">
+          {{index3_6?picker[index3_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您说话声音无力吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_7}}" range="{{picker}}" id="index3_7">
+        <view class="picker">
+          {{index3_7?picker[index3_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（8）您活动量稍大就容易出汗吗？</view>
+      <picker bindchange="PickerChange" value="{{index3_8}}" range="{{picker}}" id="index3_8">
+        <view class="picker">
+          {{index3_8?picker[index3_8]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+  <view wx:key wx:if="{{TabCur==3}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您感到胸闷或腹部胀满吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_1}}" range="{{picker}}" id="index4_1">
+        <view class="picker">
+          {{index4_1?picker[index4_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您感到身体沉重不轻松或不爽快吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_2}}" range="{{picker}}" id="index4_2">
+        <view class="picker">
+          {{index4_2?picker[index4_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您腹部肥满松软吗？</view> 
+      <picker bindchange="PickerChange" value="{{index4_3}}" range="{{picker}}" id="index4_3">
+        <view class="picker">
+          {{index4_3?picker[index4_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您有额部油脂分泌多的现象吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_4}}" range="{{picker}}" id="index4_4">
+        <view class="picker">
+          {{index4_4?picker[index4_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您上眼睑比别人肿（轻微隆起现象）吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_5}}" range="{{picker}}" id="index4_5">
+        <view class="picker">
+          {{index4_5?picker[index4_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您嘴里有黏黏的感觉吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_6}}" range="{{picker}}" id="index4_6">
+        <view class="picker">
+          {{index4_6?picker[index4_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您平时痰多，咽喉部总感到痰堵着吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_7}}" range="{{picker}}" id="index4_7">
+        <view class="picker">
+          {{index4_7?picker[index4_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（8）您舌苔厚腻或有舌苔厚厚的感觉吗？</view>
+      <picker bindchange="PickerChange" value="{{index4_8}}" range="{{picker}}" id="index4_8">
+        <view class="picker">
+          {{index4_8?picker[index4_8]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+  
+  </view>
+
+  <view wx:key wx:if="{{TabCur==4}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您面部或鼻部有油腻感或油亮发光吗？</view>
+      <picker bindchange="PickerChange" value="{{index5_1}}" range="{{picker}}" id="index5_1">
+        <view class="picker">
+          {{index5_1?picker[index5_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您容易生痤疮或疮疖吗？</view>
+      <picker bindchange="PickerChange" value="{{index5_2}}" range="{{picker}}" id="index5_2">
+        <view class="picker">
+          {{index5_2?picker[index5_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您感到口苦或嘴里有异味吗？</view>
+      <picker bindchange="PickerChange" value="{{index5_3}}" range="{{picker}}" id="index5_3">
+        <view class="picker">
+          {{index5_3?picker[index5_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您大便黏滞不爽、有解不尽的感觉吗？</view>
+      <picker bindchange="PickerChange" value="{{index5_4}}" range="{{picker}}" id="index5_4">
+        <view class="picker">
+          {{index5_4?picker[index5_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您小便时尿道有发热感、尿色浓（深）吗？</view>
+      <picker bindchange="PickerChange" value="{{index5_5}}" range="{{picker}}" id="index5_5">
+        <view class="picker">
+          {{index5_5?picker[index5_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您带下色黄（白带发黄）吗？（女性回答）</view>
+      <picker bindchange="PickerChange" value="{{index5_6}}" range="{{picker}}" id="index5_6">
+        <view class="picker">
+          {{index5_6?picker[index5_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您的阴囊部位潮湿吗？（男性回答）</view>
+      <picker bindchange="PickerChange" value="{{index5_7}}" range="{{picker}}" id="index5_7">
+        <view class="picker">
+          {{index5_7?picker[index5_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+  <view wx:key wx:if="{{TabCur==5}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您的皮肤在不知不觉会出现青紫瘀斑吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_1}}" range="{{picker}}" id="index6_1">
+        <view class="picker">
+          {{index6_1?picker[index6_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您两颧部有细微红血丝吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_2}}" range="{{picker}}" id="index6_2">
+        <view class="picker">
+          {{index6_2?picker[index6_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您身体上有哪里疼痛吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_3}}" range="{{picker}}" id="index6_3">
+        <view class="picker">
+          {{index6_3?picker[index6_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您容易有黑眼圈吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_4}}" range="{{picker}}" id="index6_4">
+        <view class="picker">
+          {{index6_4?picker[index6_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您容易忘事（健忘）吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_5}}" range="{{picker}}" id="index6_5">
+        <view class="picker">
+          {{index6_5?picker[index6_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您面色晦黯或容易出现褐斑吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_6}}" range="{{picker}}" id="index6_6">
+        <view class="picker">
+          {{index6_6?picker[index6_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您口唇颜色偏黯吗？</view>
+      <picker bindchange="PickerChange" value="{{index6_7}}" range="{{picker}}" id="index6_7">
+        <view class="picker">
+          {{index6_7?picker[index6_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+  <view wx:key wx:if="{{TabCur==6}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您没有感冒时也会打喷嚏吗？</view>
+      <picker bindchange="PickerChange" value="{{index7_1}}" range="{{picker}}" id="index7_1">
+        <view class="picker">
+          {{index7_1?picker[index7_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您没有感冒时也会鼻塞、流鼻涕吗？</view>
+      <picker bindchange="PickerChange" value="{{index7_2}}" range="{{picker}}" id="index7_2">
+        <view class="picker">
+          {{index7_2?picker[index7_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您有因季节变化、温度变化等原因咳喘吗？</view>
+      <picker bindchange="PickerChange" value="{{index7_3}}" range="{{picker}}" id="index7_3">
+        <view class="picker">
+          {{index7_3?picker[index7_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您容易过敏吗？</view>
+      <picker bindchange="PickerChange" value="{{index7_4}}" range="{{picker}}" id="index7_4">
+        <view class="picker">
+          {{index7_4?picker[index7_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您的皮肤容易起荨麻疹吗？</view>
+      <picker bindchange="PickerChange" value="{{index7_5}}" range="{{picker}}" id="index7_5">
+        <view class="picker">
+          {{index7_5?picker[index7_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您因过敏出现过紫癜吗？</view>
+      <picker bindchange="PickerChange" value="{{index7_6}}" range="{{picker}}" id="index7_6">
+        <view class="picker">
+          {{index7_6?picker[index7_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您的皮肤一抓就红，并出现抓痕吗？ </view>
+      <picker bindchange="PickerChange" value="{{index7_7}}" range="{{picker}}" id="index7_7">
+        <view class="picker">
+          {{index7_7?picker[index7_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+  <view wx:key wx:if="{{TabCur==7}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您感到闷闷不乐、情绪低沉吗？</view>
+      <picker bindchange="PickerChange" value="{{index8_1}}" range="{{picker}}" id="index8_1">
+        <view class="picker">
+          {{index8_1?picker[index8_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您容易精神紧张、焦虑不安吗？</view>
+      <picker bindchange="PickerChange" value="{{index8_2}}" range="{{picker}}" id="index8_2">
+        <view class="picker">
+          {{index8_2?picker[index8_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您多愁善感、感情脆弱吗？</view>
+      <picker bindchange="PickerChange" value="{{index8_3}}" range="{{picker}}" id="index8_3">
+        <view class="picker">
+          {{index8_3?picker[index8_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您容易感到害怕或受到惊吓吗？</view>
+      <picker bindchange="PickerChange" value="{{index8_4}}" range="{{picker}}" id="index8_4">
+        <view class="picker">
+          {{index8_4?picker[index8_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您胁肋部或乳房腹痛吗？</view>
+      <picker bindchange="PickerChange" value="{{index8_5}}" range="{{picker}}" id="index8_5">
+        <view class="picker">
+          {{index8_5?picker[index8_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您无缘无故叹气吗？</view>
+      <picker bindchange="PickerChange" value="{{index8_6}}" range="{{picker}}" id="index8_6">
+        <view class="picker">
+          {{index8_6?picker[index8_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您咽喉部有异物感，吐之不出咽之不下吗？  </view>
+      <picker bindchange="PickerChange" value="{{index8_7}}" range="{{picker}}" id="index8_7">
+        <view class="picker">
+          {{index8_7?picker[index8_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+  <view wx:key wx:if="{{TabCur==8}}">
+
+    <view class="cu-form-group margin-top">
+      <view class="text-df">（1）您精力充沛吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_1}}" range="{{picker}}" id="index9_1">
+        <view class="picker">
+          {{index9_1?picker[index9_1]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="cu-form-group">
+      <view class="text-df">（2）您容易疲乏吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_2}}" range="{{picker}}" id="index9_2">
+        <view class="picker">
+          {{index9_2?picker[index9_2]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（3）您说话声音无力吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_3}}" range="{{picker}}" id="index9_3">
+        <view class="picker">
+          {{index9_3?picker[index9_3]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（4）您感到闷闷不乐、情绪低沉吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_4}}" range="{{picker}}" id="index9_4">
+        <view class="picker">
+          {{index9_4?picker[index9_4]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（5）您比一般人耐受不了寒冷吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_5}}" range="{{picker}}" id="index9_5">
+        <view class="picker">
+          {{index9_5?picker[index9_5]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（6）您能适应外界自然和社会环境的变化吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_6}}" range="{{picker}}" id="index9_6">
+        <view class="picker">
+          {{index9_6?picker[index9_6]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（7）您容易失眠吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_7}}" range="{{picker}}" id="index9_7">
+        <view class="picker">
+          {{index9_7?picker[index9_7]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="text-df">（8）您容易忘事（健忘）吗？</view>
+      <picker bindchange="PickerChange" value="{{index9_8}}" range="{{picker}}" id="index9_8">
+        <view class="picker">
+          {{index9_8?picker[index9_8]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+
+
+</form>

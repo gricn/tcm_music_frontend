@@ -1,5 +1,5 @@
 {
-	"description": "Project configuration file",
+	"description": "项目配置文件",
 	"packOptions": {
 		"ignore": []
 	},
@@ -9,13 +9,12 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
-		"coverView": true
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.4.2",
 	"appid": "wx12d4101975d11fe9",
-	"projectname": "miniprogram-1",
+	"projectname": "cm_music1",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
