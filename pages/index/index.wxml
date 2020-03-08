@@ -1,23 +1,29 @@
 <cu-custom bgColor="bg-white1">
   <view slot="content">中医音乐</view>
 </cu-custom>
-<swiper class="swiper1"  circular="true">
+<swiper class="swiper1"  circular="true" current="{{cur}}">
   <swiper-item>
     <view style="height: 100%;background-image: url(https://hbimg.huabanimg.com/0b37de09d2f8307f5bd45700d96a15ec4ed7f0a3ceb46-MdW48P_fw658);width:100%;background-size:100% 100%;">
 
       <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
 
-        <view class="padding-xl radius shadow shadow-lg text-center"  bindtap="showModal" data-target="bottomModal">
+        <view class="padding-0 radius shadow shadow-lg text-center"  bindtap="showModal" data-target="bottomModal" hidden="{{fan_hidden}}" >
+          <image class="fan_image2" src="{{fan_url2}}" mode="aspectFill" ></image>
+        </view>
+
+<!-- 
+        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" hidden="{{fan_hidden}}" data-target="bottomModal"> 
+          <image class="first_page_image" src="{{first_page_url}}" mode="aspectFit" ></image>
+        </view> -->
+
+        <view class="padding-0 radius shadow shadow-lg text-center"  hidden="{{1-fan_hidden}}">
           <image class="fan_image" src="{{fan_url}}" mode="aspectFit" ></image>
         </view>
 
-        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" hidden="{{fan_hidden}}" data-target="bottomModal"> 
-          <image class="first_page_image" src="{{first_page_url}}" mode="aspectFit" ></image>
-        </view>
+        <!-- <view class="text-center margin-top {{modalName=='bottomModal'?'hidden':''}}">
+          <text class="text-grey text-xl">{{time}}</text>
+        </view> -->
 
-        <view class="padding-0 margin-top text-center"  hidden="{{1-fan_hidden}}">
-          <image class="first_page_image2" src="{{first_page_url2}}" mode="aspectFit" ></image>
-        </view>
 
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end">
@@ -33,16 +39,11 @@
           </view>
         </view>
 
-        <!-- <view class="text-center margin-top {{modalName=='bottomModal'?'hidden':''}}">
-          <text class="text-grey text-xl">{{time}}</text>
-        </view> -->
-
-
       </view>
 
       <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
         <view class="cu-dialog">
-          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:300px;">
+          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:450px;">
             <view class="cu-bar justify-end text-white">
               <view class="action" bindtap="hideModal">
                 <text class="cuIcon-close "></text>
@@ -63,9 +64,9 @@
     <view class="cu-modal bottom-modal show}}">
       <view class="cu-dialog">
         <view class="cu-bar bg-white1 justify-end">
-          <view class="content">请放松~</view>
+          <view class="content">请欣赏~</view>
           <view class="action" bindtap="hideModal">
-            <text class="cuIcon-like text-red"></text>
+            <text class="cuIcon-tag text-red"></text>
           </view>
         </view>
         <view class="padding-xl">

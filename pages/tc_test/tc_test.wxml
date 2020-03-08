@@ -655,5 +655,79 @@
 
   </view>
 
+  <view wx:key wx:if="{{TabCur==9}}">
+
+    <view class="cu-bar bg-white solid-bottom">
+      <view class='action text-bold'>
+        <text class='cuIcon-edit text-yellow'></text>您的体质测试结果为
+      </view>
+    </view>
+
+    <view class="cu-card case">
+      <view class="cu-item shadow">
+          <view class="padding-sm text-context">阳虚体质转化分:{{convert1}}
+          </view>
+          <view class="padding-sm text-context">阴虚体质转化分:{{convert2}}
+          </view>
+          <view class="padding-sm text-context">气虚体质转化分:{{convert3}}
+          </view>
+          <view class="padding-sm text-context">痰湿体质转化分:{{convert4}}
+          </view>
+          <view class="padding-sm text-context">湿热体质转化分:{{convert5}}
+          </view>
+          <view class="padding-sm text-context">血瘀体质转化分:{{convert6}}
+          </view>
+          <view class="padding-sm text-context">特凛体质转化分:{{convert7}}
+          </view>
+          <view class="padding-sm text-context">气郁体质转化分:{{convert8}}
+          </view>
+          <view class="padding-sm text-context">平和体质转化分:{{convert9}}
+          </view>
+      </view>
+    </view>
+
+    <view class="cu-card case">
+      <view class="cu-item shadow">
+          <view class="padding-sm text-context">您的体质:{{final_res}}
+          </view>
+          <view class="padding-sm text-context">建议:{{final_res}}
+          </view>
+          <view class="padding-sm text-context">推荐音乐时长：15min
+          </view>
+      </view>
+    </view>
+<!-- 
+    <view class="cu-card case">
+      <view class="cu-item shadow">
+          <view class="padding-sm text-context">建议:{{final_res}}
+          </view>
+      </view>
+    </view> -->
+
+  </view>
+
+   <view wx:key wx:if="{{TabCur==10}}">
+
+    <view class="cu-bar bg-white solid-bottom">
+      <view class='action text-bold'>
+        <text class='cuIcon-edit text-yellow'></text>您的推荐歌单列表为
+      </view>
+    </view>
+
+    <view class="cu-card case">
+      <view class="cu-item shadow">
+          <view class="padding-sm text-context">暂无
+          </view>
+      </view>
+    </view>
+
+    <view class='box bg-white1'>
+      <view class="cu-bar btn-group">
+        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_first_page" data-target="viewModal">开始放松</button>
+      </view>
+    </view>
+
+  </view>
+
 
 </form>

@@ -3,7 +3,7 @@ page{
 }
 
 .swiper1{
-  height: 90%;
+  height: 90.5%;
   display: flex;
 }
 
@@ -13,7 +13,13 @@ page{
 }
 
 .fan_image{
-  height: 220rpx;
+  width: 100%;
+  height: 356rpx;
+}
+
+.fan_image2{
+  width: 100%;
+  height: 690rpx;
 }
 
 .first_page_image{

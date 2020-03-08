@@ -5,10 +5,11 @@ var util = require('../../utils/util.js');
 
 Page({
   data: {
+    cur:0,
     music_list:[{
-      poster: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000000c74pi162Cb6_1.jpg?max_age=2592000',
-      name: '月牙湾',
-      author: '丫蛋蛋',
+      poster: 'https://hbimg.huabanimg.com/87fcdbf818e5fceb7c7cdba0cb542b5b02f1667934ca-UFQoTv_fw658',
+      name: '中医音乐',
+      author: '请欣赏',
       src: 'http://ws.stream.qqmusic.qq.com/C400003RZaJa1ZtfUq.m4a?guid=3394337708&vkey=3FDAD0BAF1C16EC2D46329D93E036DD46F1D6E4196303E419D9B1A867825CC77C5B14F23A6D64F644CFA0E837CD4C15C5A58C57F99B2D5FB&uin=5568&fromtag=66',
     }],
     StatusBar: app.globalData.StatusBar,
@@ -19,24 +20,23 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     swiperList:[{
       id: 0,
-      url: "/pictures/gong.png"
+      url: "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK_fw658"
     }, {
       id: 1,
-      url: "/pictures/shang.png"
+        url: "https://hbimg.huabanimg.com/3ddffad15246fa4a7b847e747b1773edfd2a591544d6b-uB8l6M_fw658"
     }, {
       id: 2,
-      url: "/pictures/jue.png"
+        url: "https://hbimg.huabanimg.com/297ffaa48cdb3a9756b45d207e21e490f5d92b193daa1-HCQJps_fw658"
     }, {
       id: 3,
-      url: "/pictures/zhi.png"
+        url: "https://hbimg.huabanimg.com/68765fb5aef5ed89d57a397248f4eaf3a6a4ec3a52ef0-xcNqIJ_fw658"
     }, {
       id: 4,
-      url: "/pictures/yu.png"
+        url: "https://hbimg.huabanimg.com/ecdd77fcbeaf108501166bb2d028260acb5132b443891-eC8WXw_fw658"
     }],
-    fan_url: "/pictures/Fan_01.png",
-    first_page_url:  "/pictures/first_page.png",
-    first_page_url2: "/pictures/first_page2.png",
-    menu_url:  "/pictures/menu.png",
+    fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y_fw658",
+    fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ_fw658",
+    menu_url:  "https://hbimg.huabanimg.com/9a02a800ce8af13b836d81422550dc03dec918d469792-sfKjeY_fw658",
     modalName:null,
     fan_hidden:0
   },
@@ -95,7 +95,9 @@ Page({
     this.audioCtx = wx.createAudioContext('myAudio')
     //this.audioCtx.play()
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    this.setData({ cur: options.cur })
+    console.log(this.data.cur)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
