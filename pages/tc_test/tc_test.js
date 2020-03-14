@@ -5,81 +5,81 @@ Page({
    * 页面的初始数据
    */
   data: {
-    index1_1:null,
-    index1_2: null,
-    index1_3: null,
-    index1_4: null,
-    index1_5: null,
-    index1_6: null,
-    index1_7: null,
-    index2_1: null,
-    index2_2: null,
-    index2_3: null,
-    index2_4: null,
-    index2_5: null,
-    index2_6: null,
-    index2_7: null,
-    index2_7: null,
-    index2_8: null,
-    index3_1: null,
-    index3_2: null,
-    index3_3: null,
-    index3_4: null,
-    index3_5: null,
-    index3_6: null,
-    index3_7: null,
-    index3_7: null,
-    index3_8: null,
-    index4_1: null,
-    index4_2: null,
-    index4_3: null,
-    index4_4: null,
-    index4_5: null,
-    index4_6: null,
-    index4_7: null,
-    index4_7: null,
-    index4_8: null,
-    index5_1: null,
-    index5_2: null,
-    index5_3: null,
-    index5_4: null,
-    index5_5: null,
-    index5_6: null,
-    index5_7: null,
-    index5_7: null,
-    index6_1: null,
-    index6_2: null,
-    index6_3: null,
-    index6_4: null,
-    index6_5: null,
-    index6_6: null,
-    index6_7: null,
-    index6_7: null,
-    index7_1: null,
-    index7_2: null,
-    index7_3: null,
-    index7_4: null,
-    index7_5: null,
-    index7_6: null,
-    index7_7: null,
-    index7_7: null,
-    index8_1: null,
-    index8_2: null,
-    index8_3: null,
-    index8_4: null,
-    index8_5: null,
-    index8_6: null,
-    index8_7: null,
-    index8_7: null,
-    index9_1: null,
-    index9_2: null,
-    index9_3: null,
-    index9_4: null,
-    index9_5: null,
-    index9_6: null,
-    index9_7: null,
-    index9_7: null,
-    index9_8: null,
+    index1_1: 0,
+    index1_2: 0,
+    index1_3: 0,
+    index1_4: 0,
+    index1_5: 0,
+    index1_6: 0,
+    index1_7: 0,
+    index2_1: 0,
+    index2_2: 0,
+    index2_3: 0,
+    index2_4: 0,
+    index2_5: 0,
+    index2_6: 0,
+    index2_7: 0,
+    index2_7: 0,
+    index2_8: 0,
+    index3_1: 0,
+    index3_2: 0,
+    index3_3: 0,
+    index3_4: 0,
+    index3_5: 0,
+    index3_6: 0,
+    index3_7: 0,
+    index3_7: 0,
+    index3_8: 0,
+    index4_1: 0,
+    index4_2: 0,
+    index4_3: 0,
+    index4_4: 0,
+    index4_5: 0,
+    index4_6: 0,
+    index4_7: 0,
+    index4_7: 0,
+    index4_8: 0,
+    index5_1: 0,
+    index5_2: 0,
+    index5_3: 0,
+    index5_4: 0,
+    index5_5: 0,
+    index5_6: 0,
+    index5_7: 0,
+    index5_7: 0,
+    index6_1: 0,
+    index6_2: 0,
+    index6_3: 0,
+    index6_4: 0,
+    index6_5: 0,
+    index6_6: 0,
+    index6_7: 0,
+    index6_7: 0,
+    index7_1: 0,
+    index7_2: 0,
+    index7_3: 0,
+    index7_4: 0,
+    index7_5: 0,
+    index7_6: 0,
+    index7_7: 0,
+    index7_7: 0,
+    index8_1: 0,
+    index8_2: 0,
+    index8_3: 0,
+    index8_4: 0,
+    index8_5: 0,
+    index8_6: 0,
+    index8_7: 0,
+    index8_7: 0,
+    index9_1: 0,
+    index9_2: 0,
+    index9_3: 0,
+    index9_4: 0,
+    index9_5: 0,
+    index9_6: 0,
+    index9_7: 0,
+    index9_7: 0,
+    index9_8: 0,
     convert1: '暂无',
     convert2: '暂无',
     convert3: '暂无',
@@ -153,7 +153,10 @@ Page({
         this.setData({
           convert1: sum/28*100
         })
-        console.log(this.data.convert1)
+        this.setData({
+          TabCur: 1
+        })
+        console.log(1000+this.data.convert1)
         break;
       case ('index2_1'):
         this.setData({
@@ -206,7 +209,10 @@ Page({
         this.setData({
           convert2: sum / 32 * 100
         })
-        console.log(this.data.convert2)
+        this.setData({
+          TabCur: 2
+        })
+        console.log(2000+this.data.convert2)
         break;
       case ('index3_1'):
         this.setData({
@@ -259,7 +265,10 @@ Page({
         this.setData({
           convert3: sum / 32 * 100
         })
-        console.log(this.data.convert3)
+        this.setData({
+          TabCur: 3
+        })
+        console.log(3000+this.data.convert3)
         break;
       case ('index4_1'):
         this.setData({
@@ -312,7 +321,10 @@ Page({
         this.setData({
           convert4: sum / 32 * 100
         })
-        console.log(this.data.convert4)
+        this.setData({
+          TabCur: 4
+        })
+        console.log(4000+this.data.convert4)
         break;
       case ('index5_1'):
         this.setData({
@@ -359,7 +371,10 @@ Page({
         this.setData({
           convert5: sum / 28 * 100
         })
-        console.log(this.data.convert5)
+        this.setData({
+          TabCur: 5
+        })
+        console.log(5000+this.data.convert5)
         break;
       case ('index6_1'):
         this.setData({
@@ -406,7 +421,10 @@ Page({
         this.setData({
           convert6: sum / 28 * 100
         })
-        console.log(this.data.convert6)
+        this.setData({
+          TabCur: 6
+        })
+        console.log(6000+this.data.convert6)
         break;
       case ('index7_1'):
         this.setData({
@@ -453,7 +471,10 @@ Page({
         this.setData({
           convert7: sum / 28 * 100
         })
-        console.log(this.data.convert7)
+        this.setData({
+          TabCur: 7
+        })
+        console.log(7000+this.data.convert7)
         break;
       case ('index8_1'):
         this.setData({
@@ -500,7 +521,10 @@ Page({
         this.setData({
           convert8: sum / 28 * 100
         })
-        console.log(this.data.convert8)
+        this.setData({
+          TabCur: 8
+        })
+        console.log(8000+this.data.convert8)
         break;
       case ('index9_1'):
         this.setData({
@@ -550,122 +574,24 @@ Page({
         var i97 = 4 - parseInt(this.data.index9_7)
         var i98 = 4 - parseInt(this.data.index9_8)
         var sum = i91 + i92 + i93 + i94 + i95 + i96 + i97 + i98
+        console.log(sum)
         this.setData({
           convert9: sum / 32 * 100
         })
-        console.log(this.data.convert9)
+        console.log(9000+this.data.convert9)
 
-        if(this.data.convert1 >= 60){
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30){
-            this.setData({
-              final_res:"是阳虚体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40){
-            this.setData({
-              final_res: "基本是阳虚体质"
-            })
+        var arr = [this.data.convert1, this.data.convert2, this.data.convert3, this.data.convert4, this.data.convert5, this.data.convert6, this.data.convert7, this.data.convert8]
+        console.log(arr)
+        var max = Math.max.apply(null, arr);
+        console.log(max)
+        var maxindex = -1
+        for (var i = 0, len = arr.length; i < len; i++) {
+          if (arr[i] == max) {
+            maxindex = i;
+            break;
           }
-        }else{
-
         }
-
-        if (this.data.convert2 >= 60) {
-          if (this.data.convert1 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是阴虚体质"
-            })
-          } else if (this.data.convert1 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是阴虚体质"
-            })
-          }
-        } else {
-
-        }
-
-        if (this.data.convert3 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert1 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是气虚体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert1 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是气虚体质"
-            })
-          }
-        } else {
-
-        }
-
-        if (this.data.convert4 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert1 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是痰湿体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert1 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是痰湿体质"
-            })
-          }
-        } else {
-
-        }
-
-        if (this.data.convert5 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert1 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是湿热体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert1 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是湿热体质"
-            })
-          }
-        } else {
-
-        }
-
-        if (this.data.convert6 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert1 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是血瘀体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert1 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是血瘀体质"
-            })
-          }
-        } else {
-
-        }
-
-        if (this.data.convert7 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert1 <= 30 && this.data.convert8 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是特凛体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert1 <= 40 && this.data.convert8 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是特凛体质"
-            })
-          }
-        } else {
-
-        }
-
-        if (this.data.convert8 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert1 <= 30 && this.data.convert9 <= 30) {
-            this.setData({
-              final_res: "是气郁体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert1 <= 40 && this.data.convert9 <= 40) {
-            this.setData({
-              final_res: "基本是气郁体质"
-            })
-          }
-        } else {
-
-        }
+        console.log(maxindex)
 
         if (this.data.convert9 >= 60) {
           if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert1 <= 30) {
@@ -673,13 +599,242 @@ Page({
               final_res: "是平和体质"
             })
           } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert1 <= 40) {
-            this.setData({
-              final_res: "基本是平和体质"
-            })
+            switch(maxindex){
+              case (0):
+                this.setData({
+                  final_res: "基本是平和体质,有阳虚体质倾向"
+                })
+                break;
+              case (1):
+                this.setData({
+                  final_res: "基本是平和体质,有阴虚体质倾向"
+                })
+                break;
+              case (2):
+                this.setData({
+                  final_res: "基本是平和体质,有气虚体质倾向"
+                })
+                break;
+              case (3):
+                this.setData({
+                  final_res: "基本是平和体质,有痰湿体质倾向"
+                })
+                break;
+              case (4):
+                this.setData({
+                  final_res: "基本是平和体质,有湿热体质倾向"
+                })
+                break;
+              case (5):
+                this.setData({
+                  final_res: "基本是平和体质,有血瘀体质倾向"
+                })
+                break;
+              case (6):
+                this.setData({
+                  final_res: "基本是平和体质,有特凛体质倾向"
+                })
+                break;
+              case (7):
+                this.setData({
+                  final_res: "基本是平和体质,有气郁体质倾向"
+                })
+                break;
+              default:
+                this.setData({
+                  final_res: "基本是平和体质"
+                })
+            }
+          }else{
+            if(arr[maxindex]>=40){
+              switch (maxindex) {
+                case (0):
+                  this.setData({
+                    final_res: "是阳虚体质"
+                  })
+                  break;
+                case (1):
+                  this.setData({
+                    final_res: "是阴虚体质"
+                  })
+                  break;
+                case (2):
+                  this.setData({
+                    final_res: "是气虚体质"
+                  })
+                  break;
+                case (3):
+                  this.setData({
+                    final_res: "是痰湿体质"
+                  })
+                  break;
+                case (4):
+                  this.setData({
+                    final_res: "是湿热体质"
+                  })
+                  break;
+                case (5):
+                  this.setData({
+                    final_res: "是血瘀体质"
+                  })
+                  break;
+                case (6):
+                  this.setData({
+                    final_res: "是特凛体质"
+                  })
+                  break;
+                case (7):
+                  this.setData({
+                    final_res: "是气郁体质"
+                  })
+                  break;
+              }
+            }else if(arr[maxindex]>=30){
+              switch (maxindex) {
+                case (0):
+                  this.setData({
+                    final_res: "倾向是阳虚体质"
+                  })
+                  break;
+                case (1):
+                  this.setData({
+                    final_res: "倾向是阴虚体质"
+                  })
+                  break;
+                case (2):
+                  this.setData({
+                    final_res: "倾向是气虚体质"
+                  })
+                  break;
+                case (3):
+                  this.setData({
+                    final_res: "倾向是痰湿体质"
+                  })
+                  break;
+                case (4):
+                  this.setData({
+                    final_res: "倾向是湿热体质"
+                  })
+                  break;
+                case (5):
+                  this.setData({
+                    final_res: "倾向是血瘀体质"
+                  })
+                  break;
+                case (6):
+                  this.setData({
+                    final_res: "倾向是特凛体质"
+                  })
+                  break;
+                case (7):
+                  this.setData({
+                    final_res: "倾向是气郁体质"
+                  })
+                  break;
+              }
+            }else{
+              this.setData({
+                final_res: "暂时无法判断您的体质"
+              })
+            }
           }
         } else {
-
+          if (arr[maxindex] >= 40) {
+            switch (maxindex) {
+              case (0):
+                this.setData({
+                  final_res: "是阳虚体质"
+                })
+                break;
+              case (1):
+                this.setData({
+                  final_res: "是阴虚体质"
+                })
+                break;
+              case (2):
+                this.setData({
+                  final_res: "是气虚体质"
+                })
+                break;
+              case (3):
+                this.setData({
+                  final_res: "是痰湿体质"
+                })
+                break;
+              case (4):
+                this.setData({
+                  final_res: "是湿热体质"
+                })
+                break;
+              case (5):
+                this.setData({
+                  final_res: "是血瘀体质"
+                })
+                break;
+              case (6):
+                this.setData({
+                  final_res: "是特凛体质"
+                })
+                break;
+              case (7):
+                this.setData({
+                  final_res: "是气郁体质"
+                })
+                break;
+            }
+          } else if (arr[maxindex] >= 30) {
+            switch (maxindex) {
+              case (0):
+                this.setData({
+                  final_res: "倾向是阳虚体质"
+                })
+                break;
+              case (1):
+                this.setData({
+                  final_res: "倾向是阴虚体质"
+                })
+                break;
+              case (2):
+                this.setData({
+                  final_res: "倾向是气虚体质"
+                })
+                break;
+              case (3):
+                this.setData({
+                  final_res: "倾向是痰湿体质"
+                })
+                break;
+              case (4):
+                this.setData({
+                  final_res: "倾向是湿热体质"
+                })
+                break;
+              case (5):
+                this.setData({
+                  final_res: "倾向是血瘀体质"
+                })
+                break;
+              case (6):
+                this.setData({
+                  final_res: "倾向是特凛体质"
+                })
+                break;
+              case (7):
+                this.setData({
+                  final_res: "倾向是气郁体质"
+                })
+                break;
+            }
+          } else {
+            this.setData({
+              final_res: "暂时无法判断您的体质"
+            })
+          }
         }
+
+        this.setData({
+          TabCur: 9
+        })
 
         break;
     

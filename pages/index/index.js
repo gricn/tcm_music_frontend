@@ -7,10 +7,10 @@ Page({
   data: {
     cur:0,
     music_list:[{
-      poster: 'https://hbimg.huabanimg.com/87fcdbf818e5fceb7c7cdba0cb542b5b02f1667934ca-UFQoTv_fw658',
+      poster: 'https://hbimg.huabanimg.com/5b5af1223a184336e4d93fa4c5268326bc3845b24e6bc-DMoIpz_fw658',
       name: '中医音乐',
       author: '请欣赏',
-      src: 'http://ws.stream.qqmusic.qq.com/C400003RZaJa1ZtfUq.m4a?guid=3394337708&vkey=3FDAD0BAF1C16EC2D46329D93E036DD46F1D6E4196303E419D9B1A867825CC77C5B14F23A6D64F644CFA0E837CD4C15C5A58C57F99B2D5FB&uin=5568&fromtag=66',
+      src: 'https://isure.stream.qqmusic.qq.com/C400001yrgmX2QaLwE.m4a?guid=3394337708&vkey=16300FA4FFB912AF01FC369246D4E27F1A5F3C91086137EEF852291685FB26C98B15C310E24614AB94B69344E70B9EFC97B25A2AF5390106&uin=5568&fromtag=66',
     }],
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
