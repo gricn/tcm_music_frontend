@@ -12,8 +12,8 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.2",
-	"appid": "wx47a9e60925240530",
+	"libVersion": "2.7.4",
+	"appid": "wx2b545112f9f33fac",
 	"projectname": "TCM_music",
 	"debugOptions": {
 		"hidedInDevtools": []

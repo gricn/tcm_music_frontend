@@ -3,50 +3,107 @@ App({
   onLaunch: function() {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
+    var openid = null
+
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    var that = this
+
     // 登录
+    //大致思路是：先从本地缓存读取openid，若值不为空，则成功；否则调用getOpenid()；若本地缓存无openid，也调用getOpenid()
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
+        var temp = res
+        wx.getStorage({
+          key: 'openid',
+          success: response => {
+            openid = response.data
+            // console.log(typeof openid)
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
+            // 对本地缓存存储的openid进行检测：openid不为空或者undefined，返回类型不为object类型，返回值不包括<html>
+            if (openid == ("" || "undefined") || typeof openid == "object" || openid.indexOf('<html>') != -1 ) {
+              console.log("从缓存读取openid成功，但数值不正确，现重新向服务器请求")
+              that.getOpenid(temp)
+            } else {
+              console.log("从缓存读取openid成功：" + openid)
+            } 
+          },
+          fail: response => {
+            console.log("未能从缓存读取openid，准备连接服务器")
+            that.getOpenid(temp)
+          }
+        })
       }
     })
+
+    // // 获取用户信息
+    // wx.getSetting({
+    //   getOpenID: code => {
+
+    //   },
+    //   success: res => {
+    //     if (res.authSetting['scope.userInfo']) {
+    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+    //       wx.getUserInfo({
+    //         success: res => {
+    //           // 可以将 res 发送给后台解码出 unionId
+    //           this.globalData.userInfo = res.userInfo
+
+    //           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //           // 所以此处加入 callback 以防止这种情况
+    //           if (this.userInfoReadyCallback) {
+    //             this.userInfoReadyCallback(res)
+    //           }
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
+
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
         let capsule = wx.getMenuButtonBoundingClientRect();
         if (capsule) {
-         	this.globalData.Custom = capsule;
-        	this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
+          this.globalData.Custom = capsule;
+          this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
         } else {
-        	this.globalData.CustomBar = e.statusBarHeight + 50;
+          this.globalData.CustomBar = e.statusBarHeight + 50;
         }
       }
     })
   },
+  onShow() {
+
+  },
   globalData: {
     userInfo: null
-  }
+  },
+  getOpenid(temp) {
+    var code = temp.code
+    console.log("获取用户code成功，发送至服务器, code:" + code)
+    wx.request({
+      url: 'https://www.gricn.top:4000/login/' + code,
+      // timeout: 3000,
+      success: (res) => {
+        // var openid = res.data.openid
+        // console.log("openid 服务器存储成功")
+        if (res.data != "") {
+          console.log("从服务器获取openid成功" + res.data)
+          //存储用户信息到本地存储
+          wx.setStorageSync('openid', res.data)
+        } else {
+          console.log("从服务器获取openid成功，但返回值未空")
+        }
+      },
+      fail: () => {
+        console.log("服务器连接失败 或 服务器未能及时响应")
+      }
+    })
+
+  },
+
+
 })

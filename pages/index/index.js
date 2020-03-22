@@ -1,11 +1,11 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var util = require('../../utils/util.js');
+var util = require('../../utils/util.js')
 
 Page({
   data: {
-    cur:0,
+    // cur:0,
     music_list:[{
       poster: 'https://hbimg.huabanimg.com/5b5af1223a184336e4d93fa4c5268326bc3845b24e6bc-DMoIpz_fw658',
       name: '中医音乐',
@@ -139,5 +139,5 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
 })
