@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "pop-up": "/components/pop-up/index"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#fff",
+  "backgroundColor": "#fff",
+  "navigationBarTitleText": "填写相关信息",
+  "navigationStyle": "default",
+  "navigationBarTextStyle": "black"
+}

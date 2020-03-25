@@ -1,0 +1,20 @@
+{
+  "name": "tcm_music_frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gricn/tcm_music_frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gricn/tcm_music_frontend/issues"
+  },
+  "homepage": "https://github.com/gricn/tcm_music_frontend#readme",
+  "dependencies": {}
+}

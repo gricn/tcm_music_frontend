@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#fff",
+  "backgroundColor": "#fff",
+  "navigationBarTitleText": "体质测验",
+  "navigationStyle": "default",
+  "navigationBarTextStyle": "black"
+}

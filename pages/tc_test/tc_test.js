@@ -369,7 +369,7 @@ Page({
         var i57 = parseInt(this.data.index5_7)
         var sum = i51 + i52 + i53 + i54 + i55 + i56 + i57
         this.setData({
-          convert5: sum / 28 * 100
+          convert5: sum / 24 * 100
         })
         this.setData({
           TabCur: 5
