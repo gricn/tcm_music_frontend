@@ -6,8 +6,7 @@ Page({
   data: {
     // 性别选择
     array: ['男', '女', '其他'],
-    objectArray: [
-      {
+    objectArray: [{
         id: 0,
         name: '男'
       },
@@ -34,7 +33,7 @@ Page({
   },
   onLoad(options) {
     // 默认联动显示北京
-    var id = address.provinces[0].id 
+    var id = address.provinces[0].id
     this.setData({
       provinces: address.provinces, // 34省
       citys: address.citys[id], //默认北京市辖区
@@ -140,10 +139,28 @@ Page({
       console.log(`省份ID：${this.getRegionId('provinceId')}: 市区ID：${this.getRegionId('townId')}：城区ID：${this.getRegionId('areas')}`)
     })
   },
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
     })
   },
+  register: data => {
+    var code
+    wx.login({
+      success: res => {
+        code = res.code
+      }
+    })
+    app.getOpenid(code)
+    console.log(data)
+  },
+  formSubmit: e => {
+    register(e.detail.value)
+    console.log('form发生了提交事件，数据为：', e.detail.value)
+  },
+  formReset: e => {
+    console.log('form发生了reset事件')
+  },
+
 })

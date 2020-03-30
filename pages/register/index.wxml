@@ -3,46 +3,57 @@
   我们在完成学校课题的同时，关注用户的隐私，但为了用户数据记录，我们在此需要收集用户的年龄、性别、所在地区以及用户在本小程序下的openid。
 </view>
 
-<!-- 用户输入年龄 -->
-<view class="container" style="flex-direction:row;">
-  <view >年龄：</view>
-  <view><input type="number" value="请输入您的年龄" focus="false"></input></view>
-</view>
-
-<!-- 用户选择性别 -->
-<view class="section" >
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker">
-      性别：{{array[index]}}
-    </view>
-  </picker>
-</view>
-
-
-
-<!-- 省市三级联动，祖传代码，请勿随意改动~~ -->
-<view class="address-item" bindtap="pickAddress" data-ptpid="6a75-10f3-aaad-329c">
-  <view class="item-title">所在地区:</view>
-  <view class="item-content arrow {{region ? '' : 'item-content_shadow'  }}">{{region||"请选择"}}</view>
-</view>
-<pop-up visible="{{visible}}" onClose="closePopUp">
-  <view slot="content">
-    <view class="picker-view">
-      <view class="picker-view__pane">
-        <text catchtap="cityCancel" data-ptpid="fa67-12ea-9918-cdf8">取消</text>
-        <text catchtap="citySure" data-ptpid="0cbd-188c-b3e5-cd10">确定</text>
-      </view>
-      <picker-view class="pick-view__group" bindchange="cityChange" value="{{value}}" wx:key="">
-        <picker-view-column indicator-class="item_active">
-          <view wx:for="{{provinces}}" class="picker-item" wx:key="index">{{item.name}}</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view wx:for="{{citys}}" class="picker-item" wx:key="index">{{item.name}}</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view wx:for="{{areas}}" class="picker-item" wx:key="index">{{item.name}}</view>
-        </picker-view-column>
-      </picker-view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <!-- 用户输入年龄 -->
+  <view class="container" style="flex-direction:row;">
+    <view>年龄：</view>
+    <view>
+      <input type="number" placeholder="请输入您的年龄" focus="false"></input>
     </view>
   </view>
-</pop-up>
+
+  <!-- 用户选择性别 -->
+  <view class="section">
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view class="picker">
+        性别：{{array[index]}}
+      </view>
+    </picker>
+  </view>
+
+
+
+  <!-- 省市三级联动，祖传代码，请勿随意改动~~ -->
+  <view class="address-item" bindtap="pickAddress" data-ptpid="6a75-10f3-aaad-329c">
+    <view class="item-title">所在地区:</view>
+    <view class="item-content arrow {{region ? '' : 'item-content_shadow'  }}">{{region||"请选择"}}</view>
+  </view>
+  <pop-up visible="{{visible}}" onClose="closePopUp">
+    <view slot="content">
+      <view class="picker-view">
+        <view class="picker-view__pane">
+          <text catchtap="cityCancel" data-ptpid="fa67-12ea-9918-cdf8">取消</text>
+          <text catchtap="citySure" data-ptpid="0cbd-188c-b3e5-cd10">确定</text>
+        </view>
+        <picker-view class="pick-view__group" bindchange="cityChange" value="{{value}}" wx:key="">
+          <picker-view-column indicator-class="item_active">
+            <view wx:for="{{provinces}}" class="picker-item" wx:key="index">{{item.name}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view wx:for="{{citys}}" class="picker-item" wx:key="index">{{item.name}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view wx:for="{{areas}}" class="picker-item" wx:key="index">{{item.name}}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+    </view>
+  </pop-up>
+
+  <view class="btn-area">
+    <button formType="submit">Submit</button>
+    <button formType="reset">Reset</button>
+  </view>
+
+</form>
+

@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/register/index",
     "pages/test/test",
-    "pages/index/index",
+    
     "pages/tc_test/tc_test"
     
   ],
