@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //index*_* 用来存储各个问题的值（0 ~ 4）
     index1_1: 0,
     index1_2: 0,
     index1_3: 0,
@@ -80,6 +81,7 @@ Page({
     index9_7: 0,
     index9_7: 0,
     index9_8: 0,
+    // 转换值
     convert1: '暂无',
     convert2: '暂无',
     convert3: '暂无',
@@ -90,12 +92,13 @@ Page({
     convert8: '暂无',
     convert9: '暂无',
     final_res: '您还未做完测试题',
-    picker: ['没有', '很少', '有时','经常','总是'],
-    TabCur: 0,
-    scrollLeft: 0,
-    test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果','您的推荐舒缓歌单']
+    picker: ['没有', '很少', '有时', '经常', '总是'],
+    TabCur: 0, //用来存储当前页面的Tab值
+    scrollLeft: 0, //用来存储Tab向左偏移量
+    test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单']//Tab列表
   },
 
+  //点击不同Tab时，Tab的反应
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id,
@@ -103,46 +106,47 @@ Page({
     })
   },
 
-
+  //用以滑动问题下的滑轮时，收集用户答案
   PickerChange(e) {
     //console.log('index'+e.currentTarget.id);
     var pick_id = e.currentTarget.id
-    switch(pick_id){
-      case('index1_1'):
+    switch (pick_id) {
+      case ('index1_1'):
         this.setData({
-          index1_1: e.detail.value/25
+          index1_1: e.detail.value / 25
         })
-        console.log(e.detail.value/25);
+        console.log(e.detail.value / 25);
         break;
       case ('index1_2'):
         this.setData({
-          index1_2: e.detail.value/25
+          index1_2: e.detail.value / 25
         })
         break;
       case ('index1_3'):
         this.setData({
-          index1_3: e.detail.value/25
+          index1_3: e.detail.value / 25
         })
         break;
       case ('index1_4'):
         this.setData({
-          index1_4: e.detail.value/25
+          index1_4: e.detail.value / 25
         })
         break;
       case ('index1_5'):
         this.setData({
-          index1_5: e.detail.value/25
+          index1_5: e.detail.value / 25
         })
         break;
       case ('index1_6'):
         this.setData({
-          index1_6: e.detail.value/25
+          index1_6: e.detail.value / 25
         })
         break;
       case ('index1_7'):
         this.setData({
-          index1_7: e.detail.value/25
+          index1_7: e.detail.value / 25
         })
+
         var i11 = parseInt(this.data.index1_1)
         var i12 = parseInt(this.data.index1_2)
         var i13 = parseInt(this.data.index1_3)
@@ -152,12 +156,12 @@ Page({
         var i17 = parseInt(this.data.index1_7)
         var sum = i11 + i12 + i13 + i14 + i15 + i16 + i17
         this.setData({
-          convert1: (sum/28*100).toFixed(2)
+          convert1: (sum / 28 * 100).toFixed(2)
         })
         // this.setData({
         //   TabCur: 1
         // })
-        console.log(1000+this.data.convert1)
+        console.log(1000 + this.data.convert1)
         break;
       case ('index2_1'):
         this.setData({
@@ -213,7 +217,7 @@ Page({
         // this.setData({
         //   TabCur: 2
         // })
-        console.log(2000+this.data.convert2)
+        console.log(2000 + this.data.convert2)
         break;
       case ('index3_1'):
         this.setData({
@@ -269,7 +273,7 @@ Page({
         // this.setData({
         //   TabCur: 3
         // })
-        console.log(3000+this.data.convert3)
+        console.log(3000 + this.data.convert3)
         break;
       case ('index4_1'):
         this.setData({
@@ -325,7 +329,7 @@ Page({
         // this.setData({
         //   TabCur: 4
         // })
-        console.log(4000+this.data.convert4)
+        console.log(4000 + this.data.convert4)
         break;
       case ('index5_1'):
         this.setData({
@@ -375,7 +379,7 @@ Page({
         // this.setData({
         //   TabCur: 5
         // })
-        console.log(5000+this.data.convert5)
+        console.log(5000 + this.data.convert5)
         break;
       case ('index6_1'):
         this.setData({
@@ -425,7 +429,7 @@ Page({
         // this.setData({
         //   TabCur: 6
         // })
-        console.log(6000+this.data.convert6)
+        console.log(6000 + this.data.convert6)
         break;
       case ('index7_1'):
         this.setData({
@@ -475,7 +479,7 @@ Page({
         // this.setData({
         //   TabCur: 7
         // })
-        console.log(7000+this.data.convert7)
+        console.log(7000 + this.data.convert7)
         break;
       case ('index8_1'):
         this.setData({
@@ -525,7 +529,7 @@ Page({
         // this.setData({
         //   TabCur: 8
         // })
-        console.log(8000+this.data.convert8)
+        console.log(8000 + this.data.convert8)
         break;
       case ('index9_1'):
         this.setData({
@@ -579,7 +583,7 @@ Page({
         this.setData({
           convert9: (sum / 32 * 100).toFixed(2)
         })
-        console.log(9000+this.data.convert9)
+        console.log(9000 + this.data.convert9)
 
         var arr = [this.data.convert1, this.data.convert2, this.data.convert3, this.data.convert4, this.data.convert5, this.data.convert6, this.data.convert7, this.data.convert8]
         console.log(arr)
@@ -600,7 +604,7 @@ Page({
               final_res: "是平和体质"
             })
           } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert1 <= 40) {
-            switch(maxindex){
+            switch (maxindex) {
               case (0):
                 this.setData({
                   final_res: "基本是平和体质,有阳虚体质倾向"
@@ -646,8 +650,8 @@ Page({
                   final_res: "基本是平和体质"
                 })
             }
-          }else{
-            if(arr[maxindex]>=40){
+          } else {
+            if (arr[maxindex] >= 40) {
               switch (maxindex) {
                 case (0):
                   this.setData({
@@ -690,7 +694,7 @@ Page({
                   })
                   break;
               }
-            }else if(arr[maxindex]>=30){
+            } else if (arr[maxindex] >= 30) {
               switch (maxindex) {
                 case (0):
                   this.setData({
@@ -733,7 +737,7 @@ Page({
                   })
                   break;
               }
-            }else{
+            } else {
               this.setData({
                 final_res: "暂时无法判断您的体质"
               })
@@ -838,17 +842,17 @@ Page({
         // })
 
         break;
-    
+
     }
   },
 
-  To_first_page: function () {
+  To_first_page: function() {
     wx.navigateTo({
       url: '../index/index?cur=1',
     })
   },
 
-  To_songlist_page: function () {
+  To_songlist_page: function() {
     this.setData({
       TabCur: 10
     })
@@ -859,56 +863,56 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
