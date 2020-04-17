@@ -83,6 +83,12 @@ Page({
       url: '../tc_test/tc_test',
     })
   },
+
+  To_register: function () {
+    wx.navigateTo({
+      url: '../register/index',
+    })
+  },
   
   //事件处理函数
   bindViewTap: function() {

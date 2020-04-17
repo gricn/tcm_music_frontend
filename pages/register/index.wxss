@@ -1,5 +1,8 @@
 page{
-  background-color: #fff;
+  background-color: #f1f1f1;
+  height: 100%;
+  /* display: flex;
+  justify-content: center; */
 }
 
 .address-item {
@@ -7,26 +10,36 @@ page{
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #fff;
   padding: 0 32rpx
 }
 
 .item-title {
-  width: 140rpx;
+  /* width: 140rpx;
   color: #4d4c4c;
   font-size: 28rpx;
   height: 98rpx;
-  line-height: 98rpx;
+  line-height: 98rpx; */
+  text-align: justify;
+	padding-right: 30rpx;
+	font-size: 30rpx;
+	position: relative;
+	height: 60rpx;
+	line-height: 60rpx;
 }
 .item-content {
-  width: 520rpx;
+  /* width: 520rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 28rpx;
   height: 98rpx;
   line-height: 98rpx;
-  color: #4d4c4c;
+  color: #4d4c4c; */
+  flex: 1;
+	font-size: 30rpx;
+	color: #555;
+	padding-right: 20rpx;
 }
 /* 地区级联选择器 */
 

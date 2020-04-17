@@ -7,18 +7,18 @@
 
   <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
-      <text class="cuIcon-titles text-yellow"></text> 中医体质测试
+      <text class="cuIcon-titles text-cyan"></text> 中医体质测试
     </view>
   </view>
   <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
-    <view class="cu-item {{index==TabCur?'text-yellow cur':''}}" wx:for="{{test_tittle}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+    <view class="cu-item {{index==TabCur?'text-cyan cur':''}}" wx:for="{{test_tittle}}" wx:key bindtap="tabSelect" data-id="{{index}}">
       {{item}}
     </view>
   </scroll-view>
 
   <view wx:key wx:if="{{TabCur==0}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您手脚发凉吗？</view>
       <picker bindchange="PickerChange" value="{{index1_1}}" range="{{picker}}" id="index1_1">
         <view class="picker">
@@ -79,13 +79,233 @@
           {{index1_7?picker[index1_7]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您的手脚发凉吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_1" value="{{index1_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您胃脘部、背部或腰膝部怕冷吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_2" value="{{index1_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您感到怕冷、衣服比别人穿得多吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_3" value="{{index1_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您比一般人受不了寒冷吗</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_4" value="{{index1_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您比别人容易感冒吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_5" value="{{index1_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您吃凉的东西会感到不舒服吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_6" value="{{index1_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您吃凉的东西后，容易腹泻吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index1_7" value="{{index1_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index1_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
 	</view>
 
   <view wx:key wx:if="{{TabCur==1}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您感到手脚心发热吗？</view>
       <picker bindchange="PickerChange" value="{{index2_1}}" range="{{picker}}" id="index2_1">
         <view class="picker">
@@ -155,13 +375,264 @@
           {{index2_8?picker[index2_8]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您感到手脚心发热吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_1" value="{{index2_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您感觉身体、脸上发热吗吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_2" value="{{index2_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您皮肤或口唇干吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_3" value="{{index2_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您容易便秘或大便干燥吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_4" value="{{index2_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您口唇的颜色比一般人红吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_5" value="{{index2_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您面部两潮红或偏红吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_6" value="{{index2_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您感到眼睛干涩吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_7" value="{{index2_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">8</view>
+            <view class="cu-tag line-cyan">您感到口干舌燥、总想喝水吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index2_8" value="{{index2_8*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index2_8}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==2}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您容易疲乏吗？</view>
       <picker bindchange="PickerChange" value="{{index3_1}}" range="{{picker}}" id="index3_1">
         <view class="picker">
@@ -231,13 +702,264 @@
           {{index3_8?picker[index3_8]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您容易疲乏吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_1" value="{{index3_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您容易气短（呼吸急促，接不上气）吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_2" value="{{index3_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您容易心慌吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_3" value="{{index3_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您容易头晕或站起时晕眩吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_4" value="{{index3_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您比别人容易患感冒吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_5" value="{{index3_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您喜欢安静、懒得说话吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_6" value="{{index3_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您说话声音无力吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_7" value="{{index3_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">8</view>
+            <view class="cu-tag line-cyan">您活动量稍大就容易出汗吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index3_8" value="{{index3_8*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index3_8}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==3}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您感到胸闷或腹部胀满吗？</view>
       <picker bindchange="PickerChange" value="{{index4_1}}" range="{{picker}}" id="index4_1">
         <view class="picker">
@@ -307,13 +1029,264 @@
           {{index4_8?picker[index4_8]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您感到胸闷或腹部胀满吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_1" value="{{index4_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您感到身体沉重不轻松或不爽快吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_2" value="{{index4_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您腹部肥满松软吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_3" value="{{index4_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您有额部油脂分泌多的现象吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_4" value="{{index4_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您上眼睑比别人肿（轻微隆起现象）吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_5" value="{{index4_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您嘴里有黏黏的感觉吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_6" value="{{index4_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您平时痰多，咽喉部总感到痰堵着吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_7" value="{{index4_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">8</view>
+            <view class="cu-tag line-cyan">您舌苔厚腻或有舌苔厚厚的感觉吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index4_8" value="{{index4_8*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index4_8}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
   
   </view>
 
   <view wx:key wx:if="{{TabCur==4}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您面部或鼻部有油腻感或油亮发光吗？</view>
       <picker bindchange="PickerChange" value="{{index5_1}}" range="{{picker}}" id="index5_1">
         <view class="picker">
@@ -374,13 +1347,233 @@
           {{index5_7?picker[index5_7]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您面部或鼻部有油腻感或油亮发光吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_1" value="{{index5_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您容易生痤疮或疮疖吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_2" value="{{index5_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您感到口苦或嘴里有异味吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_3" value="{{index5_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您大便黏滞不爽、有解不尽的感觉吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_4" value="{{index5_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您小便时尿道有发热感、尿色浓（深）吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_5" value="{{index5_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您带下色黄（白带发黄）吗？（女性回答）</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_6" value="{{index5_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您的阴囊部位潮湿吗？（男性回答）</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index5_7" value="{{index5_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index5_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==5}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您的皮肤在不知不觉会出现青紫瘀斑吗？</view>
       <picker bindchange="PickerChange" value="{{index6_1}}" range="{{picker}}" id="index6_1">
         <view class="picker">
@@ -441,13 +1634,233 @@
           {{index6_7?picker[index6_7]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您的皮肤在不知不觉会出现青紫瘀斑吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_1" value="{{index6_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您两颧部有细微红血丝吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_2" value="{{index6_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您身体上有哪里疼痛吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_3" value="{{index6_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您容易有黑眼圈吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_4" value="{{index6_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您小便时尿道有发热感、尿色浓（深）吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_5" value="{{index6_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您面色晦黯或容易出现褐斑吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_6" value="{{index6_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您口唇颜色偏黯吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index6_7" value="{{index6_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index6_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==6}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您没有感冒时也会打喷嚏吗？</view>
       <picker bindchange="PickerChange" value="{{index7_1}}" range="{{picker}}" id="index7_1">
         <view class="picker">
@@ -508,13 +1921,233 @@
           {{index7_7?picker[index7_7]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您没有感冒时也会打喷嚏吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_1" value="{{index7_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您没有感冒时也会鼻塞、流鼻涕吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_2" value="{{index7_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您有因季节变化、温度变化等原因咳喘吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_3" value="{{index7_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您容易过敏吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_4" value="{{index7_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您的皮肤容易起荨麻疹吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_5" value="{{index7_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您因过敏出现过紫癜吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_6" value="{{index7_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您的皮肤一抓就红，并出现抓痕吗？ </view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index7_7" value="{{index7_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index7_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==7}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您感到闷闷不乐、情绪低沉吗？</view>
       <picker bindchange="PickerChange" value="{{index8_1}}" range="{{picker}}" id="index8_1">
         <view class="picker">
@@ -575,13 +2208,233 @@
           {{index8_7?picker[index8_7]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您感到闷闷不乐、情绪低沉吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_1" value="{{index8_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您容易精神紧张、焦虑不安吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_2" value="{{index8_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您多愁善感、感情脆弱吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_3" value="{{index8_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您容易感到害怕或受到惊吓吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_4" value="{{index8_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您胁肋部或乳房腹痛吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_5" value="{{index8_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您无缘无故叹气吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_6" value="{{index8_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您咽喉部有异物感，吐之不出咽之不下吗？ </view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index8_7" value="{{index8_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index8_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==8}}">
 
-    <view class="cu-form-group margin-top">
+    <!-- <view class="cu-form-group margin-top">
       <view class="text-df">（1）您精力充沛吗？</view>
       <picker bindchange="PickerChange" value="{{index9_1}}" range="{{picker}}" id="index9_1">
         <view class="picker">
@@ -651,6 +2504,257 @@
           {{index9_8?picker[index9_8]:'请选择'}}
         </view>
       </picker>
+    </view> -->
+
+    <view class="cu-timeline margin-top">
+      <view class="cu-item">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">1</view>
+            <view class="cu-tag line-cyan">您精力充沛吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_1" value="{{index9_1*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_1}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">您容易疲乏吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_2" value="{{index9_2*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_2}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">您说话声音无力吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_3" value="{{index9_3*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_3}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">4</view>
+            <view class="cu-tag line-cyan">您感到闷闷不乐、情绪低沉吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_4" value="{{index9_4*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_4}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">您比一般人耐受不了寒冷吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_5" value="{{index9_5*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_5}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">6</view>
+            <view class="cu-tag line-cyan">您能适应外界自然和社会环境的变化吗？</view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_6" value="{{index9_6*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_6}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">7</view>
+            <view class="cu-tag line-cyan">您容易失眠吗？ </view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_7" value="{{index9_7*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_7}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content shadow-blur">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">8</view>
+            <view class="cu-tag line-cyan">您容易忘事（健忘）吗？ </view>
+          </view>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <view style="width:80%;height:48px;">
+            <slider style="height:48px;margin:20px" bindchange="slider3change" step="25" activeColor="#1cbbb4" block-size="22" bindchange="PickerChange" id="index9_8" value="{{index9_8*25}}"/>
+            </view>
+            <swiper style="height:48px;width:20%" current="{{4-index9_8}}">
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">总是</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">经常</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">有时</view>
+            </swiper-item>
+            <swiper-item  class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">很少</view>
+            </swiper-item>
+            <swiper-item class="text-center">
+              <view class="cu-tag line-cyan margin-top text-center">没有</view>
+            </swiper-item>
+          </swiper>
+          </view>
+        </view>
+      </view>
+
     </view>
 
   </view>
@@ -703,6 +2807,12 @@
           </view>
       </view>
     </view> -->
+
+    <view class='box bg-white1'>
+      <view class="cu-bar btn-group">
+        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_songlist_page" data-target="viewModal">查看我的推荐歌单</button>
+      </view>
+    </view>
 
   </view>
 

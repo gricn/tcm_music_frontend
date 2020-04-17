@@ -228,7 +228,7 @@ switch .wx-switch-input {
 }
 
 switch .wx-switch-input:not([class*="bg-"]) {
-	background: var(--grey) !important;
+	background: var(--pinkLight ) !important;
 }
 
 switch .wx-switch-input::after {

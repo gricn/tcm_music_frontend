@@ -6,6 +6,6 @@
   "navigationBarBackgroundColor": "#fff",
   "backgroundColor": "#fff",
   "navigationBarTitleText": "填写相关信息",
-  "navigationStyle": "default",
+  "navigationStyle": "custom",
   "navigationBarTextStyle": "black"
 }

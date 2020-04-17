@@ -27,7 +27,7 @@
 
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end">
-            <button wx:if="{{!hasUserInfo && canIUse}}" bindtap="login" class='cu-btn round bg-red shadow'> 
+            <button wx:if="{{!hasUserInfo && canIUse}}" bindtap="login" class='cu-btn round bg-red shadow' bindtap="To_register"> 
               登录 
             </button>
             <block wx:else>
