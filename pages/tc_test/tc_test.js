@@ -1,101 +1,30 @@
 // pages/tr_test/tc_test.js
+
+/*
+本测试方法来源：中华中医药学会《中医体质分类与判定自测表》
+*/
+
+var jsonData = require('./json.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    //index*_* 用来存储各个问题的值（0 ~ 4）
-    index1_1: 0,
-    index1_2: 0,
-    index1_3: 0,
-    index1_4: 0,
-    index1_5: 0,
-    index1_6: 0,
-    index1_7: 0,
-    index2_1: 0,
-    index2_2: 0,
-    index2_3: 0,
-    index2_4: 0,
-    index2_5: 0,
-    index2_6: 0,
-    index2_7: 0,
-    index2_7: 0,
-    index2_8: 0,
-    index3_1: 0,
-    index3_2: 0,
-    index3_3: 0,
-    index3_4: 0,
-    index3_5: 0,
-    index3_6: 0,
-    index3_7: 0,
-    index3_7: 0,
-    index3_8: 0,
-    index4_1: 0,
-    index4_2: 0,
-    index4_3: 0,
-    index4_4: 0,
-    index4_5: 0,
-    index4_6: 0,
-    index4_7: 0,
-    index4_7: 0,
-    index4_8: 0,
-    index5_1: 0,
-    index5_2: 0,
-    index5_3: 0,
-    index5_4: 0,
-    index5_5: 0,
-    index5_6: 0,
-    index5_7: 0,
-    index5_7: 0,
-    index6_1: 0,
-    index6_2: 0,
-    index6_3: 0,
-    index6_4: 0,
-    index6_5: 0,
-    index6_6: 0,
-    index6_7: 0,
-    index6_7: 0,
-    index7_1: 0,
-    index7_2: 0,
-    index7_3: 0,
-    index7_4: 0,
-    index7_5: 0,
-    index7_6: 0,
-    index7_7: 0,
-    index7_7: 0,
-    index8_1: 0,
-    index8_2: 0,
-    index8_3: 0,
-    index8_4: 0,
-    index8_5: 0,
-    index8_6: 0,
-    index8_7: 0,
-    index8_7: 0,
-    index9_1: 0,
-    index9_2: 0,
-    index9_3: 0,
-    index9_4: 0,
-    index9_5: 0,
-    index9_6: 0,
-    index9_7: 0,
-    index9_7: 0,
-    index9_8: 0,
-    // 转换值
-    convert1: '暂无',
-    convert2: '暂无',
-    convert3: '暂无',
-    convert4: '暂无',
-    convert5: '暂无',
-    convert6: '暂无',
-    convert7: '暂无',
-    convert8: '暂无',
-    convert9: '暂无',
+    index0: 0,
+
+    //9种体质的转换
+    convert: ['暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无'],
     final_res: '您还未做完测试题',
+
     picker: ['没有', '很少', '有时', '经常', '总是'],
     TabCur: 0, //用来存储当前页面的Tab值
     scrollLeft: 0, //用来存储Tab向左偏移量
-    test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单']//Tab列表
+    test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单'], //Tab列表
+
+    temp: 0, //用来数据绑定，控制题目号
+    current: 0, //用来调节滑杆位置
   },
 
   //点击不同Tab时，Tab的反应
@@ -106,10 +35,73 @@ Page({
     })
   },
 
-  //用以滑动问题下的滑轮时，收集用户答案
-  PickerChange(e) {
-    //console.log('index'+e.currentTarget.id);
-    var pick_id = e.currentTarget.id
+  regularCal() {
+
+  },
+
+  //滑动问题下的滑钮时，收集用户答案
+  sliderChange(e) {
+    var pickID = e.currentTarget.id
+
+    //及时修改对应项sliderValue的数值
+    {
+      let temp = pickID + ".sliderValue"
+
+      this.setData({
+        [temp]: e.detail.value / 25,
+      })
+    }
+
+    var zhengxing = ""
+    var id = pickID.slice(6, 7)
+    var that = this
+
+    switch (id) {
+      case '0':
+        zhengxing = "阳虚质"
+        break
+      case '1':
+        zhengxing = "阴虚质"
+        break
+      case '2':
+        zhengxing = "气虚质"
+        break
+      case '3':
+        zhengxing = "痰湿质"
+        break
+      case '4':
+        zhengxing = "湿热质"
+        break
+      case '5':
+        zhengxing = "血瘀质"
+        break
+      case '6':
+        zhengxing = "特禀质"
+        break
+      case '7':
+        zhengxing = "气郁质"
+        break
+      case '8':
+        zhengxing = "平和质"
+        break
+    }
+
+    getSum(id, zhengxing)
+
+    function getSum(e, type) {
+      var sum = 0
+      var length = that.data.index[e].length
+      for (var i = 0; i < that.data.index[e].length; i++) {
+        sum += that.data.index[e][i].sliderValue
+      }
+      console.log(type + "得分为:" + sum)
+
+      that.setData({
+        convert0: ((sum - length) / (length * 4) * 100).toFixed(2)
+      })
+    }
+
+    /*
     switch (pick_id) {
       case ('index1_1'):
         this.setData({
@@ -844,6 +836,7 @@ Page({
         break;
 
     }
+    */
   },
 
   To_first_page: function() {
@@ -864,7 +857,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.setData({
+      index: jsonData.dataList,
+      convertContext: jsonData.dataContext
+    })
   },
 
   /**

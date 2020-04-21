@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/tc_test/tc_test",
     "pages/index/index",
-    "pages/register/index",
-    "pages/test/test",
-    "pages/tc_test/tc_test"
+    "pages/register/index"
+    
     
   ],
   "window": {
