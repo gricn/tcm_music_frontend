@@ -1,7 +1,6 @@
 var app = getApp()
 var address = require('./city.js')
 
-var app = getApp()
 Page({
   data: {
     // 性别选择

@@ -5,9 +5,9 @@
 */
 
 var jsonData = require('./json.js')
+const app = getApp()
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -19,12 +19,9 @@ Page({
     final_res: '您还未做完测试题',
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
-    TabCur: 0, //用来存储当前页面的Tab值
-    scrollLeft: 0, //用来存储Tab向左偏移量
+    TabCur: 0, //当前页面的Tab值
+    scrollLeft: 0, //Tab向左偏移量
     test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单'], //Tab列表
-
-    temp: 0, //用来数据绑定，控制题目号
-    current: 0, //用来调节滑杆位置
   },
 
   //点击不同Tab时，Tab的反应
@@ -52,530 +49,34 @@ Page({
       })
     }
 
-    var zhengxing = ""
-    var id = pickID.slice(6, 7)
+
+    var id = parseInt(pickID.slice(6, 7))
     var that = this
+    getSum(id)
 
-    switch (id) {
-      case '0':
-        zhengxing = "阳虚质"
-        break
-      case '1':
-        zhengxing = "阴虚质"
-        break
-      case '2':
-        zhengxing = "气虚质"
-        break
-      case '3':
-        zhengxing = "痰湿质"
-        break
-      case '4':
-        zhengxing = "湿热质"
-        break
-      case '5':
-        zhengxing = "血瘀质"
-        break
-      case '6':
-        zhengxing = "特禀质"
-        break
-      case '7':
-        zhengxing = "气郁质"
-        break
-      case '8':
-        zhengxing = "平和质"
-        break
-    }
-
-    getSum(id, zhengxing)
-
-    function getSum(e, type) {
+    // 获取原始分并计算存储转换分
+    function getSum(e) {
       var sum = 0
-      var length = that.data.index[e].length
-      for (var i = 0; i < that.data.index[e].length; i++) {
-        sum += that.data.index[e][i].sliderValue
-      }
-      console.log(type + "得分为:" + sum)
+      var length = (e == 4) ? that.data.index[e].length - 1 : that.data.index[e].length
 
+      // 湿热质计算代码还需改进：undo
+      for (var i = 0; i < that.data.index[e].length; i++) {
+        //除了index[8]平和质部分题目要逆向计分外，其他都正常
+        if ((e != 8) || ((e == 8) && (i == 0 || i == 5))) {
+          sum += that.data.index[e][i].sliderValue + 1
+          console.log("触发")
+        } else {
+          sum += 5 - that.data.index[e][i].sliderValue
+        }
+      }
+      console.log("sum:" + sum)
+      var temp = "convert[" + e + "]"
       that.setData({
-        convert0: ((sum - length) / (length * 4) * 100).toFixed(2)
+        [temp]: ((sum - length) / (length * 4) * 100).toFixed(2)
       })
     }
 
     /*
-    switch (pick_id) {
-      case ('index1_1'):
-        this.setData({
-          index1_1: e.detail.value / 25
-        })
-        console.log(e.detail.value / 25);
-        break;
-      case ('index1_2'):
-        this.setData({
-          index1_2: e.detail.value / 25
-        })
-        break;
-      case ('index1_3'):
-        this.setData({
-          index1_3: e.detail.value / 25
-        })
-        break;
-      case ('index1_4'):
-        this.setData({
-          index1_4: e.detail.value / 25
-        })
-        break;
-      case ('index1_5'):
-        this.setData({
-          index1_5: e.detail.value / 25
-        })
-        break;
-      case ('index1_6'):
-        this.setData({
-          index1_6: e.detail.value / 25
-        })
-        break;
-      case ('index1_7'):
-        this.setData({
-          index1_7: e.detail.value / 25
-        })
-
-        var i11 = parseInt(this.data.index1_1)
-        var i12 = parseInt(this.data.index1_2)
-        var i13 = parseInt(this.data.index1_3)
-        var i14 = parseInt(this.data.index1_4)
-        var i15 = parseInt(this.data.index1_5)
-        var i16 = parseInt(this.data.index1_6)
-        var i17 = parseInt(this.data.index1_7)
-        var sum = i11 + i12 + i13 + i14 + i15 + i16 + i17
-        this.setData({
-          convert1: (sum / 28 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 1
-        // })
-        console.log(1000 + this.data.convert1)
-        break;
-      case ('index2_1'):
-        this.setData({
-          index2_1: e.detail.value / 25
-        })
-        break;
-      case ('index2_2'):
-        this.setData({
-          index2_2: e.detail.value / 25
-        })
-        break;
-      case ('index2_3'):
-        this.setData({
-          index2_3: e.detail.value / 25
-        })
-        break;
-      case ('index2_4'):
-        this.setData({
-          index2_4: e.detail.value / 25
-        })
-        break;
-      case ('index2_5'):
-        this.setData({
-          index2_5: e.detail.value / 25
-        })
-        break;
-      case ('index2_6'):
-        this.setData({
-          index2_6: e.detail.value / 25
-        })
-        break;
-      case ('index2_7'):
-        this.setData({
-          index2_7: e.detail.value / 25
-        })
-        break;
-      case ('index2_8'):
-        this.setData({
-          index2_8: e.detail.value / 25
-        })
-        var i21 = parseInt(this.data.index2_1)
-        var i22 = parseInt(this.data.index2_2)
-        var i23 = parseInt(this.data.index2_3)
-        var i24 = parseInt(this.data.index2_4)
-        var i25 = parseInt(this.data.index2_5)
-        var i26 = parseInt(this.data.index2_6)
-        var i27 = parseInt(this.data.index2_7)
-        var i28 = parseInt(this.data.index2_8)
-        var sum = i21 + i22 + i23 + i24 + i25 + i26 + i27 + i28
-        this.setData({
-          convert2: (sum / 32 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 2
-        // })
-        console.log(2000 + this.data.convert2)
-        break;
-      case ('index3_1'):
-        this.setData({
-          index3_1: e.detail.value / 25
-        })
-        break;
-      case ('index3_2'):
-        this.setData({
-          index3_2: e.detail.value / 25
-        })
-        break;
-      case ('index3_3'):
-        this.setData({
-          index3_3: e.detail.value / 25
-        })
-        break;
-      case ('index3_4'):
-        this.setData({
-          index3_4: e.detail.value / 25
-        })
-        break;
-      case ('index3_5'):
-        this.setData({
-          index3_5: e.detail.value / 25
-        })
-        break;
-      case ('index3_6'):
-        this.setData({
-          index3_6: e.detail.value / 25
-        })
-        break;
-      case ('index3_7'):
-        this.setData({
-          index3_7: e.detail.value / 25
-        })
-        break;
-      case ('index3_8'):
-        this.setData({
-          index3_8: e.detail.value / 25
-        })
-        var i31 = parseInt(this.data.index3_1)
-        var i32 = parseInt(this.data.index3_2)
-        var i33 = parseInt(this.data.index3_3)
-        var i34 = parseInt(this.data.index3_4)
-        var i35 = parseInt(this.data.index3_5)
-        var i36 = parseInt(this.data.index3_6)
-        var i37 = parseInt(this.data.index3_7)
-        var i38 = parseInt(this.data.index3_8)
-        var sum = i31 + i32 + i33 + i34 + i35 + i36 + i37 + i38
-        this.setData({
-          convert3: (sum / 32 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 3
-        // })
-        console.log(3000 + this.data.convert3)
-        break;
-      case ('index4_1'):
-        this.setData({
-          index4_1: e.detail.value / 25
-        })
-        break;
-      case ('index4_2'):
-        this.setData({
-          index4_2: e.detail.value / 25
-        })
-        break;
-      case ('index4_3'):
-        this.setData({
-          index4_3: e.detail.value / 25
-        })
-        break;
-      case ('index4_4'):
-        this.setData({
-          index4_4: e.detail.value / 25
-        })
-        break;
-      case ('index4_5'):
-        this.setData({
-          index4_5: e.detail.value / 25
-        })
-        break;
-      case ('index4_6'):
-        this.setData({
-          index4_6: e.detail.value / 25
-        })
-        break;
-      case ('index4_7'):
-        this.setData({
-          index4_7: e.detail.value / 25
-        })
-        break;
-      case ('index4_8'):
-        this.setData({
-          index4_8: e.detail.value / 25
-        })
-        var i41 = parseInt(this.data.index4_1)
-        var i42 = parseInt(this.data.index4_2)
-        var i43 = parseInt(this.data.index4_3)
-        var i44 = parseInt(this.data.index4_4)
-        var i45 = parseInt(this.data.index4_5)
-        var i46 = parseInt(this.data.index4_6)
-        var i47 = parseInt(this.data.index4_7)
-        var i48 = parseInt(this.data.index4_8)
-        var sum = i41 + i42 + i43 + i44 + i45 + i46 + i47 + i48
-        this.setData({
-          convert4: (sum / 32 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 4
-        // })
-        console.log(4000 + this.data.convert4)
-        break;
-      case ('index5_1'):
-        this.setData({
-          index5_1: e.detail.value / 25
-        })
-        break;
-      case ('index5_2'):
-        this.setData({
-          index5_2: e.detail.value / 25
-        })
-        break;
-      case ('index5_3'):
-        this.setData({
-          index5_3: e.detail.value / 25
-        })
-        break;
-      case ('index5_4'):
-        this.setData({
-          index5_4: e.detail.value / 25
-        })
-        break;
-      case ('index5_5'):
-        this.setData({
-          index5_5: e.detail.value / 25
-        })
-        break;
-      case ('index5_6'):
-        this.setData({
-          index5_6: e.detail.value / 25
-        })
-        break;
-      case ('index5_7'):
-        this.setData({
-          index5_7: e.detail.value / 25
-        })
-        var i51 = parseInt(this.data.index5_1)
-        var i52 = parseInt(this.data.index5_2)
-        var i53 = parseInt(this.data.index5_3)
-        var i54 = parseInt(this.data.index5_4)
-        var i55 = parseInt(this.data.index5_5)
-        var i56 = parseInt(this.data.index5_6)
-        var i57 = parseInt(this.data.index5_7)
-        var sum = i51 + i52 + i53 + i54 + i55 + i56 + i57
-        this.setData({
-          convert5: (sum / 24 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 5
-        // })
-        console.log(5000 + this.data.convert5)
-        break;
-      case ('index6_1'):
-        this.setData({
-          index6_1: e.detail.value / 25
-        })
-        break;
-      case ('index6_2'):
-        this.setData({
-          index6_2: e.detail.value / 25
-        })
-        break;
-      case ('index6_3'):
-        this.setData({
-          index6_3: e.detail.value / 25
-        })
-        break;
-      case ('index6_4'):
-        this.setData({
-          index6_4: e.detail.value / 25
-        })
-        break;
-      case ('index6_5'):
-        this.setData({
-          index6_5: e.detail.value / 25
-        })
-        break;
-      case ('index6_6'):
-        this.setData({
-          index6_6: e.detail.value / 25
-        })
-        break;
-      case ('index6_7'):
-        this.setData({
-          index6_7: e.detail.value / 25
-        })
-        var i61 = parseInt(this.data.index6_1)
-        var i62 = parseInt(this.data.index6_2)
-        var i63 = parseInt(this.data.index6_3)
-        var i64 = parseInt(this.data.index6_4)
-        var i65 = parseInt(this.data.index6_5)
-        var i66 = parseInt(this.data.index6_6)
-        var i67 = parseInt(this.data.index6_7)
-        var sum = i61 + i62 + i63 + i64 + i65 + i66 + i67
-        this.setData({
-          convert6: (sum / 28 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 6
-        // })
-        console.log(6000 + this.data.convert6)
-        break;
-      case ('index7_1'):
-        this.setData({
-          index7_1: e.detail.value / 25
-        })
-        break;
-      case ('index7_2'):
-        this.setData({
-          index7_2: e.detail.value / 25
-        })
-        break;
-      case ('index7_3'):
-        this.setData({
-          index7_3: e.detail.value / 25
-        })
-        break;
-      case ('index7_4'):
-        this.setData({
-          index7_4: e.detail.value / 25
-        })
-        break;
-      case ('index7_5'):
-        this.setData({
-          index7_5: e.detail.value / 25
-        })
-        break;
-      case ('index7_6'):
-        this.setData({
-          index7_6: e.detail.value / 25
-        })
-        break;
-      case ('index7_7'):
-        this.setData({
-          index7_7: e.detail.value / 25
-        })
-        var i71 = parseInt(this.data.index7_1)
-        var i72 = parseInt(this.data.index7_2)
-        var i73 = parseInt(this.data.index7_3)
-        var i74 = parseInt(this.data.index7_4)
-        var i75 = parseInt(this.data.index7_5)
-        var i76 = parseInt(this.data.index7_6)
-        var i77 = parseInt(this.data.index7_7)
-        var sum = i71 + i72 + i73 + i74 + i75 + i76 + i77
-        this.setData({
-          convert7: (sum / 28 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 7
-        // })
-        console.log(7000 + this.data.convert7)
-        break;
-      case ('index8_1'):
-        this.setData({
-          index8_1: e.detail.value / 25
-        })
-        break;
-      case ('index8_2'):
-        this.setData({
-          index8_2: e.detail.value / 25
-        })
-        break;
-      case ('index8_3'):
-        this.setData({
-          index8_3: e.detail.value / 25
-        })
-        break;
-      case ('index8_4'):
-        this.setData({
-          index8_4: e.detail.value / 25
-        })
-        break;
-      case ('index8_5'):
-        this.setData({
-          index8_5: e.detail.value / 25
-        })
-        break;
-      case ('index8_6'):
-        this.setData({
-          index8_6: e.detail.value / 25
-        })
-        break;
-      case ('index8_7'):
-        this.setData({
-          index8_7: e.detail.value / 25
-        })
-        var i81 = parseInt(this.data.index8_1)
-        var i82 = parseInt(this.data.index8_2)
-        var i83 = parseInt(this.data.index8_3)
-        var i84 = parseInt(this.data.index8_4)
-        var i85 = parseInt(this.data.index8_5)
-        var i86 = parseInt(this.data.index8_6)
-        var i87 = parseInt(this.data.index8_7)
-        var sum = i81 + i82 + i83 + i84 + i85 + i86 + i87
-        this.setData({
-          convert8: (sum / 28 * 100).toFixed(2)
-        })
-        // this.setData({
-        //   TabCur: 8
-        // })
-        console.log(8000 + this.data.convert8)
-        break;
-      case ('index9_1'):
-        this.setData({
-          index9_1: e.detail.value / 25
-        })
-        break;
-      case ('index9_2'):
-        this.setData({
-          index9_2: e.detail.value / 25
-        })
-        break;
-      case ('index9_3'):
-        this.setData({
-          index9_3: e.detail.value / 25
-        })
-        break;
-      case ('index9_4'):
-        this.setData({
-          index9_4: e.detail.value / 25
-        })
-        break;
-      case ('index9_5'):
-        this.setData({
-          index9_5: e.detail.value / 25
-        })
-        break;
-      case ('index9_6'):
-        this.setData({
-          index9_6: e.detail.value / 25
-        })
-        break;
-      case ('index9_7'):
-        this.setData({
-          index9_7: e.detail.value / 25
-        })
-        break;
-      case ('index9_8'):
-        this.setData({
-          index9_8: e.detail.value / 25
-        })
-        var i91 = parseInt(this.data.index9_1)
-        var i92 = 4 - parseInt(this.data.index9_2)
-        var i93 = 4 - parseInt(this.data.index9_3)
-        var i94 = 4 - parseInt(this.data.index9_4)
-        var i95 = parseInt(this.data.index9_5)
-        var i96 = parseInt(this.data.index9_6)
-        var i97 = 4 - parseInt(this.data.index9_7)
-        var i98 = 4 - parseInt(this.data.index9_8)
-        var sum = i91 + i92 + i93 + i94 + i95 + i96 + i97 + i98
-        console.log(sum)
-        this.setData({
-          convert9: (sum / 32 * 100).toFixed(2)
-        })
-        console.log(9000 + this.data.convert9)
 
         var arr = [this.data.convert1, this.data.convert2, this.data.convert3, this.data.convert4, this.data.convert5, this.data.convert6, this.data.convert7, this.data.convert8]
         console.log(arr)
@@ -859,7 +360,8 @@ Page({
   onLoad: function(options) {
     this.setData({
       index: jsonData.dataList,
-      convertContext: jsonData.dataContext
+      convertContext: jsonData.dataContext,
+      sex: app.globalData.sex
     })
   },
 

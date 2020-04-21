@@ -26,8 +26,8 @@
 
   <!-- 除【Tab4：湿热质】有些特殊，其他都可通过这个页面展示 -->
   <view wx:key wx:if="{{TabCur==0||TabCur==1||TabCur==2||TabCur==3||TabCur==5||TabCur==6||TabCur==7||TabCur==8}}">
-    <view class="cu-timeline margin-top" wx:for="{{index[TabCur]}}" wx:for-index="quesNum">
-      <view class="cu-item">
+    <view class="cu-timeline margin-top">
+      <view class="cu-item" wx:for="{{index[TabCur]}}" wx:for-index="quesNum">
         <view class="content shadow-blur" style="padding:25rpx;">
 
           <!-- 题序号和内容 -->
@@ -48,8 +48,8 @@
                 <view class="cu-tag line-cyan margin-top text-center">{{item}}</view>
               </swiper-item>
             </swiper>
-
           </view>
+
         </view>
       </view>
     </view>
@@ -59,25 +59,24 @@
   <!-- Tab4：湿热质 -->
 
   <view wx:key wx:if="{{TabCur==4}}">
-
-    <view class="cu-timeline margin-top" wx:for="{{index[4]}}" wx:for-index="quesNum">
-      <view class="cu-item">
+    <view class="cu-timeline margin-top">
+      <!-- 1至5题 -->
+      <view class="cu-item" wx:for="{{index[4]}}" wx:for-index="quesNum" wx:if="{{quesNum<=4}}">
         <view class="content shadow-blur" style="padding:25rpx;">
-
           <!-- 题序号和内容 -->
-          <view class="cu-capsule radius">
+          <view class=" cu-capsule radius">
             <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
             <view class="cu-tag line-cyan">{{item.content}}</view>
           </view>
 
-          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
             <!-- 滑杆 -->
             <view style="width:80%;height:48px;">
-              <slider style="height:48px;margin:20px" step="25" activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[4][{{quesNum}}]" value="{{item.sliderValue*25}}" />
+              <slider style="height:48px;margin:20px" step="25 " activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[4][{{quesNum}}]" value="{{item.sliderValue*25}}" />
             </view>
 
             <!-- 文字选择标识 -->
-            <swiper style="height:48px;width:20%" current="{{item.sliderValue}}">
+            <swiper style="height:48px;width:20% " current="{{item.sliderValue}}">
               <swiper-item class="text-center" wx:for="{{picker}}">
                 <view class="cu-tag line-cyan margin-top text-center">{{item}}</view>
               </swiper-item>
@@ -86,96 +85,116 @@
           </view>
         </view>
       </view>
-    </view>
 
-    <view class="cu-item">
-      <view class="content shadow-blur" style="padding:25rpx;">
 
-        <!-- 题序号和内容 -->
-        <view class="cu-capsule radius">
-          <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
-          <view class="cu-tag line-cyan">{{item.content}}</view>
-        </view>
-
-        <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
-          <!-- 滑杆 -->
-          <view style="width:80%;height:48px;">
-            <slider style="height:48px;margin:20px" step="25" activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[4][{{quesNum}}]" value="{{item.sliderValue*25}}" />
+      <!-- 6题：男性 -->
+      <view class="cu-item" wx:if="{{sex}}">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <!-- 题序号和内容 -->
+          <view class=" cu-capsule radius ">
+            <view class="cu-tag bg-cyan">{{6}}</view>
+            <view class="cu-tag line-cyan">{{index[4][5].content}}</view>
           </view>
 
-          <!-- 文字选择标识 -->
-          <swiper style="height:48px;width:20%" current="{{item.sliderValue}}">
-            <swiper-item class="text-center" wx:for="{{picker}}">
-              <view class="cu-tag line-cyan margin-top text-center">{{item}}</view>
-            </swiper-item>
-          </swiper>
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
+            <!-- 滑杆 -->
+            <view style="width:80%;height:48px; ">
+              <slider style="height:48px;margin:20px " step="25 " activeColor="#1cbbb4" block-size="22 " bindchange="sliderChange " id="index[4][5]" value="{{index[4][5].sliderValue*25}}" />
+            </view>
 
+            <!-- 文字选择标识 -->
+            <swiper style="height:48px;width:20% " current="{{index[4][5].sliderValue}} ">
+              <swiper-item class="text-center" wx:for="{{picker}} ">
+                <view class="cu-tag line-cyan margin-top text-center ">{{item}}</view>
+              </swiper-item>
+            </swiper>
+
+          </view>
         </view>
       </view>
+
+      <!-- 6题：女性 -->
+      <view class="cu-item" wx:if="{{!sex}}">
+        <view class="content shadow-blur" style="padding:25rpx;">
+          <!-- 题序号和内容 -->
+          <view class=" cu-capsule radius">
+            <view class="cu-tag bg-cyan">{{6}}</view>
+            <view class="cu-tag line-cyan">{{index[4][6].content}}</view>
+          </view>
+
+          <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+            <!-- 滑杆 -->
+            <view style="width:80%;height:48px; ">
+              <slider style="height:48px;margin:20px " step="25 " activeColor="#1cbbb4 " block-size="22 " bindchange="sliderChange" id="index[4][6]" value="{{index[4][6].sliderValue*25}}" />
+            </view>
+
+            <!-- 文字选择标识 -->
+            <swiper style="height:48px;width:20% " current="{{index[4][6].sliderValue}}">
+              <swiper-item class="text-center" wx:for="{{picker}}">
+                <view class="cu-tag line-cyan margin-top text-center">{{item}}</view>
+              </swiper-item>
+            </swiper>
+
+          </view>
+        </view>
+      </view>
+
     </view>
   </view>
- 
+
+
 
   <view wx:key wx:if="{{TabCur==9}}">
-    <view class="cu-bar bg-white solid-bottom">
+    <view class="cu-bar bg-white solid-bottom ">
       <view class='action text-bold'>
         <text class='cuIcon-edit text-yellow'></text>您的体质测试结果为
       </view>
     </view>
 
     <!-- 各体质转换分情况 -->
-    <view class="cu-card case">
-      <view class="cu-item shadow" wx:for="{{convert}}">
-        <view class="padding-sm text-context">{{convertContext[index]}}:{{convert[index]}}
+    <view class="cu-card case ">
+      <view class="cu-item shadow " >
+        <view class="padding-sm text-context" wx:for="{{convert}}">{{convertContext[index]}}:{{convert[index]}}
         </view>
       </view>
     </view>
 
-    <view class="cu-card case">
-      <view class="cu-item shadow">
-        <view class="padding-sm text-context">您的体质:{{final_res}}
+    <view class="cu-card case ">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context ">您的体质:{{final_res}}
         </view>
-        <view class="padding-sm text-context">建议:{{final_res}}
+        <view class="padding-sm text-context ">建议:{{final_res}}
         </view>
-        <view class="padding-sm text-context">推荐音乐时长：15min
+        <view class="padding-sm text-context ">推荐音乐时长：15min
         </view>
       </view>
     </view>
-
-    <!-- 
-    <view class="cu-card case">
-      <view class="cu-item shadow">
-          <view class="padding-sm text-context">建议:{{final_res}}
-          </view>
-      </view>
-    </view> -->
 
     <view class='box bg-white1'>
-      <view class="cu-bar btn-group">
-        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_songlist_page" data-target="viewModal">查看我的推荐歌单</button>
+      <view class="cu-bar btn-group ">
+        <button class="cu-btn bg-white shadow-blur round lg " bindtap="To_songlist_page " data-target="viewModal ">查看我的推荐歌单</button>
       </view>
     </view>
 
   </view>
 
   <view wx:key wx:if="{{TabCur==10}}">
-
-    <view class="cu-bar bg-white solid-bottom">
+    <view class="cu-bar bg-white solid-bottom ">
       <view class='action text-bold'>
         <text class='cuIcon-edit text-yellow'></text>您的推荐歌单列表为
       </view>
     </view>
 
-    <view class="cu-card case">
-      <view class="cu-item shadow">
-        <view class="padding-sm text-context">暂无
+    <view class="cu-card case ">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context ">暂无
         </view>
       </view>
     </view>
 
     <view class='box bg-white1'>
-      <view class="cu-bar btn-group">
-        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_first_page" data-target="viewModal">开始放松</button>
+      <view class="cu-bar btn-group ">
+        <button class="cu-btn bg-white shadow-blur round lg " bindtap="To_first_page " data-target="viewModal ">开始放松</button>
       </view>
     </view>
 
