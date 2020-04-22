@@ -48,7 +48,7 @@ var index = [
     },
     {
       "quesID": 2,
-      "content": "您觉得身体、脸上发热吗？",
+      "content": "您觉得身、脸上发热吗？",
       "sliderValue": 0
     },
     {
@@ -135,7 +135,7 @@ var index = [
     },
     {
       "quesID": 2,
-      "content": "您感到身体沉重不轻松或不爽快吗？",
+      "content": "您感到身沉重不轻松或不爽快吗？",
       "sliderValue": 0
     },
     {
@@ -221,7 +221,7 @@ var index = [
     },
     {
       "quesID": 3,
-      "content": "您身体上有哪里疼痛吗？",
+      "content": "您身上有哪里疼痛吗？",
       "sliderValue": 0
     },
     {
@@ -366,14 +366,14 @@ var index = [
   ],
 ]
 
-var convertContext = [
-  "阳虚体质转化分", "阴虚体质转化分", "气虚体质转化分", 
-  "痰湿体质转化分", "湿热体质转化分", "血瘀体质转化分",
-  "特凛体质转化分", "气郁体质转化分", "平和体质转化分"
+var constitutionContext = [
+  "阳虚质", "阴虚质", "气虚质", 
+  "痰湿质", "湿热质", "血瘀质",
+  "特凛质", "气郁质", "平和质"
 ]
 
 
 module.exports = {
   dataList: index,
-  dataContext: convertContext
+  dataContext: constitutionContext
 }

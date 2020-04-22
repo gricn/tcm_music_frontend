@@ -56,7 +56,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    sex:false 
+    sex:false,
+    isRegistered: false
   },
   getOpenid(temp) {
     var code = temp.code

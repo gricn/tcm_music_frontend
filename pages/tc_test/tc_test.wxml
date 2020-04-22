@@ -99,12 +99,12 @@
           <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
             <!-- 滑杆 -->
             <view style="width:80%;height:48px; ">
-              <slider style="height:48px;margin:20px " step="25 " activeColor="#1cbbb4" block-size="22 " bindchange="sliderChange " id="index[4][5]" value="{{index[4][5].sliderValue*25}}" />
+              <slider style="height:48px;margin:20px " step="25 " activeColor="#1cbbb4" block-size="22 " bindchange="sliderChange" id="index[4][5]" value="{{index[4][5].sliderValue*25}}" />
             </view>
 
             <!-- 文字选择标识 -->
-            <swiper style="height:48px;width:20% " current="{{index[4][5].sliderValue}} ">
-              <swiper-item class="text-center" wx:for="{{picker}} ">
+            <swiper style="height:48px;width:20% " current="{{index[4][5].sliderValue}}">
+              <swiper-item class="text-center" wx:for="{{picker}}">
                 <view class="cu-tag line-cyan margin-top text-center ">{{item}}</view>
               </swiper-item>
             </swiper>
@@ -154,16 +154,16 @@
     <!-- 各体质转换分情况 -->
     <view class="cu-card case ">
       <view class="cu-item shadow " >
-        <view class="padding-sm text-context" wx:for="{{convert}}">{{convertContext[index]}}:{{convert[index]}}
+        <view class="padding-sm text-context" wx:for="{{convert}}">{{constitutionContext[index]}}得分: {{convert[index]}}
         </view>
       </view>
     </view>
 
     <view class="cu-card case ">
       <view class="cu-item shadow ">
-        <view class="padding-sm text-context ">您的体质:{{final_res}}
+        <view class="padding-sm text-context ">您的体质: {{finalRes}}
         </view>
-        <view class="padding-sm text-context ">建议:{{final_res}}
+        <view class="padding-sm text-context ">建议: {{finalRes}}
         </view>
         <view class="padding-sm text-context ">推荐音乐时长：15min
         </view>
@@ -172,7 +172,7 @@
 
     <view class='box bg-white1'>
       <view class="cu-bar btn-group ">
-        <button class="cu-btn bg-white shadow-blur round lg " bindtap="To_songlist_page " data-target="viewModal ">查看我的推荐歌单</button>
+        <button class="cu-btn bg-white shadow-blur round lg " bindtap="switchSongPage" data-target="viewModal">查看我的推荐歌单</button>
       </view>
     </view>
 
@@ -194,7 +194,7 @@
 
     <view class='box bg-white1'>
       <view class="cu-bar btn-group ">
-        <button class="cu-btn bg-white shadow-blur round lg " bindtap="To_first_page " data-target="viewModal ">开始放松</button>
+        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_first_page " data-target="viewModal ">开始放松</button>
       </view>
     </view>
 

@@ -16,7 +16,19 @@ Page({
 
     //9种体质的转换
     convert: ['暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无'],
-    final_res: '您还未做完测试题',
+
+
+    /* 测试用例 */
+    // convert: [100, 80, 40, 30,
+    //   30, 29, 10, 10, 100
+    // ],    
+
+    finalRes: '您还未做完测试题',
+    normalConstitution: 2, //0：否；1：基本是；2：是
+    abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0], //8种偏颇。0：否；1：基本是；2：是
+
+    // sureAbnormalJudge: [],
+    // maybeAbormalJudge: [],
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
     TabCur: 0, //当前页面的Tab值
@@ -30,16 +42,73 @@ Page({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
-  },
+    if (e.currentTarget.dataset.id == 9) {
 
-  regularCal() {
+      var lock = true; //判断平和体质数值是否可以修改，true为可以
 
+      for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
+        // 确定偏颇体质
+        if (this.data.convert[i] >= 40) {
+          this.data.abnormalConstitution[i] = 2
+          if (lock) {
+            this.data.normalConstitution = 0
+            lock = false
+          }
+          //有偏颇质倾向
+        } else if (this.data.convert[i] >= 30) {
+          this.data.abnormalConstitution[i] = 1
+          if (lock) {
+            this.data.normalConstitution = 1
+          }
+        }
+      }
+
+      // console.log(this.data.normalConstitution == 2)
+      var temp = ""
+
+      if (this.data.normalConstitution == 2) {
+        //确定平和质
+        this.setData({
+          finalRes: "平和体质"
+        })
+        console.log("exec")
+      } else if (this.data.normalConstitution == 1) {
+        //基本平和质
+        temp = "基本是平和体质，有"
+
+        for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
+          if (this.data.abnormalConstitution[i] == 1) {
+            temp += this.data.constitutionContext[i] + " "
+          }
+        }
+        temp += "倾向"
+        this.setData({
+          finalRes: temp
+        })
+      } else {
+        //非平和质
+        for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
+          if (this.data.abnormalConstitution[i] == 2) {
+            temp += this.data.constitutionContext[i] + " "
+          }
+        }
+        temp += ",有"
+        for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
+          if (this.data.abnormalConstitution[i] == 1) {
+            temp += this.data.constitutionContext[i] + " "
+          }
+        }
+        temp += "倾向"
+        this.setData({
+          finalRes: temp
+        })
+      }
+    }
   },
 
   //滑动问题下的滑钮时，收集用户答案
   sliderChange(e) {
     var pickID = e.currentTarget.id
-
     //及时修改对应项sliderValue的数值
     {
       let temp = pickID + ".sliderValue"
@@ -49,16 +118,14 @@ Page({
       })
     }
 
-
     var id = parseInt(pickID.slice(6, 7))
     var that = this
     getSum(id)
 
-    // 获取原始分并计算存储转换分
+    /*  获取原始分并计算存储转换分 */
     function getSum(e) {
       var sum = 0
       var length = (e == 4) ? that.data.index[e].length - 1 : that.data.index[e].length
-
       // 湿热质计算代码还需改进：undo
       for (var i = 0; i < that.data.index[e].length; i++) {
         //除了index[8]平和质部分题目要逆向计分外，其他都正常
@@ -75,284 +142,28 @@ Page({
         [temp]: ((sum - length) / (length * 4) * 100).toFixed(2)
       })
     }
-
-    /*
-
-        var arr = [this.data.convert1, this.data.convert2, this.data.convert3, this.data.convert4, this.data.convert5, this.data.convert6, this.data.convert7, this.data.convert8]
-        console.log(arr)
-        var max = Math.max.apply(null, arr);
-        console.log(max)
-        var maxindex = -1
-        for (var i = 0, len = arr.length; i < len; i++) {
-          if (arr[i] == max) {
-            maxindex = i;
-            break;
-          }
-        }
-        console.log(maxindex)
-
-        if (this.data.convert9 >= 60) {
-          if (this.data.convert2 <= 30 && this.data.convert3 <= 30 && this.data.convert4 <= 30 && this.data.convert5 <= 30 && this.data.convert6 <= 30 && this.data.convert7 <= 30 && this.data.convert8 <= 30 && this.data.convert1 <= 30) {
-            this.setData({
-              final_res: "是平和体质"
-            })
-          } else if (this.data.convert2 <= 40 && this.data.convert3 <= 40 && this.data.convert4 <= 40 && this.data.convert5 <= 40 && this.data.convert6 <= 40 && this.data.convert7 <= 40 && this.data.convert8 <= 40 && this.data.convert1 <= 40) {
-            switch (maxindex) {
-              case (0):
-                this.setData({
-                  final_res: "基本是平和体质,有阳虚体质倾向"
-                })
-                break;
-              case (1):
-                this.setData({
-                  final_res: "基本是平和体质,有阴虚体质倾向"
-                })
-                break;
-              case (2):
-                this.setData({
-                  final_res: "基本是平和体质,有气虚体质倾向"
-                })
-                break;
-              case (3):
-                this.setData({
-                  final_res: "基本是平和体质,有痰湿体质倾向"
-                })
-                break;
-              case (4):
-                this.setData({
-                  final_res: "基本是平和体质,有湿热体质倾向"
-                })
-                break;
-              case (5):
-                this.setData({
-                  final_res: "基本是平和体质,有血瘀体质倾向"
-                })
-                break;
-              case (6):
-                this.setData({
-                  final_res: "基本是平和体质,有特凛体质倾向"
-                })
-                break;
-              case (7):
-                this.setData({
-                  final_res: "基本是平和体质,有气郁体质倾向"
-                })
-                break;
-              default:
-                this.setData({
-                  final_res: "基本是平和体质"
-                })
-            }
-          } else {
-            if (arr[maxindex] >= 40) {
-              switch (maxindex) {
-                case (0):
-                  this.setData({
-                    final_res: "是阳虚体质"
-                  })
-                  break;
-                case (1):
-                  this.setData({
-                    final_res: "是阴虚体质"
-                  })
-                  break;
-                case (2):
-                  this.setData({
-                    final_res: "是气虚体质"
-                  })
-                  break;
-                case (3):
-                  this.setData({
-                    final_res: "是痰湿体质"
-                  })
-                  break;
-                case (4):
-                  this.setData({
-                    final_res: "是湿热体质"
-                  })
-                  break;
-                case (5):
-                  this.setData({
-                    final_res: "是血瘀体质"
-                  })
-                  break;
-                case (6):
-                  this.setData({
-                    final_res: "是特凛体质"
-                  })
-                  break;
-                case (7):
-                  this.setData({
-                    final_res: "是气郁体质"
-                  })
-                  break;
-              }
-            } else if (arr[maxindex] >= 30) {
-              switch (maxindex) {
-                case (0):
-                  this.setData({
-                    final_res: "倾向是阳虚体质"
-                  })
-                  break;
-                case (1):
-                  this.setData({
-                    final_res: "倾向是阴虚体质"
-                  })
-                  break;
-                case (2):
-                  this.setData({
-                    final_res: "倾向是气虚体质"
-                  })
-                  break;
-                case (3):
-                  this.setData({
-                    final_res: "倾向是痰湿体质"
-                  })
-                  break;
-                case (4):
-                  this.setData({
-                    final_res: "倾向是湿热体质"
-                  })
-                  break;
-                case (5):
-                  this.setData({
-                    final_res: "倾向是血瘀体质"
-                  })
-                  break;
-                case (6):
-                  this.setData({
-                    final_res: "倾向是特凛体质"
-                  })
-                  break;
-                case (7):
-                  this.setData({
-                    final_res: "倾向是气郁体质"
-                  })
-                  break;
-              }
-            } else {
-              this.setData({
-                final_res: "暂时无法判断您的体质"
-              })
-            }
-          }
-        } else {
-          if (arr[maxindex] >= 40) {
-            switch (maxindex) {
-              case (0):
-                this.setData({
-                  final_res: "是阳虚体质"
-                })
-                break;
-              case (1):
-                this.setData({
-                  final_res: "是阴虚体质"
-                })
-                break;
-              case (2):
-                this.setData({
-                  final_res: "是气虚体质"
-                })
-                break;
-              case (3):
-                this.setData({
-                  final_res: "是痰湿体质"
-                })
-                break;
-              case (4):
-                this.setData({
-                  final_res: "是湿热体质"
-                })
-                break;
-              case (5):
-                this.setData({
-                  final_res: "是血瘀体质"
-                })
-                break;
-              case (6):
-                this.setData({
-                  final_res: "是特凛体质"
-                })
-                break;
-              case (7):
-                this.setData({
-                  final_res: "是气郁体质"
-                })
-                break;
-            }
-          } else if (arr[maxindex] >= 30) {
-            switch (maxindex) {
-              case (0):
-                this.setData({
-                  final_res: "倾向是阳虚体质"
-                })
-                break;
-              case (1):
-                this.setData({
-                  final_res: "倾向是阴虚体质"
-                })
-                break;
-              case (2):
-                this.setData({
-                  final_res: "倾向是气虚体质"
-                })
-                break;
-              case (3):
-                this.setData({
-                  final_res: "倾向是痰湿体质"
-                })
-                break;
-              case (4):
-                this.setData({
-                  final_res: "倾向是湿热体质"
-                })
-                break;
-              case (5):
-                this.setData({
-                  final_res: "倾向是血瘀体质"
-                })
-                break;
-              case (6):
-                this.setData({
-                  final_res: "倾向是特凛体质"
-                })
-                break;
-              case (7):
-                this.setData({
-                  final_res: "倾向是气郁体质"
-                })
-                break;
-            }
-          } else {
-            this.setData({
-              final_res: "暂时无法判断您的体质"
-            })
-          }
-        }
-
-        // this.setData({
-        //   TabCur: 9
-        // })
-
-        break;
-
-    }
-    */
   },
 
-  To_first_page: function() {
-    wx.navigateTo({
-      url: '../index/index?cur=1',
-    })
-  },
-
-  To_songlist_page: function() {
+  switchSongPage() {
     this.setData({
       TabCur: 10
     })
+
+    /**
+     * 暂时不启用，当然也可以玩玩，服务器会收到和this.data.xxx类似的数据
+     * 正在考虑架构以及搭建新数据库中
+     */
+
+    // wx.request({
+    //   url: 'https://www.gricn.top:4000/testresult',
+    //   method:'POST',
+    //   "Content-Type": "application/x-www-form-urlencoded",
+    //   data:{
+    //     index : JSON.stringify(this.data.index),
+    //     convert: this.data.convert,
+    //   }
+    // })
   },
-
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -360,7 +171,7 @@ Page({
   onLoad: function(options) {
     this.setData({
       index: jsonData.dataList,
-      convertContext: jsonData.dataContext,
+      constitutionContext: jsonData.dataContext,
       sex: app.globalData.sex
     })
   },
