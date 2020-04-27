@@ -1628,7 +1628,7 @@ button.icon.lg {
 }
 
 .cu-bar .action:last-child {
-	margin-right: 30rpx;
+	/* margin-right: 30rpx; */
 }
 
 .cu-bar .action>text[class*="cuIcon-"],

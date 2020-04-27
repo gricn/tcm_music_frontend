@@ -1,6 +1,49 @@
 //app.js
 App({
   onLaunch: function() {
+
+    var that = this
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/jue.json',
+      success(res) {
+        that.globalData.jue_list = res.data
+        console.log('jue')
+        console.log(that.globalData.jue_list)
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/zhi.json',
+      success(res) {
+        that.globalData.zhi_list = res.data
+        console.log('zhi')
+        console.log(that.globalData.zhi_list)
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/gong.json',
+      success(res) {
+        that.globalData.gong_list = res.data
+        console.log('gong')
+        console.log(that.globalData.gong_list)
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/shang.json',
+      success(res) {
+        that.globalData.shang_list = res.data
+        console.log('shang')
+        console.log(that.globalData.shang_list)
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/yu.json',
+      success(res) {
+        that.globalData.yu_list = res.data
+        console.log('yu')
+        console.log(that.globalData.yu_list)
+      }
+    })
+
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     var openid = null
@@ -57,7 +100,12 @@ App({
   globalData: {
     userInfo: null,
     sex:false,
-    isRegistered: false
+    isRegistered: false,
+    gong_list: {},
+    shang_list: {},
+    jue_list: {},
+    zhi_list: {},
+    yu_list: {},
   },
   getOpenid(temp) {
     var code = temp.code

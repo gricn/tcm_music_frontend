@@ -9,7 +9,7 @@
 
 <form>
   <!-- 滑动器上的小标题：中医体质测试 -->
-  <view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="cu-bar bg-white solid-bottom margin-top" hidden="{{sing_list_hid}}">
     <view class="action">
       <text class="cuIcon-titles text-cyan"></text> 中医体质测试
     </view>
@@ -18,7 +18,7 @@
   <!-- 下面大量使用Mustache语法，详情可参考： https://github.com/janl/mustache.js  -->
 
   <!-- 滑动选择器 -->
-  <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+  <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}" hidden="{{sing_list_hid}}">
     <view class="cu-item {{tabIndex==TabCur?'text-cyan cur':''}}" wx:for="{{test_tittle}}" wx:key bindtap="tabSelect" wx:for-index="tabIndex" data-id="{{tabIndex}}">
       {{item}}
     </view>
@@ -163,10 +163,10 @@
       <view class="cu-item shadow ">
         <view class="padding-sm text-context ">您的体质: {{finalRes}}
         </view>
-        <view class="padding-sm text-context ">建议: {{finalRes}}
+        <!-- <view class="padding-sm text-context ">建议: {{finalRes}}
         </view>
         <view class="padding-sm text-context ">推荐音乐时长：15min
-        </view>
+        </view> -->
       </view>
     </view>
 
@@ -179,22 +179,66 @@
   </view>
 
   <view wx:key wx:if="{{TabCur==10}}">
-    <view class="cu-bar bg-white solid-bottom ">
+
+    <view class="cu-bar bg-white solid-bottom " hidden="{{singlis_show_hid}}">
+      <view class='action text-bold'>
+        <text class='cuIcon-time text-green'></text>定时关闭
+      </view>
+    </view>
+
+    <view class="cu-card case" hidden="{{singlis_show_hid}}">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context ">
+        <slider step="25 " activeColor="#1cbbb4 " block-size="22 ">
+        </slider>
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-bar bg-white solid-bottom " hidden="{{time_show_hid}}">
       <view class='action text-bold'>
         <text class='cuIcon-edit text-yellow'></text>您的推荐歌单列表为
       </view>
     </view>
 
-    <view class="cu-card case ">
+    <view class="cu-card case " hidden="{{gong_hid}}">
       <view class="cu-item shadow ">
-        <view class="padding-sm text-context ">暂无
+        <view class="padding-sm text-context " wx:for="{{gong_list}}" id="{{item.music_id}}" bindtap="playmusic">{{item.music_name}}-{{item.music_authors}}
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-card case " hidden="{{shang_hid}}">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context " wx:for="{{shang_list}}" id="{{item.music_id}}" bindtap="playmusic">{{item.music_name}}-{{item.music_authors}}
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-card case " hidden="{{jue_hid}}">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context " wx:for="{{jue_list}}" id="{{item.music_id}}" bindtap="playmusic">{{item.music_name}}-{{item.music_authors}}
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-card case " hidden="{{zhi_hid}}">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context " wx:for="{{zhi_list}}" id="{{item.music_id}}" bindtap="playmusic">{{item.music_name}}-{{item.music_authors}}
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-card case " hidden="{{yu_hid}}">
+      <view class="cu-item shadow ">
+        <view class="padding-sm text-context " wx:for="{{yu_list}}" id="{{item.music_id}}" bindtap="playmusic">{{item.music_name}}-{{item.music_authors}}
         </view>
       </view>
     </view>
 
     <view class='box bg-white1'>
       <view class="cu-bar btn-group ">
-        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_first_page " data-target="viewModal ">开始放松</button>
+        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_first_page" data-target="viewModal ">开始放松</button>
       </view>
     </view>
 
