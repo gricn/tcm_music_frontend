@@ -8,6 +8,7 @@ Page({
     cur: 0,
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
+    isRegistered: false,
     motto: 'Hi！',
     userInfo: {},
     hasUserInfo: false,
@@ -93,6 +94,7 @@ Page({
 
 
   next_music: function(e) {
+    this.change_singing_page
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
@@ -258,6 +260,7 @@ Page({
     }
 
   },
+
   hideModal(e) {
     if (this.data.modalName === 'bottomModal') {
       this.setData({
@@ -270,12 +273,6 @@ Page({
 
 
   },
-
-
-  // audioPause() {
-  //   this.audioCtx.pause()
-  // },
-
 
   To_tc_test: function(e) {
 
@@ -292,7 +289,8 @@ Page({
 
     var finalRes1 = this.data.finalRes
 
-    if (app.globalData.isRegistered = 1) {
+    if (app.globalData.isRegistered) {
+      
       console.log('已注册，调往体质测试界面')
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
         console.log('定时关闭')
@@ -327,13 +325,71 @@ Page({
     })
   },
 
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  },
+
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onReady(e) {
+
+   /*
+    * 生命周期函数--监听页面加载
+    */
+  onLoad: function(options) {
+    var that = this
+    if(app.globalData.isRegistered){
+      this.setData({
+        'isRegistered': true
+      })
+    }
+    
+    wx.getStorage({
+      key: 'openid',
+      success: function(res) {
+        var openid = res.data
+        console.log(openid)
+        // 获取用户注册情况
+        wx.getStorage({
+          key: 'isRegistered',
+          success: res => {
+            console.log("从缓存读取用户注册情况成功")
+          },
+          fail: e => {
+            console.log("未能从缓存读取用户注册情况，请求服务器中……")
+            wx.request({
+              url: 'https://www.gricn.top:4000/isRegistered/' + openid,
+              success(res) {
+                if (res.data) {
+                  wx.setStorage({
+                    key: 'isRegistered',
+                    data: true,
+                  })
+                  console.log("用户已注册 从服务器读取用户注册情况成功")
+                } else {
+                  wx.setStorage({
+                    key: 'isRegistered',
+                    data: false,
+                  })
+                  console.log("用户未注册 从服务器读取用户注册情况成功")
+                }
+              }
+            })
+          }
+        })
+      },
+    })
+    
+
+
     // 使用 wx.createAudioContext 获取 audio 上下文 context
     this.audioCtx = wx.createAudioContext('a0')
     this.audioCtx1 = wx.createAudioContext('a1')
@@ -341,15 +397,13 @@ Page({
     this.audioCtx3 = wx.createAudioContext('a3')
     this.audioCtx4 = wx.createAudioContext('a4')
     //this.audioCtx.play()
-  },
-  onLoad: function(options) {
 
-    //判断用户是否已注册
-    if (app.globalData.isRegistered = true) {
-      console.log('该用户已注册')
-    } else {
-      console.log('该用户未注册')
-    }
+    // //判断用户是否已注册
+    // if (app.globalData.isRegistered) {
+    //   console.log('该用户已注册')
+    // } else {
+    //   console.log('该用户未注册')
+    // }
 
     //获得上一页面传回的参数
     this.setData({
@@ -364,31 +418,31 @@ Page({
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',
       success(res) {
-        that.audioCtx.src = res.data
+        that.audioCtx.setSrc(res.data)
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167247',
       success(res) {
-        that.audioCtx1.src = res.data
+        that.audioCtx1.setSrc(res.data)
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167272',
       success(res) {
-        that.audioCtx2.src = res.data
+        that.audioCtx2.setSrc(res.data)
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167260',
       success(res) {
-        that.audioCtx3.src = res.data
+        that.audioCtx3.setSrc(res.data)
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167278',
       success(res) {
-        that.audioCtx4.src = res.data
+        that.audioCtx4.setSrc(res.data)
       }
     })
 
@@ -428,13 +482,47 @@ Page({
       time: time
     });
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady(e) {
+
   },
+
+  /**
+ * 生命周期函数--监听页面隐藏
+ */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
 
 })

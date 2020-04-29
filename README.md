@@ -1,1 +1,1 @@
-Developed by bucmers: blink & gricn.
+Developed by BUCMers: blink & gricn.

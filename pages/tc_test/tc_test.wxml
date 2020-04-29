@@ -163,10 +163,6 @@
       <view class="cu-item shadow ">
         <view class="padding-sm text-context ">您的体质: {{finalRes}}
         </view>
-        <!-- <view class="padding-sm text-context ">建议: {{finalRes}}
-        </view>
-        <view class="padding-sm text-context ">推荐音乐时长：15min
-        </view> -->
       </view>
     </view>
 
@@ -178,8 +174,8 @@
 
   </view>
 
-  <view wx:key wx:if="{{TabCur==10}}">
 
+  <view wx:key wx:if="{{TabCur==10}}">
     <view class="cu-bar bg-white solid-bottom " hidden="{{singlis_show_hid}}">
       <view class='action text-bold'>
         <text class='cuIcon-time text-green'></text>定时关闭

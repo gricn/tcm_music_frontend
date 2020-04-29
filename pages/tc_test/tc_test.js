@@ -37,9 +37,9 @@ Page({
     // sureAbnormalJudge: [],
     // maybeAbormalJudge: [],
 
-    sing_list_hid:0,
-    time_show_hid:0,
-    singlis_show_hid:0,
+    sing_list_hid: 0,
+    time_show_hid: 0,
+    singlis_show_hid: 0,
 
     gong_list: {},
     shang_list: {},
@@ -54,6 +54,7 @@ Page({
     yu_hid: 1,
 
     to_cur: 1,
+    testtimes: 1,  // 用来记录总共测试的次数
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
     TabCur: 0, //当前页面的Tab值
@@ -61,7 +62,7 @@ Page({
     test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单'], //Tab列表
   },
 
-  To_first_page:function(e){
+  To_first_page: function(e) {
     var to_cur1 = this.data.to_cur
     var finalres1 = this.data.finalRes
     var to_frist_path = '../index/index?cur=' + this.data.to_cur + '&finalRes=' + this.data.finalRes
@@ -78,20 +79,20 @@ Page({
     })
     if (e.currentTarget.dataset.id == 9) {
 
-      var lock = true; //判断平和体质数值是否可以修改，true为可以
+      var locked = true; //判断平和体质数值是否可以修改，true为不可以修改
 
       for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
         // 确定偏颇体质
         if (this.data.convert[i] >= 40) {
           this.data.abnormalConstitution[i] = 2
-          if (lock) {
+          if (!locked) {
             this.data.normalConstitution = 0
             lock = false
           }
           //有偏颇质倾向
         } else if (this.data.convert[i] >= 30) {
           this.data.abnormalConstitution[i] = 1
-          if (lock) {
+          if (!locked) {
             this.data.normalConstitution = 1
           }
         }
@@ -149,79 +150,100 @@ Page({
       var str8 = '气郁质'
       var str9 = '特禀质'
       console.log(this.data.finalRes)
-      if (this.data.finalRes.search(str1) > -1){
-        this.setData({ gong_hid: 0 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('gong')
-        this.setData({ to_cur: 1 })
-      } else if (this.data.finalRes.search(str2) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 0 })
-        console.log('yu')
-        this.setData({ to_cur: 5 })
-      } else if (this.data.finalRes.search(str3) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 0 })
-        this.setData({ yu_hid: 1 })
-        console.log('zhi')
-        this.setData({ to_cur: 4 })
-      } else if (this.data.finalRes.search(str4) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 0 })
-        console.log('yu')
-        this.setData({ to_cur: 5 })
-      } else if (this.data.finalRes.search(str5) > -1)  {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 0 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('jue')
-        this.setData({ to_cur: 3 })
-      } else if (this.data.finalRes.search(str6) > -1)  {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 0 })
-        console.log('yu')
-        this.setData({ to_cur: 5 })
-      } else if (this.data.finalRes.search(str7) > -1)  {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 0 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('jue')
-        this.setData({ to_cur: 3 })
-      } else if (this.data.finalRes.search(str8) > -1)  {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 0 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('shang')
-        this.setData({ to_cur: 2 })
-      } else if (this.data.finalRes.search(str9) > -1)  {
-        this.setData({ gong_hid: 0 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('gong')
-        this.setData({ to_cur: 1 })
-      }
+      // if (this.data.finalRes.search(str1) > -1) {
+      //   this.setData({
+      //     gong_hid: 0,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 1,
+      //     to_cur: 1
+      //   })
+      //   console.log('gong')
+
+      // } else if (this.data.finalRes.search(str2) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 0,
+      //     to_cur: 5
+      //   })
+      //   console.log('yu')
+      // } else if (this.data.finalRes.search(str3) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 0,
+      //     yu_hid: 1,
+      //     to_cur: 4
+      //   })
+      //   console.log('zhi')
+      // } else if (this.data.finalRes.search(str4) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 0,
+      //     to_cur: 5
+      //   })
+      //   console.log('yu')
+      // } else if (this.data.finalRes.search(str5) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 0,
+      //     zhi_hid: 1,
+      //     yu_hid: 1,
+      //     to_cur: 3
+      //   })
+      //   console.log('jue')
+      // } else if (this.data.finalRes.search(str6) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 0,
+      //     to_cur: 5
+      //   })
+      //   console.log('yu')
+
+      // } else if (this.data.finalRes.search(str7) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 0,
+      //     zhi_hid: 1,
+      //     yu_hid: 1,
+      //     to_cur: 3
+      //   })
+      //   console.log('jue')
+      // } else if (this.data.finalRes.search(str8) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 0,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 1,
+      //     to_cur: 2
+      //   })
+      //   console.log('shang')
+
+      // } else if (this.data.finalRes.search(str9) > -1) {
+      //   this.setData({
+      //     gong_hid: 0,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 1,
+      //     to_cur: 1
+      //   })
+      //   console.log('gong')
+      // }
     }
   },
 
@@ -263,7 +285,7 @@ Page({
     }
   },
 
-  playmusic:function(e){
+  playmusic: function(e) {
     console.log(e)
   },
 
@@ -277,25 +299,51 @@ Page({
      * 正在考虑架构以及搭建新数据库中
      */
 
-    // wx.request({
-    //   url: 'https://www.gricn.top:4000/testresult',
-    //   method:'POST',
-    //   "Content-Type": "application/x-www-form-urlencoded",
-    //   data:{
-    //     index : JSON.stringify(this.data.index),
-    //     convert: this.data.convert,
-    //   }
-    // })
+    var openid
+    wx.getStorage({
+      key: 'openid',
+      success: res => {
+        openid = res.data
+        console.log(openid)
+
+        wx.request({
+          url: 'https://www.gricn.top:4000/test',
+          method: 'POST',
+          "Content-Type": "application/x-www-form-urlencoded",
+          data: {
+            openid: openid,
+            testtimes: this.data.testtimes,
+            index: this.data.index,
+            convert: this.data.convert,
+          },
+          success: res=>{
+            console.log('给服务器发送体质检测结果成功')
+            this.setData({
+              testtimes: this.data.testtimes + 1
+            })
+          },
+          fail: e=>{
+            console.log('向服务器发送体质检测结果失败，失败原因为：\n'+e)
+          }
+        })
+      },
+      fail: e => {
+        console.log(e)
+      }
+    })
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({ TabCur: options.TabCur})
-    this.setData({ sing_list_hid: options.sing_list_hid })
-    this.setData({ time_show_hid: options.time_show_hid })
-    this.setData({ singlis_show_hid: options.singlis_show_hid })
+    this.setData({
+      TabCur: options.TabCur,
+      sing_list_hid: options.sing_list_hid,
+      time_show_hid: options.time_show_hid,
+      singlis_show_hid: options.singlis_show_hid
+    })
     var finalRes1 = options.finalRes
 
     this.setData({
@@ -304,11 +352,13 @@ Page({
       sex: app.globalData.sex
     })
 
-    this.setData({ gong_list: app.globalData.gong_list })
-    this.setData({ shang_list: app.globalData.shang_list })
-    this.setData({ jue_list: app.globalData.jue_list })
-    this.setData({ zhi_list: app.globalData.zhi_list })
-    this.setData({ yu_list: app.globalData.yu_list })
+    this.setData({
+      gong_list: app.globalData.gong_list,
+      shang_list: app.globalData.shang_list,
+      jue_list: app.globalData.jue_list,
+      zhi_list: app.globalData.zhi_list,
+      yu_list: app.globalData.yu_list
+    })
     // console(this.data.gong_list)
 
     if (1) {
@@ -321,71 +371,89 @@ Page({
       var str7 = '血瘀质'
       var str8 = '气郁质'
       var str9 = '特禀质'
-      // console.log(finalRes1)
-      if (finalRes1.search(str1) > -1) {
-        this.setData({ gong_hid: 0 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('gong')
-      } else if (finalRes1.search(str2) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 0 })
-        console.log('yu')
-      } else if (finalRes1.search(str3) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 0 })
-        this.setData({ yu_hid: 1 })
-        console.log('zhi')
-      } else if (finalRes1.search(str4) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 0 })
-        console.log('yu')
-      } else if (finalRes1.search(str5) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 0 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('jue')
-      } else if (finalRes1.search(str6) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 0 })
-        console.log('yu')
-      } else if (finalRes1.search(str7) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 0 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('jue')
-      } else if (finalRes1.search(str8) > -1) {
-        this.setData({ gong_hid: 1 })
-        this.setData({ shang_hid: 0 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('shang')
-      } else if (finalRes1.search(str9) > -1) {
-        this.setData({ gong_hid: 0 })
-        this.setData({ shang_hid: 1 })
-        this.setData({ jue_hid: 1 })
-        this.setData({ zhi_hid: 1 })
-        this.setData({ yu_hid: 1 })
-        console.log('gong')
-      }
+      // // console.log(finalRes1)
+      // if (finalRes1.search(str1) > -1) {
+      //   this.setData({
+      //     gong_hid: 0,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 1
+      //   })
+      //   console.log('gong')
+      // } else if (finalRes1.search(str2) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 0
+      //   })
+      //   console.log('yu')
+      // } else if (finalRes1.search(str3) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 0,
+      //     yu_hid: 1
+      //   })
+      //   console.log('zhi')
+      // } else if (finalRes1.search(str4) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 0
+      //   })
+      //   console.log('yu')
+      // } else if (finalRes1.search(str5) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 0,
+      //     zhi_hid: 1,
+      //     yu_hid: 1
+      //   })
+      //   console.log('jue')
+      // } else if (finalRes1.search(str6) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 0
+      //   })
+      //   console.log('yu')
+      // } else if (finalRes1.search(str7) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 1,
+      //     jue_hid: 0,
+      //     zhi_hid: 1,
+      //     yu_hid: 1
+      //   })
+      //   console.log('jue')
+      // } else if (finalRes1.search(str8) > -1) {
+      //   this.setData({
+      //     gong_hid: 1,
+      //     shang_hid: 0,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 1
+      //   })
+      //   console.log('shang')
+      // } else if (finalRes1.search(str9) > -1) {
+      //   this.setData({
+      //     gong_hid: 0,
+      //     shang_hid: 1,
+      //     jue_hid: 1,
+      //     zhi_hid: 1,
+      //     yu_hid: 1
+      //   })
+      //   console.log('gong')
+      // }
     }
 
   },

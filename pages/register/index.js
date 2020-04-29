@@ -5,8 +5,7 @@ Page({
   data: {
     // 性别选择
     array: ['男', '女', '其他'],
-    objectArray: [
-      {
+    objectArray: [{
         id: 0,
         name: '男'
       },
@@ -20,8 +19,8 @@ Page({
       }
     ],
 
-    user_gender:true,
-    user_age:null,
+    gender: true,
+    age: null,
 
     index: 0,
 
@@ -37,49 +36,82 @@ Page({
   },
 
 
-  switch_gender: function (e) {
+  switch_gender: function(e) {
     console.log(e.detail.value)
     //true为男性
     //false为女性
     this.setData({
-      user_gender: e.detail.value
+      gender: e.detail.value
     })
   },
 
-  input_age: function (e) {
-    console.log(e.detail.value)
+  input_age: function(e) {
+    let temp = parseInt(e.detail.value)
     //在输入框失去焦点的时候自动保存年龄
     this.setData({
-      user_age: e.detail.value
+      age: temp
     })
   },
 
 
-  To_index: function (e) {
-    console.log(e)
+  To_index: function(e) {
+    var that = this
+    var openid = ""
+    wx.getStorage({
+      key: 'openid',
+      success: function(res) {
+        openid = res.data
+        wx.request({
+          url: 'https://www.gricn.top:4000/register',
+          method: 'POST',
+          "Content-Type": "application/x-www-form-urlencoded",
+          data: {
+            openid: openid,
+            gender: that.data.gender,
+            age: that.data.age,
+            location: that.data.areaId
+          },
+          success: res => {
+            console.log('给服务器发送注册信息成功')
+            wx.setStorageSync('isRegistered', true)
+
+            var pages = getCurrentPages() //获取加载的页面( 页面栈 )
+            var prevPage = pages[pages.length - 2] //获取上一个页面
+            // 设置上一个页面的数据（可以修改，也可以新增）
+          },
+          fail: e => {
+            console.log('向服务器发送体质检测结果失败，失败原因为：\n' + e)
+          }
+        })
+      },
+    })
+    
     wx.navigateBack()
   },
-  
+
   onLoad(options) {
     // 默认联动显示北京
-    var id = address.provinces[0].id 
+    var id = address.provinces[0].id
     this.setData({
       provinces: address.provinces, // 34省
       citys: address.citys[id], //默认北京市辖区
       areas: address.areas[address.citys[id][0].id]
     })
   },
+
   closePopUp() {
     this.setData({
       visible: false
     })
   },
+
   pickAddress() {
     this.setData({
       visible: true,
       value: [...this.data.regionValue]
     })
   },
+
   // 处理省市县联动逻辑 并保存 value
   cityChange(e) {
     var value = e.detail.value
@@ -134,10 +166,19 @@ Page({
     }
 
     if (type === 'provinceId') {
+      this.setData({
+        provinceId: provinceId
+      })
       return provinceId
     } else if (type === 'townId') {
+      this.setData({
+        townId: townId
+      })
       return townId
     } else {
+      this.setData({
+        areaId: areaId
+      })
       return areaId
     }
   },
@@ -168,7 +209,8 @@ Page({
       console.log(`省份ID：${this.getRegionId('provinceId')}: 市区ID：${this.getRegionId('townId')}：城区ID：${this.getRegionId('areas')}`)
     })
   },
-  bindPickerChange: function (e) {
+
+  bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
