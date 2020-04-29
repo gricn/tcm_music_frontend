@@ -18,7 +18,7 @@ Page({
     swiperList: {
       swiper1: {
         id: 'a0',
-        url: "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK_fw658",
+        url: "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK",
         music_list: {
           poster: 'https://p2.music.126.net/QVg1vX7lvFdbHrnn0hrPNQ==/23089744195372.jpg',
           name: '土音',
@@ -30,7 +30,7 @@ Page({
       },
       swiper2: {
         id: 'a1',
-        url: "https://hbimg.huabanimg.com/3ddffad15246fa4a7b847e747b1773edfd2a591544d6b-uB8l6M_fw658",
+        url: "https://hbimg.huabanimg.com/3ddffad15246fa4a7b847e747b1773edfd2a591544d6b-uB8l6M",
         music_list: {
           poster: 'https://p1.music.126.net/TlKUiqvj1batGJJtBPQwZA==/116548232557408.jpg',
           name: '金音1',
@@ -42,7 +42,7 @@ Page({
       },
       swiper3: {
         id: 'a2',
-        url: "https://hbimg.huabanimg.com/297ffaa48cdb3a9756b45d207e21e490f5d92b193daa1-HCQJps_fw658",
+        url: "https://hbimg.huabanimg.com/297ffaa48cdb3a9756b45d207e21e490f5d92b193daa1-HCQJps",
         music_list: {
           poster: 'https://p2.music.126.net/6XHo66x8Dm-0Sx27OA8NCA==/68169720934902.jpg',
           name: '木音(角声)',
@@ -54,7 +54,7 @@ Page({
       },
       swiper4: {
         id: 'a3',
-        url: "https://hbimg.huabanimg.com/68765fb5aef5ed89d57a397248f4eaf3a6a4ec3a52ef0-xcNqIJ_fw658",
+        url: "https://hbimg.huabanimg.com/68765fb5aef5ed89d57a397248f4eaf3a6a4ec3a52ef0-xcNqIJ",
         music_list: {
           poster: 'https://p1.music.126.net/AFJ6f-3LC37wjvChfNBAsw==/24189255823157.jpg',
           name: '火音1',
@@ -66,7 +66,7 @@ Page({
       },
       swiper5: {
         id: 'a4',
-        url: "https://hbimg.huabanimg.com/ecdd77fcbeaf108501166bb2d028260acb5132b443891-eC8WXw_fw658",
+        url: "https://hbimg.huabanimg.com/ecdd77fcbeaf108501166bb2d028260acb5132b443891-eC8WXw",
         music_list: {
           poster: 'https://p2.music.126.net/So0DylHDizPpf6SFD36lWg==/74766790701523.jpg',
           name: '水音1',
@@ -77,9 +77,11 @@ Page({
         },
       }
     },
-    fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y_fw658",
-    fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ_fw658",
-    menu_url: "https://hbimg.huabanimg.com/9a02a800ce8af13b836d81422550dc03dec918d469792-sfKjeY_fw658",
+
+    
+    fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y",
+    fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ",
+    menu_url: "https://hbimg.huabanimg.com/9a02a800ce8af13b836d81422550dc03dec918d469792-sfKjeY",
     modalName: null,
     fan_hidden: 0,
     finalRes: ''
@@ -378,6 +380,7 @@ Page({
                     key: 'isRegistered',
                     data: true,
                   })
+                  console.log(res.data)
                   app.globalData.isRegistered = true
                   console.log("用户已注册 从服务器读取用户注册情况成功")
                 } else {

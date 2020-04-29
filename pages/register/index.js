@@ -6,17 +6,17 @@ Page({
     // 性别选择
     array: ['男', '女', '其他'],
     objectArray: [{
-        id: 0,
-        name: '男'
-      },
-      {
-        id: 1,
-        name: '女'
-      },
-      {
-        id: 2,
-        name: '其他'
-      }
+      id: 0,
+      name: '男'
+    },
+    {
+      id: 1,
+      name: '女'
+    },
+    {
+      id: 2,
+      name: '其他'
+    }
     ],
 
     gender: true,
@@ -36,16 +36,17 @@ Page({
   },
 
 
-  switch_gender: function(e) {
+  switch_gender: function (e) {
     console.log(e.detail.value)
     //true为男性
     //false为女性
-    this.setData({
-      gender: e.detail.value
-    })
+    // this.setData({
+    //   gender: e.detail.value
+    // })
+    wx.setStorageSync('user_gender', e.detail.value)
   },
 
-  input_age: function(e) {
+  input_age: function (e) {
     let temp = parseInt(e.detail.value)
     //在输入框失去焦点的时候自动保存年龄
     this.setData({
@@ -54,12 +55,12 @@ Page({
   },
 
 
-  To_index: function(e) {
+  To_index: function (e) {
     var that = this
     var openid = ""
     wx.getStorage({
       key: 'openid',
-      success: function(res) {
+      success: function (res) {
         openid = res.data
         wx.request({
           url: 'https://www.gricn.top:4000/register',
@@ -85,7 +86,7 @@ Page({
         })
       },
     })
-    
+
     wx.navigateBack()
   },
 
@@ -142,7 +143,7 @@ Page({
       })
     }
   },
-  preventTouchmove() {},
+  preventTouchmove() { },
   // 城市选择器
   // 点击地区选择取消按钮
   cityCancel(e) {
@@ -210,7 +211,7 @@ Page({
     })
   },
 
-  bindPickerChange: function(e) {
+  bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value

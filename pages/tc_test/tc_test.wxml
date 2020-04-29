@@ -88,7 +88,7 @@
 
 
       <!-- 6题：男性 -->
-      <view class="cu-item" wx:if="{{sex}}">
+      <view class="cu-item" wx:if="{{user_gender}}">
         <view class="content shadow-blur" style="padding:25rpx;">
           <!-- 题序号和内容 -->
           <view class=" cu-capsule radius ">
@@ -114,7 +114,7 @@
       </view>
 
       <!-- 6题：女性 -->
-      <view class="cu-item" wx:if="{{!sex}}">
+      <view class="cu-item" wx:if="{{!user_gender}}">
         <view class="content shadow-blur" style="padding:25rpx;">
           <!-- 题序号和内容 -->
           <view class=" cu-capsule radius">

@@ -91,25 +91,25 @@ Page({
         if (this.data.convert[i] >= 40) {
           let temp = "abnormalConstitution[" + i + "]"
           this.setData({
-            [temp] : 2
+            [temp]: 2
           })
           // this.data.abnormalConstitution[i] = 2
           if (!locked) {
             this.setData({
-              normalConstitution : 0
-            }) 
+              normalConstitution: 0
+            })
             locked = true
           }
           //有偏颇质倾向
         } else if (this.data.convert[i] >= 30) {
           let temp = "abnormalConstitution[" + i + "]"
           this.setData({
-            [temp] : 1
+            [temp]: 1
           })
           if (!locked) {
             this.setData({
-              normalConstitution : 1
-            }) 
+              normalConstitution: 1
+            })
           }
         }
       }
@@ -132,7 +132,7 @@ Page({
             temp += this.data.constitutionContext[i] + " "
           }
         }
-        temp.slice(0,-1)
+        temp.slice(0, -1)
         temp += "倾向"
         this.setData({
           finalRes: temp
@@ -357,6 +357,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
+    wx.getStorage({
+      key: 'user_gender',
+      success(res) {
+        that.setData({
+          user_gender: res.data
+        })
+      }
+    })
     this.setData({
       TabCur: options.TabCur,
       sing_list_hid: options.sing_list_hid,
@@ -364,7 +373,7 @@ Page({
       singlis_show_hid: options.singlis_show_hid,
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
-      sex: app.globalData.sex
+      gender: app.globalData.gender
     })
 
     // var finalRes1 = options.finalRes

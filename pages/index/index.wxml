@@ -3,7 +3,7 @@
 </cu-custom>
 <swiper class="swiper1"  circular="true" current="{{cur}}" bindchange="change_singing_page">
   <swiper-item>
-    <view style="height: 100%;background-image: url(https://hbimg.huabanimg.com/0b37de09d2f8307f5bd45700d96a15ec4ed7f0a3ceb46-MdW48P_fw658);width:100%;background-size:100% 100%;">
+    <view style="height: 100%;background-image: url(https://hbimg.huabanimg.com/0b37de09d2f8307f5bd45700d96a15ec4ed7f0a3ceb46-MdW48P);width:100%;background-size:100% 100%;">
 
       <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
 
