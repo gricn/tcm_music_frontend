@@ -380,7 +380,7 @@ Page({
                     key: 'isRegistered',
                     data: true,
                   })
-                  console.log(res.data)
+                 
                   app.globalData.isRegistered = true
                   console.log("用户已注册 从服务器读取用户注册情况成功")
                 } else {
@@ -388,6 +388,24 @@ Page({
                 }
               }
             })
+            wx.request({
+              url: 'https://www.gricn.top:4000/getusergender/' + res.data,
+              success(res) {
+                if (res.data) {
+                  wx.setStorage({
+                    key: 'user_gender',
+                    data: res.data,
+                  })
+                  app.globalData.user_gender = res.data
+                  console.log("从服务器获取用户性别成功")
+                } else {
+                  console.log("从服务器获取用户性别成功，但值不正确")
+                }
+              }
+            })
+          },
+          fail: e=>{
+            console.log(e)
           }
         })
       }

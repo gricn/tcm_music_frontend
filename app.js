@@ -3,7 +3,7 @@ App({
 
   globalData: {
     userInfo: null,
-    sex: false,
+    user_gender: false,
     isRegistered: false,
     /* isRegistered, 先看看storage和服务器上有没有，如果没有，就默认为false */
     gong_list: {},
@@ -112,7 +112,17 @@ App({
  * 生命周期函数--监听页面初次渲染完成
  */
   onReady(e) {
-    
+    var that = this
+    wx.getStorage({
+      key: 'user_gender',
+      success(res) {
+        that.globalData.user_gender = res.data
+        console.log("user_gender:" + res.data)
+      },
+      fail(e){
+        console.log("fail to get user_gender from local, try to get from server")
+      }
+    })
 
     
   },

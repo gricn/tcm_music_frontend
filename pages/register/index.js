@@ -74,10 +74,10 @@ Page({
           },
           success: res => {
             console.log('给服务器发送注册信息成功')
-            wx.setStorageSync('isRegistered', true)
-
-            var pages = getCurrentPages() //获取加载的页面( 页面栈 )
-            var prevPage = pages[pages.length - 2] //获取上一个页面
+            wx.setStorageSync('isRegistered', res.data)
+            app.globalData.isRegistered = true
+            // var pages = getCurrentPages() //获取加载的页面( 页面栈 )
+            // var prevPage = pages[pages.length - 2] //获取上一个页面
             // 设置上一个页面的数据（可以修改，也可以新增）
           },
           fail: e => {

@@ -27,15 +27,10 @@
 
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end" hidden="{{isRegistered}}">
-            <button wx:if="{{!hasUserInfo && canIUse}}" class='cu-btn round bg-red shadow' bindtap="To_register"> 
+            <button class='cu-btn round bg-red shadow' bindtap="To_register"> 
               登录 
             </button>
-            <block wx:else>
-              <view class='text-center'>
-                <view class="cu-avatar lg round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>
-                <!-- <view class="padding">{{userInfo.nickName}}</view> -->
-              </view>
-            </block>
+            
           </view>
         </view>
 

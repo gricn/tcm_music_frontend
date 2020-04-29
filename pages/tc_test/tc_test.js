@@ -357,15 +357,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     var that = this
-    wx.getStorage({
-      key: 'user_gender',
-      success(res) {
-        that.setData({
-          user_gender: res.data
-        })
-      }
-    })
     this.setData({
       TabCur: options.TabCur,
       sing_list_hid: options.sing_list_hid,
@@ -373,7 +366,7 @@ Page({
       singlis_show_hid: options.singlis_show_hid,
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
-      gender: app.globalData.gender
+      user_gender:app.globalData.user_gender
     })
 
     // var finalRes1 = options.finalRes
