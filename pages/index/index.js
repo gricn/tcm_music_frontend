@@ -351,11 +351,45 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    if (app.globalData.isRegistered) {
-      this.setData({
-        'isRegistered': true
-      })
-    }
+
+    // 获取用户注册情况
+
+    //大致逻辑是：首先看看缓存有没有isRegistered，如果没，则请求服务器访问，
+    //根据用户openid判断是否注册，如果没有，最后才确定没注册
+    wx.getStorage({
+      key: 'isRegistered',
+      success: res => {
+        console.log("从缓存读取用户注册情况成功，值为:"+ res.data)
+        app.globalData.isRegistered = res.data
+        that.setData({
+          isRegistered: res.data
+        })
+      },
+      fail: e => {
+        console.log("未能从缓存读取用户注册情况，请求服务器中……")
+        wx.getStorage({
+          key: 'openid',
+          success: res => {
+            wx.request({
+              url: 'https://www.gricn.top:4000/isRegistered/' + res.data,
+              success(res) {
+                if (res.data) {
+                  wx.setStorage({
+                    key: 'isRegistered',
+                    data: true,
+                  })
+                  app.globalData.isRegistered = true
+                  console.log("用户已注册 从服务器读取用户注册情况成功")
+                } else {
+                  console.log("用户未注册 从服务器读取用户注册情况成功")
+                }
+              }
+            })
+          }
+        })
+      }
+    })
+
 
     // 使用 wx.createAudioContext 获取 audio 上下文 context
     this.audioCtx = wx.createAudioContext('a0')           //tu
@@ -363,16 +397,28 @@ Page({
     this.audioCtx2 = wx.createAudioContext('a2')          //mu
     this.audioCtx3 = wx.createAudioContext('a3')          //huo
     this.audioCtx4 = wx.createAudioContext('a4')          //shui
-    //this.audioCtx.play()
-
 
     //获得上一页面传回的参数
     this.setData({
       finalRes: options.finalRes,
       cur: options.cur
     })
-    // console.log(this.data.cur)
 
+
+    // 调用函数时，传入new Date()参数，I返回值是日期和时间
+    var time = util.formatTime(new Date());
+    // 再通过setData更改Page()里面的data，动态更新页面的数据
+    this.setData({
+      time: time
+    });
+  },
+
+
+  
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady(e) {
     var that = this
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',
@@ -404,49 +450,6 @@ Page({
         that.audioCtx4.setSrc(res.data)   //shui
       }
     })
-
-
-
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-
-    // 调用函数时，传入new Date()参数，I返回值是日期和时间
-    var time = util.formatTime(new Date());
-    // 再通过setData更改Page()里面的data，动态更新页面的数据
-    this.setData({
-      time: time
-    });
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady(e) {
-
   },
 
   /**

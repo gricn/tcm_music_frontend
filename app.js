@@ -89,6 +89,7 @@ App({
       }
     })
 
+
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -111,42 +112,9 @@ App({
  * 生命周期函数--监听页面初次渲染完成
  */
   onReady(e) {
-    var that = this
+    
 
-    // 获取用户注册情况
-
-    //大致逻辑是：首先看看缓存有没有isRegistered，如果没，则请求服务器访问，
-    //根据用户openid判断是否注册，如果没有，最后才确定没注册
-    wx.getStorage({
-      key: 'isRegistered',
-      success: res => {
-        console.log("从缓存读取用户注册情况成功")
-        that.globalData.isRegistered = true
-      },
-      fail: e => {
-        console.log("未能从缓存读取用户注册情况，请求服务器中……")
-        wx.getStorage({
-          key: 'openid',
-          success: res => {
-            wx.request({
-              url: 'https://www.gricn.top:4000/isRegistered/' + openid,
-              success(res) {
-                if (res.data) {
-                  wx.setStorage({
-                    key: 'isRegistered',
-                    data: true,
-                  })
-                  that.globalData.isRegistered = true
-                  console.log("用户已注册 从服务器读取用户注册情况成功")
-                } else {
-                  console.log("用户未注册 从服务器读取用户注册情况成功")
-                }
-              }
-            })
-          }
-        })
-      }
-    })
+    
   },
 
   getOpenid(temp) {
