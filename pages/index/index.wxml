@@ -66,7 +66,7 @@
       <view class="cu-dialog">
         <view class="cu-bar bg-white1 justify-end">
           <view class="content">
-            请欣赏~
+            请欣赏
           </view>
           <view class="action">
             <text class="cuIcon-tag text-red"></text>

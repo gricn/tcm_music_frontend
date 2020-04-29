@@ -22,20 +22,21 @@ Page({
     index0: 0,
 
     //9种体质的转换
-    convert: ['暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无'],
+    // convert: ['暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无'],
 
 
     /* 测试用例 */
-    // convert: [100, 80, 40, 30,
-    //   30, 29, 10, 10, 100
-    // ],    
+    // convert: [40, 20, 59, 20,
+    //   20, 29, 10, 10, 30
+    // ],
+    // normalConstitution: 0,
 
     finalRes: '您还未做完测试题',
-    normalConstitution: 2, //0：否；1：基本是；2：是
-    abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0], //8种偏颇。0：否；1：基本是；2：是
+    // normalConstitution: 2, //0：否；1：基本是；2：是
 
-    // sureAbnormalJudge: [],
-    // maybeAbormalJudge: [],
+    //8种偏颇。0：否；1：基本是；2：是
+    //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
+    abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0],
 
     sing_list_hid: 0,
     time_show_hid: 0,
@@ -62,7 +63,7 @@ Page({
     test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单'], //Tab列表
   },
 
-  To_first_page: function(e) {
+  To_first_page: function (e) {
     var to_cur1 = this.data.to_cur
     var finalres1 = this.data.finalRes
     var to_frist_path = '../index/index?cur=' + this.data.to_cur + '&finalRes=' + this.data.finalRes
@@ -73,30 +74,42 @@ Page({
 
 
 
-  
+
   //点击不同Tab时，Tab的反应
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
-    if (e.currentTarget.dataset.id == 9) {
 
+    /*选择“测试结果”页时进行判断*/
+    if (e.currentTarget.dataset.id == 9) {
       var locked = true; //判断平和体质数值是否可以修改，true为不可修改
 
       for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
         // 确定偏颇体质
         if (this.data.convert[i] >= 40) {
-          this.data.abnormalConstitution[i] = 2
+          let temp = "abnormalConstitution[" + i + "]"
+          this.setData({
+            [temp] : 2
+          })
+          // this.data.abnormalConstitution[i] = 2
           if (!locked) {
-            this.data.normalConstitution = 0
-            lock = false
+            this.setData({
+              normalConstitution : 0
+            }) 
+            locked = true
           }
           //有偏颇质倾向
         } else if (this.data.convert[i] >= 30) {
-          this.data.abnormalConstitution[i] = 1
+          let temp = "abnormalConstitution[" + i + "]"
+          this.setData({
+            [temp] : 1
+          })
           if (!locked) {
-            this.data.normalConstitution = 1
+            this.setData({
+              normalConstitution : 1
+            }) 
           }
         }
       }
@@ -109,7 +122,7 @@ Page({
         this.setData({
           finalRes: "平和体质"
         })
-       
+
       } else if (this.data.normalConstitution == 1) {
         //基本平和质
         temp = "基本是平和体质，有"
@@ -119,6 +132,7 @@ Page({
             temp += this.data.constitutionContext[i] + " "
           }
         }
+        temp.slice(0,-1)
         temp += "倾向"
         this.setData({
           finalRes: temp
@@ -130,123 +144,125 @@ Page({
             temp += this.data.constitutionContext[i] + " "
           }
         }
-        temp += ",有"
-        for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
-          if (this.data.abnormalConstitution[i] == 1) {
-            temp += this.data.constitutionContext[i] + " "
-          }
-        }
-        temp += "倾向"
+        // temp += ",有"
+        // for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
+        //   if (this.data.abnormalConstitution[i] == 1) {
+        //     temp += this.data.constitutionContext[i] + " "
+        //   }
+        // }
+        // temp += "倾向"
         this.setData({
           finalRes: temp
         })
       }
     }
+
+    /*选择“您的推荐舒缓歌单”页进行判断 */
     if (e.currentTarget.dataset.id == 10) {
-      var str1 = '平和体质'
-      var str2 = '气虚质'
-      var str3 = '阳虚质'
-      var str4 = '阴虚质'
-      var str5 = '痰湿质'
-      var str6 = '湿热质'
-      var str7 = '血瘀质'
-      var str8 = '气郁质'
-      var str9 = '特禀质'
 
-      // if (this.data.finalRes.search(str1) > -1) {
-      //   this.setData({
-      //     gong_hid: 0,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 1,
-      //     to_cur: 1
-      //   })
-      //   console.log('gong')
+      if (this.data.normalConstitution == 2) {
+        // 平和
+        this.setData({
+          gong_hid: 0,
+          shang_hid: 1,
+          jue_hid: 1,
+          zhi_hid: 1,
+          yu_hid: 1,
+          to_cur: 1
+        })
+        console.log('gong')
 
-      // } else if (this.data.finalRes.search(str2) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 0,
-      //     to_cur: 5
-      //   })
-      //   console.log('yu')
-      // } else if (this.data.finalRes.search(str3) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 0,
-      //     yu_hid: 1,
-      //     to_cur: 4
-      //   })
-      //   console.log('zhi')
-      // } else if (this.data.finalRes.search(str4) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 0,
-      //     to_cur: 5
-      //   })
-      //   console.log('yu')
-      // } else if (this.data.finalRes.search(str5) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 0,
-      //     zhi_hid: 1,
-      //     yu_hid: 1,
-      //     to_cur: 3
-      //   })
-      //   console.log('jue')
-      // } else if (this.data.finalRes.search(str6) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 0,
-      //     to_cur: 5
-      //   })
-      //   console.log('yu')
+      } else if (this.data.abnormalConstitution[2] > 0) {
+        // 气虚  
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 1,
+          jue_hid: 1,
+          zhi_hid: 1,
+          yu_hid: 0,
+          to_cur: 5
+        })
+        console.log('yu')
+      } else if (this.data.abnormalConstitution[0] > 0) {
+        // 阳虚质  
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 1,
+          jue_hid: 1,
+          zhi_hid: 0,
+          yu_hid: 1,
+          to_cur: 4
+        })
+        console.log('zhi')
+      } else if (this.data.abnormalConstitution[1] > 0) {
+        // 阴虚质
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 1,
+          jue_hid: 1,
+          zhi_hid: 1,
+          yu_hid: 0,
+          to_cur: 5
+        })
+        console.log('yu')
+      } else if (this.data.abnormalConstitution[3] > 0) {
+        // 痰湿质 
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 1,
+          jue_hid: 0,
+          zhi_hid: 1,
+          yu_hid: 1,
+          to_cur: 3
+        })
+        console.log('jue')
+      } else if (this.data.abnormalConstitution[4] > 0) {
+        // 湿热
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 1,
+          jue_hid: 1,
+          zhi_hid: 1,
+          yu_hid: 0,
+          to_cur: 5
+        })
+        console.log('yu')
 
-      // } else if (this.data.finalRes.search(str7) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 0,
-      //     zhi_hid: 1,
-      //     yu_hid: 1,
-      //     to_cur: 3
-      //   })
-      //   console.log('jue')
-      // } else if (this.data.finalRes.search(str8) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 0,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 1,
-      //     to_cur: 2
-      //   })
-      //   console.log('shang')
+      } else if (this.data.abnormalConstitution[5] > 0) {
+        // 血瘀质
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 1,
+          jue_hid: 0,
+          zhi_hid: 1,
+          yu_hid: 1,
+          to_cur: 3
+        })
+        console.log('jue')
+      } else if (this.data.abnormalConstitution[7] > 0) {
+        // 气郁质  //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
+        this.setData({
+          gong_hid: 1,
+          shang_hid: 0,
+          jue_hid: 1,
+          zhi_hid: 1,
+          yu_hid: 1,
+          to_cur: 2
+        })
+        console.log('shang')
 
-      // } else if (this.data.finalRes.search(str9) > -1) {
-      //   this.setData({
-      //     gong_hid: 0,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 1,
-      //     to_cur: 1
-      //   })
-      //   console.log('gong')
-      // }
+      } else if (this.data.abnormalConstitution[6] > 0) {
+        // 特禀质
+        this.setData({
+          gong_hid: 0,
+          shang_hid: 1,
+          jue_hid: 1,
+          zhi_hid: 1,
+          yu_hid: 1,
+          to_cur: 1
+        })
+        console.log('gong')
+      }
     }
   },
 
@@ -275,12 +291,12 @@ Page({
         //除了index[8]平和质部分题目要逆向计分外，其他都正常
         if ((e != 8) || ((e == 8) && (i == 0 || i == 5))) {
           sum += that.data.index[e][i].sliderValue + 1
-       
+
         } else {
           sum += 5 - that.data.index[e][i].sliderValue
         }
       }
-    
+
       var temp = "convert[" + e + "]"
       that.setData({
         [temp]: ((sum - length) / (length * 4) * 100).toFixed(2)
@@ -288,7 +304,7 @@ Page({
     }
   },
 
-  playmusic: function(e) {
+  playmusic: function (e) {
     console.log(e)
   },
 
@@ -319,19 +335,19 @@ Page({
             index: this.data.index,
             convert: this.data.convert,
           },
-          success: res=>{
+          success: res => {
             console.log('给服务器发送体质检测结果成功')
             this.setData({
               testtimes: this.data.testtimes + 1
             })
           },
-          fail: e=>{
-            console.log('向服务器发送体质检测结果失败，失败原因为：\n'+e)
+          fail: e => {
+            console.log('向服务器发送体质检测结果失败，失败原因为：\n' + e)
           }
         })
       },
       fail: e => {
-        console.log('从本地缓存读取openid失败，失败原因为：\n'+ e)
+        console.log('从本地缓存读取openid失败，失败原因为：\n' + e)
       }
     })
 
@@ -340,7 +356,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       TabCur: options.TabCur,
       sing_list_hid: options.sing_list_hid,
@@ -351,7 +367,7 @@ Page({
       sex: app.globalData.sex
     })
 
-    var finalRes1 = options.finalRes
+    // var finalRes1 = options.finalRes
 
     this.setData({
       gong_list: app.globalData.gong_list,
@@ -360,152 +376,55 @@ Page({
       zhi_list: app.globalData.zhi_list,
       yu_list: app.globalData.yu_list
     })
-    // console(this.data.gong_list)
-
-    if (1) {
-      var str1 = '平和体质'
-      var str2 = '气虚质'
-      var str3 = '阳虚质'
-      var str4 = '阴虚质'
-      var str5 = '痰湿质'
-      var str6 = '湿热质'
-      var str7 = '血瘀质'
-      var str8 = '气郁质'
-      var str9 = '特禀质'
-      // // console.log(finalRes1)
-      // if (finalRes1.search(str1) > -1) {
-      //   this.setData({
-      //     gong_hid: 0,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 1
-      //   })
-      //   console.log('gong')
-      // } else if (finalRes1.search(str2) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 0
-      //   })
-      //   console.log('yu')
-      // } else if (finalRes1.search(str3) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 0,
-      //     yu_hid: 1
-      //   })
-      //   console.log('zhi')
-      // } else if (finalRes1.search(str4) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 0
-      //   })
-      //   console.log('yu')
-      // } else if (finalRes1.search(str5) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 0,
-      //     zhi_hid: 1,
-      //     yu_hid: 1
-      //   })
-      //   console.log('jue')
-      // } else if (finalRes1.search(str6) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 0
-      //   })
-      //   console.log('yu')
-      // } else if (finalRes1.search(str7) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 1,
-      //     jue_hid: 0,
-      //     zhi_hid: 1,
-      //     yu_hid: 1
-      //   })
-      //   console.log('jue')
-      // } else if (finalRes1.search(str8) > -1) {
-      //   this.setData({
-      //     gong_hid: 1,
-      //     shang_hid: 0,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 1
-      //   })
-      //   console.log('shang')
-      // } else if (finalRes1.search(str9) > -1) {
-      //   this.setData({
-      //     gong_hid: 0,
-      //     shang_hid: 1,
-      //     jue_hid: 1,
-      //     zhi_hid: 1,
-      //     yu_hid: 1
-      //   })
-      //   console.log('gong')
-      // }
-    }
-
   },
 
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

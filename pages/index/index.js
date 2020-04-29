@@ -13,8 +13,9 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+
     // 微信小程序swiper命名不规范，swiper和swipe没有关系
-    swiperList: {         
+    swiperList: {
       swiper1: {
         id: 'a0',
         url: "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK_fw658",
@@ -84,7 +85,7 @@ Page({
     finalRes: ''
   },
 
-  change_singing_page: function(e) {
+  change_singing_page: function (e) {
     this.audioCtx.pause()     //tu
     this.audioCtx1.pause()    //jin
     this.audioCtx2.pause()    //mu
@@ -94,7 +95,7 @@ Page({
 
 
 
-  next_music: function(e) {
+  next_music: function (e) {
     console.log(e)
     // this.change_singing_page
     var gong_len = app.globalData.gong_list.length
@@ -278,7 +279,7 @@ Page({
 
   },
 
-  To_tc_test: function(e) {
+  To_tc_test: function (e) {
 
     // console.log(e.changedTouches['0'].pageX)
     var curwindowWidth = 414
@@ -294,7 +295,7 @@ Page({
     var finalRes1 = this.data.finalRes
 
     if (app.globalData.isRegistered) {
-      
+
       console.log('已注册，调往体质测试界面')
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
         console.log('定时关闭')
@@ -323,7 +324,7 @@ Page({
 
   },
 
-  To_register: function() {
+  To_register: function () {
     wx.navigateTo({
       url: '../register/index',
     })
@@ -339,60 +340,22 @@ Page({
   },
 
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap: function () {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
 
-   /*
-    * 生命周期函数--监听页面加载
-    */
-  onLoad: function(options) {
+  /*
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
     var that = this
-    if(app.globalData.isRegistered){
+    if (app.globalData.isRegistered) {
       this.setData({
         'isRegistered': true
       })
     }
-    
-    wx.getStorage({
-      key: 'openid',
-      success: function(res) {
-        var openid = res.data
-        console.log(openid)
-        // 获取用户注册情况
-        wx.getStorage({
-          key: 'isRegistered',
-          success: res => {
-            console.log("从缓存读取用户注册情况成功")
-          },
-          fail: e => {
-            console.log("未能从缓存读取用户注册情况，请求服务器中……")
-            wx.request({
-              url: 'https://www.gricn.top:4000/isRegistered/' + openid,
-              success(res) {
-                if (res.data) {
-                  wx.setStorage({
-                    key: 'isRegistered',
-                    data: true,
-                  })
-                  console.log("用户已注册 从服务器读取用户注册情况成功")
-                } else {
-                  wx.setStorage({
-                    key: 'isRegistered',
-                    data: false,
-                  })
-                  console.log("用户未注册 从服务器读取用户注册情况成功")
-                }
-              }
-            })
-          }
-        })
-      },
-    })
-    
-
 
     // 使用 wx.createAudioContext 获取 audio 上下文 context
     this.audioCtx = wx.createAudioContext('a0')           //tu
@@ -402,18 +365,10 @@ Page({
     this.audioCtx4 = wx.createAudioContext('a4')          //shui
     //this.audioCtx.play()
 
-    // //判断用户是否已注册
-    // if (app.globalData.isRegistered) {
-    //   console.log('该用户已注册')
-    // } else {
-    //   console.log('该用户未注册')
-    // }
 
     //获得上一页面传回的参数
     this.setData({
-      finalRes: options.finalRes
-    })
-    this.setData({
+      finalRes: options.finalRes,
       cur: options.cur
     })
     // console.log(this.data.cur)
@@ -426,25 +381,25 @@ Page({
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167247',  
+      url: 'https://www.gricn.top:4000/api/song/167247',
       success(res) {
         that.audioCtx1.setSrc(res.data)   //jin
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167272',   
+      url: 'https://www.gricn.top:4000/api/song/167272',
       success(res) {
         that.audioCtx2.setSrc(res.data)   //mu
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167260',    
+      url: 'https://www.gricn.top:4000/api/song/167260',
       success(res) {
         that.audioCtx3.setSrc(res.data)    //huo
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167278',  
+      url: 'https://www.gricn.top:4000/api/song/167278',
       success(res) {
         that.audioCtx4.setSrc(res.data)   //shui
       }
@@ -495,8 +450,8 @@ Page({
   },
 
   /**
- * 生命周期函数--监听页面隐藏
- */
+  * 生命周期函数--监听页面隐藏
+  */
   onHide: function () {
 
   },

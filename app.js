@@ -1,26 +1,27 @@
 //app.js
 App({
 
-  onLaunch: function() {
+  globalData: {
+    userInfo: null,
+    sex: false,
+    isRegistered: false,
+    /* isRegistered, 先看看storage和服务器上有没有，如果没有，就默认为false */
+    gong_list: {},
+    shang_list: {},
+    jue_list: {},
+    zhi_list: {},
+    yu_list: {},
+  },
+
+  onLaunch: function () {
     var that = this
 
-    wx.getStorage({
-      key: 'isRegistered',
-      success: function (res) {
-        that.globalData.isRegistered = res.data
-        console.log("主页加载注册信息成功，值为：" + res.data)
-      },
-      fail: res=>{
-
-      }
-    })
-
+    /*用来获得角徵宫商羽的歌单，效率很低，但先这样吧 */
     wx.request({
       url: 'https://www.gricn.top:4000/public/jue.json',
       success(res) {
         that.globalData.jue_list = res.data
         console.log('jue')
-        console.log(that.globalData.jue_list)
       }
     })
     wx.request({
@@ -28,7 +29,6 @@ App({
       success(res) {
         that.globalData.zhi_list = res.data
         console.log('zhi')
-        console.log(that.globalData.zhi_list)
       }
     })
     wx.request({
@@ -36,7 +36,6 @@ App({
       success(res) {
         that.globalData.gong_list = res.data
         console.log('gong')
-        console.log(that.globalData.gong_list)
       }
     })
     wx.request({
@@ -44,7 +43,6 @@ App({
       success(res) {
         that.globalData.shang_list = res.data
         console.log('shang')
-        console.log(that.globalData.shang_list)
       }
     })
     wx.request({
@@ -52,7 +50,6 @@ App({
       success(res) {
         that.globalData.yu_list = res.data
         console.log('yu')
-        console.log(that.globalData.yu_list)
       }
     })
 
@@ -86,6 +83,9 @@ App({
             that.getOpenid(temp)
           }
         })
+      },
+      fail: e => {
+        console.log("wx.login fail")
       }
     })
 
@@ -106,16 +106,49 @@ App({
   onShow() {
 
   },
-  globalData: {
-    userInfo: null,
-    sex: false,
-    /* isRegistered, 先看看storage和服务器上有没有，如果没有，就默认为false */
-    gong_list: {},
-    shang_list: {},
-    jue_list: {},
-    zhi_list: {},
-    yu_list: {},
+
+  /**
+ * 生命周期函数--监听页面初次渲染完成
+ */
+  onReady(e) {
+    var that = this
+
+    // 获取用户注册情况
+
+    //大致逻辑是：首先看看缓存有没有isRegistered，如果没，则请求服务器访问，
+    //根据用户openid判断是否注册，如果没有，最后才确定没注册
+    wx.getStorage({
+      key: 'isRegistered',
+      success: res => {
+        console.log("从缓存读取用户注册情况成功")
+        that.globalData.isRegistered = true
+      },
+      fail: e => {
+        console.log("未能从缓存读取用户注册情况，请求服务器中……")
+        wx.getStorage({
+          key: 'openid',
+          success: res => {
+            wx.request({
+              url: 'https://www.gricn.top:4000/isRegistered/' + openid,
+              success(res) {
+                if (res.data) {
+                  wx.setStorage({
+                    key: 'isRegistered',
+                    data: true,
+                  })
+                  that.globalData.isRegistered = true
+                  console.log("用户已注册 从服务器读取用户注册情况成功")
+                } else {
+                  console.log("用户未注册 从服务器读取用户注册情况成功")
+                }
+              }
+            })
+          }
+        })
+      }
+    })
   },
+
   getOpenid(temp) {
     var code = temp.code
     console.log("获取用户code成功，发送至服务器, code:" + code)
