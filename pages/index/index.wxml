@@ -76,10 +76,6 @@
           <button class="cu-btn bg-white1 shadow-blur round border"  bindtap="next_music" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">下一首</button>
           <text>{{item.music_list.next_s}}</text>
           <audio poster="{{item.music_list.poster}}" name="{{item.music_list.name}}" author="{{item.music_list.author}}"  src="{{item.music_list.src}}" id="myAudio" controls id="{{item.id}}" bindplay="" bindended=""></audio>
-          <!-- <button type="primary" bindtap="audioPlay">播放</button> -->
-          <!-- <button type="primary" bindtap="audioPause">暂停</button> -->
-          <!-- <button type="primary" bindtap="audio14">设置当前播放时间为14秒</button>
-          <button type="primary" bindtap="audioStart">回到开头</button> -->
         </view>
       </view>
     </view>

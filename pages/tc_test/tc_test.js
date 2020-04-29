@@ -71,6 +71,9 @@ Page({
     })
   },
 
+
+
+  
   //点击不同Tab时，Tab的反应
   tabSelect(e) {
     this.setData({
@@ -79,7 +82,7 @@ Page({
     })
     if (e.currentTarget.dataset.id == 9) {
 
-      var locked = true; //判断平和体质数值是否可以修改，true为不可以修改
+      var locked = true; //判断平和体质数值是否可以修改，true为不可修改
 
       for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
         // 确定偏颇体质
@@ -106,7 +109,7 @@ Page({
         this.setData({
           finalRes: "平和体质"
         })
-        console.log("exec")
+       
       } else if (this.data.normalConstitution == 1) {
         //基本平和质
         temp = "基本是平和体质，有"
@@ -149,7 +152,7 @@ Page({
       var str7 = '血瘀质'
       var str8 = '气郁质'
       var str9 = '特禀质'
-      console.log(this.data.finalRes)
+
       // if (this.data.finalRes.search(str1) > -1) {
       //   this.setData({
       //     gong_hid: 0,
@@ -272,12 +275,12 @@ Page({
         //除了index[8]平和质部分题目要逆向计分外，其他都正常
         if ((e != 8) || ((e == 8) && (i == 0 || i == 5))) {
           sum += that.data.index[e][i].sliderValue + 1
-          console.log("触发")
+       
         } else {
           sum += 5 - that.data.index[e][i].sliderValue
         }
       }
-      console.log("sum:" + sum)
+    
       var temp = "convert[" + e + "]"
       that.setData({
         [temp]: ((sum - length) / (length * 4) * 100).toFixed(2)
@@ -304,7 +307,7 @@ Page({
       key: 'openid',
       success: res => {
         openid = res.data
-        console.log(openid)
+        console.log('从本地缓存读取openid成功')
 
         wx.request({
           url: 'https://www.gricn.top:4000/test',
@@ -328,7 +331,7 @@ Page({
         })
       },
       fail: e => {
-        console.log(e)
+        console.log('从本地缓存读取openid失败，失败原因为：\n'+ e)
       }
     })
 
@@ -342,15 +345,13 @@ Page({
       TabCur: options.TabCur,
       sing_list_hid: options.sing_list_hid,
       time_show_hid: options.time_show_hid,
-      singlis_show_hid: options.singlis_show_hid
-    })
-    var finalRes1 = options.finalRes
-
-    this.setData({
+      singlis_show_hid: options.singlis_show_hid,
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
       sex: app.globalData.sex
     })
+
+    var finalRes1 = options.finalRes
 
     this.setData({
       gong_list: app.globalData.gong_list,

@@ -13,7 +13,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    swiperList: {
+    // 微信小程序swiper命名不规范，swiper和swipe没有关系
+    swiperList: {         
       swiper1: {
         id: 'a0',
         url: "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK_fw658",
@@ -84,17 +85,18 @@ Page({
   },
 
   change_singing_page: function(e) {
-    this.audioCtx.pause()
-    this.audioCtx1.pause()
-    this.audioCtx2.pause()
-    this.audioCtx3.pause()
-    this.audioCtx4.pause()
+    this.audioCtx.pause()     //tu
+    this.audioCtx1.pause()    //jin
+    this.audioCtx2.pause()    //mu
+    this.audioCtx3.pause()    //huo
+    this.audioCtx4.pause()    //shui
   },
 
 
 
   next_music: function(e) {
-    this.change_singing_page
+    console.log(e)
+    // this.change_singing_page
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
@@ -105,6 +107,7 @@ Page({
       case 'a0b':
         var that = this
         var cur_song_index = 0
+        this.audioCtx.pause()
         for (var i = 0; i < gong_len; i++) {
           if (app.globalData.gong_list[i].music_id == e.currentTarget.dataset.songid) {
             cur_song_index = i
@@ -128,21 +131,15 @@ Page({
           url: next_url,
           success(res) {
             that.audioCtx.setSrc(res.data)
+            that.audioCtx.play()
           }
         })
-        //换封面的地址，但是页面不重新渲染，显示空白
-        // wx.request({
-        //   url: next_poster,
-        //   success(res) {
-        //     next_poster_url = res.data
-        //     console.log(res.data)
-        //   }
-        // })
-        // this.setData({ 'swiperList.swiper1.music_list.poster': next_poster_url })
+
         break;
       case 'a1b':
         var that = this
         var cur_song_index = 0
+        this.audioCtx1.pause()
         for (var i = 0; i < shang_len; i++) {
           if (app.globalData.shang_list[i].music_id == e.currentTarget.dataset.songid) {
             cur_song_index = i
@@ -162,13 +159,15 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx.setSrc(res.data)
+            that.audioCtx1.setSrc(res.data)
+            that.audioCtx1.play()
           }
         })
         break;
       case 'a2b':
         var that = this
         var cur_song_index = 0
+        this.audioCtx2.pause()
         for (var i = 0; i < jue_len; i++) {
           if (app.globalData.jue_list[i].music_id == e.currentTarget.dataset.songid) {
             cur_song_index = i
@@ -188,13 +187,15 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx.setSrc(res.data)
+            that.audioCtx2.setSrc(res.data)
+            that.audioCtx2.play()
           }
         })
         break;
       case 'a3b':
         var that = this
         var cur_song_index = 0
+        that.audioCtx3.pause()
         for (var i = 0; i < zhi_len; i++) {
           if (app.globalData.zhi_list[i].music_id == e.currentTarget.dataset.songid) {
             cur_song_index = i
@@ -214,13 +215,15 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx.setSrc(res.data)
+            that.audioCtx3.setSrc(res.data)
+            that.audioCtx3.play()
           }
         })
         break;
       case 'a4b':
         var that = this
         var cur_song_index = 0
+        that.audioCtx4.pause()
         for (var i = 0; i < yu_len; i++) {
           if (app.globalData.yu_list[i].music_id == e.currentTarget.dataset.songid) {
             cur_song_index = i
@@ -240,7 +243,8 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx.setSrc(res.data)
+            that.audioCtx4.setSrc(res.data)
+            that.audioCtx4.play()
           }
         })
         break;
@@ -391,11 +395,11 @@ Page({
 
 
     // 使用 wx.createAudioContext 获取 audio 上下文 context
-    this.audioCtx = wx.createAudioContext('a0')
-    this.audioCtx1 = wx.createAudioContext('a1')
-    this.audioCtx2 = wx.createAudioContext('a2')
-    this.audioCtx3 = wx.createAudioContext('a3')
-    this.audioCtx4 = wx.createAudioContext('a4')
+    this.audioCtx = wx.createAudioContext('a0')           //tu
+    this.audioCtx1 = wx.createAudioContext('a1')          //jin
+    this.audioCtx2 = wx.createAudioContext('a2')          //mu
+    this.audioCtx3 = wx.createAudioContext('a3')          //huo
+    this.audioCtx4 = wx.createAudioContext('a4')          //shui
     //this.audioCtx.play()
 
     // //判断用户是否已注册
@@ -418,31 +422,31 @@ Page({
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',
       success(res) {
-        that.audioCtx.setSrc(res.data)
+        that.audioCtx.setSrc(res.data)  //tu
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167247',
+      url: 'https://www.gricn.top:4000/api/song/167247',  
       success(res) {
-        that.audioCtx1.setSrc(res.data)
+        that.audioCtx1.setSrc(res.data)   //jin
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167272',
+      url: 'https://www.gricn.top:4000/api/song/167272',   
       success(res) {
-        that.audioCtx2.setSrc(res.data)
+        that.audioCtx2.setSrc(res.data)   //mu
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167260',
+      url: 'https://www.gricn.top:4000/api/song/167260',    
       success(res) {
-        that.audioCtx3.setSrc(res.data)
+        that.audioCtx3.setSrc(res.data)    //huo
       }
     })
     wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167278',
+      url: 'https://www.gricn.top:4000/api/song/167278',  
       success(res) {
-        that.audioCtx4.setSrc(res.data)
+        that.audioCtx4.setSrc(res.data)   //shui
       }
     })
 
@@ -475,7 +479,7 @@ Page({
       })
     }
 
-    // 调用函数时，传入new Date()参数，返回值是日期和时间
+    // 调用函数时，传入new Date()参数，I返回值是日期和时间
     var time = util.formatTime(new Date());
     // 再通过setData更改Page()里面的data，动态更新页面的数据
     this.setData({
