@@ -1,11 +1,8 @@
 {
   "pages": [
-    
     "pages/index/index",
     "pages/register/index",
     "pages/tc_test/tc_test"
-    
-    
   ],
   "window": {
     "backgroundTextStyle": "light",

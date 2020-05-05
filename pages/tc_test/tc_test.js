@@ -32,7 +32,7 @@ Page({
     // normalConstitution: 0,
 
     finalRes: '您还未做完测试题',
-    // normalConstitution: 2, //0：否；1：基本是；2：是
+    normalConstitution: 2, //0：否；1：基本是；2：是
 
     //8种偏颇。0：否；1：基本是；2：是
     //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
@@ -48,6 +48,7 @@ Page({
     zhi_list: {},
     yu_list: {},
 
+    // 下面的hid估计是hidden的意思吧。。。
     gong_hid: 0,
     shang_hid: 1,
     jue_hid: 1,
@@ -63,17 +64,13 @@ Page({
     test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单'], //Tab列表
   },
 
-  To_first_page: function (e) {
-    var to_cur1 = this.data.to_cur
-    var finalres1 = this.data.finalRes
-    var to_frist_path = '../index/index?cur=' + this.data.to_cur + '&finalRes=' + this.data.finalRes
+
+  goHomePage(e) {
+    var homePagePath = '../index/index?cur=' + this.data.to_cur + '&finalRes=' + this.data.finalRes
     wx.navigateTo({
-      url: to_frist_path,
+      url: homePagePath,
     })
   },
-
-
-
 
   //点击不同Tab时，Tab的反应
   tabSelect(e) {
@@ -83,8 +80,8 @@ Page({
     })
 
     /*选择“测试结果”页时进行判断*/
-    if (e.currentTarget.dataset.id == 9) {
-      var locked = true; //判断平和体质数值是否可以修改，true为不可修改
+    if (e.currentTarget.dataset.id == 9 || e.currentTarget.dataset.id == 10) {
+      var locked = false; //判断平和体质数值是否可以修改，true为不可修改
 
       for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
         // 确定偏颇体质
@@ -111,6 +108,11 @@ Page({
               normalConstitution: 1
             })
           }
+        } else {
+          let temp = "abnormalConstitution[" + i + "]"
+          this.setData({
+            [temp]: 0
+          })
         }
       }
 
@@ -144,24 +146,13 @@ Page({
             temp += this.data.constitutionContext[i] + " "
           }
         }
-        // temp += ",有"
-        // for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
-        //   if (this.data.abnormalConstitution[i] == 1) {
-        //     temp += this.data.constitutionContext[i] + " "
-        //   }
-        // }
-        // temp += "倾向"
         this.setData({
           finalRes: temp
         })
       }
-    }
-
-    /*选择“您的推荐舒缓歌单”页进行判断 */
-    if (e.currentTarget.dataset.id == 10) {
 
       if (this.data.normalConstitution == 2) {
-        // 平和
+        // 平和质
         this.setData({
           gong_hid: 0,
           shang_hid: 1,
@@ -170,10 +161,9 @@ Page({
           yu_hid: 1,
           to_cur: 1
         })
-        console.log('gong')
-
+        console.log('推荐舒缓歌单：宫')
       } else if (this.data.abnormalConstitution[2] > 0) {
-        // 气虚  
+        // 气虚质
         this.setData({
           gong_hid: 1,
           shang_hid: 1,
@@ -182,7 +172,7 @@ Page({
           yu_hid: 0,
           to_cur: 5
         })
-        console.log('yu')
+        console.log('推荐舒缓歌单：徵')
       } else if (this.data.abnormalConstitution[0] > 0) {
         // 阳虚质  
         this.setData({
@@ -193,7 +183,7 @@ Page({
           yu_hid: 1,
           to_cur: 4
         })
-        console.log('zhi')
+        console.log('推荐舒缓歌单：徵')
       } else if (this.data.abnormalConstitution[1] > 0) {
         // 阴虚质
         this.setData({
@@ -204,7 +194,7 @@ Page({
           yu_hid: 0,
           to_cur: 5
         })
-        console.log('yu')
+        console.log('推荐舒缓歌单：羽')
       } else if (this.data.abnormalConstitution[3] > 0) {
         // 痰湿质 
         this.setData({
@@ -215,7 +205,7 @@ Page({
           yu_hid: 1,
           to_cur: 3
         })
-        console.log('jue')
+        console.log('推荐舒缓歌单：角')
       } else if (this.data.abnormalConstitution[4] > 0) {
         // 湿热
         this.setData({
@@ -226,8 +216,7 @@ Page({
           yu_hid: 0,
           to_cur: 5
         })
-        console.log('yu')
-
+        console.log('推荐舒缓歌单：羽')
       } else if (this.data.abnormalConstitution[5] > 0) {
         // 血瘀质
         this.setData({
@@ -238,7 +227,7 @@ Page({
           yu_hid: 1,
           to_cur: 3
         })
-        console.log('jue')
+        console.log('推荐舒缓歌单：角')
       } else if (this.data.abnormalConstitution[7] > 0) {
         // 气郁质  //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
         this.setData({
@@ -249,7 +238,7 @@ Page({
           yu_hid: 1,
           to_cur: 2
         })
-        console.log('shang')
+        console.log('推荐舒缓歌单：商')
 
       } else if (this.data.abnormalConstitution[6] > 0) {
         // 特禀质
@@ -261,22 +250,43 @@ Page({
           yu_hid: 1,
           to_cur: 1
         })
-        console.log('gong')
+        console.log('推荐舒缓歌单：宫')
       }
     }
+    
+  },
+
+  // 用来保存  首页-“我的舒缓歌单”   获取的推荐音乐显示情况
+  recordRecommendMusic() {
+    var wuyin_hid = {
+      gong_hid: this.data.gong_hid,
+      shang_hid: this.data.shang_hid,
+      jue_hid: this.data.jue_hid,
+      zhi_hid: this.data.zhi_hid,
+      yu_hid: this.data.yu_hid
+    }
+    wx.setStorage({
+      key: "wuyin_hid",
+      data: wuyin_hid,
+      success: res => {
+        console.log('向缓存存储wuyin_hid结果成功')
+      },
+      fail: e => {
+        console.log('向缓存存储wuyin_hid结果失败')
+      }
+    })
   },
 
   //滑动问题下的滑钮时，收集用户答案
   sliderChange(e) {
     var pickID = e.currentTarget.id
-    //及时修改对应项sliderValue的数值
-    {
-      let temp = pickID + ".sliderValue"
 
-      this.setData({
-        [temp]: e.detail.value / 25,
-      })
-    }
+    //及时修改对应项sliderValue的数值
+
+    let temp = pickID + ".sliderValue"
+    this.setData({
+      [temp]: e.detail.value / 25,
+    })
 
     var id = parseInt(pickID.slice(6, 7))
     var that = this
@@ -286,12 +296,12 @@ Page({
     function getSum(e) {
       var sum = 0
       var length = (e == 4) ? that.data.index[e].length - 1 : that.data.index[e].length
+
       // 湿热质计算代码还需改进：undo
       for (var i = 0; i < that.data.index[e].length; i++) {
         //除了index[8]平和质部分题目要逆向计分外，其他都正常
         if ((e != 8) || ((e == 8) && (i == 0 || i == 5))) {
           sum += that.data.index[e][i].sliderValue + 1
-
         } else {
           sum += 5 - that.data.index[e][i].sliderValue
         }
@@ -318,7 +328,7 @@ Page({
      * 正在考虑架构以及搭建新数据库中
      */
 
-    var openid
+    var openid = ''
     wx.getStorage({
       key: 'openid',
       success: res => {
@@ -351,6 +361,7 @@ Page({
       }
     })
 
+    this.recordRecommendMusic
   },
 
   /**
@@ -360,18 +371,26 @@ Page({
 
     var that = this
     this.setData({
+      //存储从上一页返回的参数
+      finalRes: options.finalRes,
       TabCur: options.TabCur,
+      gong_hid: options.gong_hid,
+      shang_hid: options.shang_hid,
+      jue_hid: options.jue_hid,
+      zhi_hid: options.zhi_hid,
+      yu_hid: options.yu_hid,
+
+
       sing_list_hid: options.sing_list_hid,
       time_show_hid: options.time_show_hid,
       singlis_show_hid: options.singlis_show_hid,
+
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
-      user_gender:app.globalData.user_gender
     })
 
-    // var finalRes1 = options.finalRes
-
     this.setData({
+      user_gender: app.globalData.user_gender,
       gong_list: app.globalData.gong_list,
       shang_list: app.globalData.shang_list,
       jue_list: app.globalData.jue_list,

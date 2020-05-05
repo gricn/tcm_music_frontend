@@ -234,7 +234,7 @@
 
     <view class='box bg-white1'>
       <view class="cu-bar btn-group ">
-        <button class="cu-btn bg-white shadow-blur round lg" bindtap="To_first_page" data-target="viewModal ">开始放松</button>
+        <button class="cu-btn bg-white shadow-blur round lg" bindtap="goHomePage" data-target="viewModal ">开始放松</button>
       </view>
     </view>
 

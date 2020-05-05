@@ -64,7 +64,9 @@
             请欣赏
           </view>
           <view class="action">
-            <text class="cuIcon-tag text-red"></text>
+            <!-- <text class="cuIcon-tag text-red"></text> -->
+            随机
+            <switch class="tittle sm" bindchange="random_play"  id="{{item.id+'p'}}"></switch>
           </view>
         </view>
         <view class="padding-xl">

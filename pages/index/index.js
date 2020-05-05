@@ -78,6 +78,12 @@ Page({
       }
     },
 
+
+    random_playsongs1: 0,
+    random_playsongs2: 0,
+    random_playsongs3: 0,
+    random_playsongs4: 0,
+    random_playsongs5: 0,
     
     fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y",
     fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ",
@@ -93,6 +99,28 @@ Page({
     this.audioCtx2.pause()    //mu
     this.audioCtx3.pause()    //huo
     this.audioCtx4.pause()    //shui
+  },
+
+  //随机播放
+  random_play:function(e){
+    // console.log(e)
+    switch(e.target.id){
+      case 'a0p':
+        this.setData({ random_playsongs1: 1})
+        break;
+      case 'a1p':
+        this.setData({ random_playsongs2: 1 })
+        break;
+      case 'a2p':
+        this.setData({ random_playsongs3: 1 })
+        break;
+      case 'a3p':
+        this.setData({ random_playsongs4: 1 })
+        break;
+      case 'a4p':
+        this.setData({ random_playsongs5: 1 })
+        break;
+    }
   },
 
 
@@ -120,6 +148,9 @@ Page({
         // console.log(cur_song_index)
         var next_song_index = (cur_song_index + 1) % gong_len
         var next_n_song_index = (next_song_index + 1) % gong_len
+        if (this.data.random_playsongs1) {
+          next_n_song_index = Math.floor(Math.random() * gong_len);
+        }
         this.setData({
           'swiperList.swiper1.music_list.name': app.globalData.gong_list[next_song_index].music_name,
           'swiperList.swiper1.music_list.author': app.globalData.gong_list[next_song_index].music_authors,
@@ -152,6 +183,9 @@ Page({
         // console.log(cur_song_index)
         var next_song_index = (cur_song_index + 1) % shang_len
         var next_n_song_index = (next_song_index + 1) % shang_len
+        if (this.data.random_playsongs2) {
+          next_n_song_index = Math.floor(Math.random() * shang_len);
+        }
         this.setData({
           'swiperList.swiper2.music_list.name': app.globalData.shang_list[next_song_index].music_name,
           'swiperList.swiper2.music_list.author': app.globalData.shang_list[next_song_index].music_authors,
@@ -180,6 +214,9 @@ Page({
         // console.log(cur_song_index)
         var next_song_index = (cur_song_index + 1) % jue_len
         var next_n_song_index = (next_song_index + 1) % jue_len
+        if (this.data.random_playsongs3) {
+          next_n_song_index = Math.floor(Math.random() * jue_len);
+        }
         this.setData({
           'swiperList.swiper3.music_list.name': app.globalData.jue_list[next_song_index].music_name,
           'swiperList.swiper3.music_list.author': app.globalData.jue_list[next_song_index].music_authors,
@@ -208,6 +245,9 @@ Page({
         // console.log(cur_song_index)
         var next_song_index = (cur_song_index + 1) % zhi_len
         var next_n_song_index = (next_song_index + 1) % zhi_len
+        if (this.data.random_playsongs4) {
+          next_n_song_index = Math.floor(Math.random() * zhi_len);
+        }
         this.setData({
           'swiperList.swiper4.music_list.name': app.globalData.zhi_list[next_song_index].music_name,
           'swiperList.swiper4.music_list.author': app.globalData.zhi_list[next_song_index].music_authors,
@@ -236,6 +276,9 @@ Page({
         // console.log(cur_song_index)
         var next_song_index = (cur_song_index + 1) % yu_len
         var next_n_song_index = (next_song_index + 1) % yu_len
+        if (this.data.random_playsongs5) {
+          next_n_song_index = Math.floor(Math.random() * yu_len);
+        }
         this.setData({
           'swiperList.swiper5.music_list.name': app.globalData.yu_list[next_song_index].music_name,
           'swiperList.swiper5.music_list.author': app.globalData.yu_list[next_song_index].music_authors,
@@ -307,9 +350,23 @@ Page({
         })
       } else if (e.changedTouches['0'].pageX >= (curwindowWidth - curwindowWidth3)) {
         console.log('我的舒缓歌单')
-        var to_singlist_path = '../tc_test/tc_test?TabCur=10&sing_list_hid=1&singlis_show_hid=1&finalRes=' + finalRes1
+        var to_songlist_path = '../tc_test/tc_test?TabCur=10&sing_list_hid=1&singlis_show_hid=1&finalRes=' + finalRes1
+
+        wx.getStorage({
+          key:'wuyin_hid',
+          success: res=>{
+            console.log('从缓存读取wuyin_hid成功，前往页面中……')
+            to_songlist_path += '&gong_hid='+ wuyin_hid.gong_hid + '&shang_hid=' + wuyin_hid.shang_hid + '&jue_hid=' + wuyin_hid.jue_hid + '&zhi_hide=' + wuyin_hid.zhi_hid + '&yu_hid=' + wuyin_hid.yu_hid
+            console.log('path:'+to_songlist_path)
+          },
+          fail : e=>{
+            console.log('从缓存读取wuyin_hid失败')
+          }
+        })
+        
+        
         wx.navigateTo({
-          url: to_singlist_path,
+          url: to_songlist_path,
         })
       } else {
         console.log('中医体质测试')
