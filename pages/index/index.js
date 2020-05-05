@@ -84,7 +84,7 @@ Page({
     random_playsongs3: 0,
     random_playsongs4: 0,
     random_playsongs5: 0,
-    
+
     fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y",
     fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ",
     menu_url: "https://hbimg.huabanimg.com/9a02a800ce8af13b836d81422550dc03dec918d469792-sfKjeY",
@@ -102,11 +102,11 @@ Page({
   },
 
   //随机播放
-  random_play:function(e){
+  random_play: function (e) {
     // console.log(e)
-    switch(e.target.id){
+    switch (e.target.id) {
       case 'a0p':
-        this.setData({ random_playsongs1: 1})
+        this.setData({ random_playsongs1: 1 })
         break;
       case 'a1p':
         this.setData({ random_playsongs2: 1 })
@@ -353,21 +353,22 @@ Page({
         var to_songlist_path = '../tc_test/tc_test?TabCur=10&sing_list_hid=1&singlis_show_hid=1&finalRes=' + finalRes1
 
         wx.getStorage({
-          key:'wuyin_hid',
-          success: res=>{
+          key: 'wuyin_hid',
+          success: res => {
             console.log('从缓存读取wuyin_hid成功，前往页面中……')
-            to_songlist_path += '&gong_hid='+ wuyin_hid.gong_hid + '&shang_hid=' + wuyin_hid.shang_hid + '&jue_hid=' + wuyin_hid.jue_hid + '&zhi_hide=' + wuyin_hid.zhi_hid + '&yu_hid=' + wuyin_hid.yu_hid
-            console.log('path:'+to_songlist_path)
+            to_songlist_path += '&gong_hid=' + res.data.gong_hid + '&shang_hid=' + res.data.shang_hid + '&jue_hid=' + res.data.jue_hid + '&zhi_hid=' + res.data.zhi_hid + '&yu_hid=' + res.data.yu_hid + '&to_cur=' + res.data.to_cur
+            console.log('path:' + to_songlist_path)
           },
-          fail : e=>{
+          fail: e => {
             console.log('从缓存读取wuyin_hid失败')
+          },
+          complete: () => {
+            wx.navigateTo({
+              url: to_songlist_path,
+            })
           }
         })
-        
-        
-        wx.navigateTo({
-          url: to_songlist_path,
-        })
+
       } else {
         console.log('中医体质测试')
         wx.navigateTo({
@@ -418,7 +419,7 @@ Page({
     wx.getStorage({
       key: 'isRegistered',
       success: res => {
-        console.log("从缓存读取用户注册情况成功，值为:"+ res.data)
+        console.log("从缓存读取用户注册情况成功，值为:" + res.data)
         app.globalData.isRegistered = res.data
         that.setData({
           isRegistered: res.data
@@ -437,7 +438,7 @@ Page({
                     key: 'isRegistered',
                     data: true,
                   })
-                 
+
                   app.globalData.isRegistered = true
                   console.log("用户已注册 从服务器读取用户注册情况成功")
                 } else {
@@ -461,7 +462,7 @@ Page({
               }
             })
           },
-          fail: e=>{
+          fail: e => {
             console.log(e)
           }
         })
@@ -492,7 +493,7 @@ Page({
   },
 
 
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

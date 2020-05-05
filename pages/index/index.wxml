@@ -1,41 +1,28 @@
 <cu-custom bgColor="bg-white1">
   <view slot="content">中医音乐</view>
 </cu-custom>
-<swiper class="swiper1"  circular="true" current="{{cur}}" bindchange="change_singing_page">
+<swiper class="swiper1" circular="true" current="{{cur}}" bindchange="change_singing_page">
   <swiper-item>
     <view style="height: 100%;background-image: url(https://hbimg.huabanimg.com/0b37de09d2f8307f5bd45700d96a15ec4ed7f0a3ceb46-MdW48P);width:100%;background-size:100% 100%;">
-
       <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
-
-        <view class="padding-0 radius shadow shadow-lg text-center"  bindtap="showModal" data-target="bottomModal" hidden="{{fan_hidden}}" >
-          <image class="fan_image2" src="{{fan_url2}}" mode="aspectFill" ></image>
+        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" data-target="bottomModal" hidden="{{fan_hidden}}">
+          <image class="fan_image2" src="{{fan_url2}}" mode="aspectFill"></image>
         </view>
-
-<!-- 
-        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" hidden="{{fan_hidden}}" data-target="bottomModal"> 
+        <!-- <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" hidden="{{fan_hidden}}" data-target="bottomModal"> 
           <image class="first_page_image" src="{{first_page_url}}" mode="aspectFit" ></image>
         </view> -->
-
-        <view class="padding-0 radius shadow shadow-lg text-center"  hidden="{{1-fan_hidden}}">
-          <image class="fan_image" src="{{fan_url}}" mode="aspectFit" ></image>
+        <view class="padding-0 radius shadow shadow-lg text-center" hidden="{{1-fan_hidden}}">
+          <image class="fan_image" src="{{fan_url}}" mode="aspectFit"></image>
         </view>
-
         <!-- <view class="text-center margin-top {{modalName=='bottomModal'?'hidden':''}}">
           <text class="text-grey text-xl">{{time}}</text>
         </view> -->
-
-
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end" hidden="{{isRegistered}}">
-            <button class='cu-btn round bg-red shadow' bindtap="To_register"> 
-              登录 
-            </button>
-            
+            <button class='cu-btn round bg-red shadow' bindtap="To_register">登录</button>
           </view>
         </view>
-
       </view>
-
       <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
         <view class="cu-dialog">
           <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:450px;">
@@ -52,27 +39,25 @@
       </view>
     </view>
   </swiper-item>
-
-  <swiper-item wx:for="{{swiperList}}" > 
-   <!-- wx:key -->
+  <swiper-item wx:for="{{swiperList}}">
+    <!-- wx:key -->
     <image class="sw_image" src="{{item.url}}" mode="aspectFill" bindtap="showModal" data-target="Modal"></image>
-
     <view class="cu-modal bottom-modal show}}">
       <view class="cu-dialog">
         <view class="cu-bar bg-white1 justify-end">
-          <view class="content">
-            请欣赏
-          </view>
-          <view class="action">
+          <view class="content">请欣赏</view>
+          <view class="action" style="margin-right:15px">
             <!-- <text class="cuIcon-tag text-red"></text> -->
             随机
-            <switch class="tittle sm" bindchange="random_play"  id="{{item.id+'p'}}"></switch>
+            <switch class="tittle sm" style="margin-left:5px" bindchange="random_play" id="{{item.id+'p'}}"></switch>
           </view>
         </view>
         <view class="padding-xl">
-          <button class="cu-btn bg-white1 shadow-blur round border"  bindtap="next_music" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">下一首</button>
+          <button class="cu-btn bg-white1 shadow-blur round border" bindtap="next_music" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">
+            下一首
+          </button>
           <text>{{item.music_list.next_s}}</text>
-          <audio poster="{{item.music_list.poster}}" name="{{item.music_list.name}}" author="{{item.music_list.author}}"  src="{{item.music_list.src}}" id="myAudio" controls id="{{item.id}}" bindplay="" bindended=""></audio>
+          <audio poster="{{item.music_list.poster}}" name="{{item.music_list.name}}" author="{{item.music_list.author}}" src="{{item.music_list.src}}" id="myAudio" controls id="{{item.id}}" bindplay="" bindended=""></audio>
         </view>
       </view>
     </view>

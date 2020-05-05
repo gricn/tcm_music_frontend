@@ -18,7 +18,6 @@ Page({
         index:[],
         constitutionContext:[]
      */
-
     index0: 0,
 
     //9种体质的转换
@@ -49,11 +48,11 @@ Page({
     yu_list: {},
 
     // 下面的hid估计是hidden的意思吧。。。
-    gong_hid: 0,
-    shang_hid: 1,
-    jue_hid: 1,
-    zhi_hid: 1,
-    yu_hid: 1,
+    // gong_hid: 0,
+    // shang_hid: 1,
+    // jue_hid: 1,
+    // zhi_hid: 1,
+    // yu_hid: 1,
 
     to_cur: 1,
     testtimes: 1,  // 用来记录总共测试的次数
@@ -253,29 +252,9 @@ Page({
         console.log('推荐舒缓歌单：宫')
       }
     }
-    
+
   },
 
-  // 用来保存  首页-“我的舒缓歌单”   获取的推荐音乐显示情况
-  recordRecommendMusic() {
-    var wuyin_hid = {
-      gong_hid: this.data.gong_hid,
-      shang_hid: this.data.shang_hid,
-      jue_hid: this.data.jue_hid,
-      zhi_hid: this.data.zhi_hid,
-      yu_hid: this.data.yu_hid
-    }
-    wx.setStorage({
-      key: "wuyin_hid",
-      data: wuyin_hid,
-      success: res => {
-        console.log('向缓存存储wuyin_hid结果成功')
-      },
-      fail: e => {
-        console.log('向缓存存储wuyin_hid结果失败')
-      }
-    })
-  },
 
   //滑动问题下的滑钮时，收集用户答案
   sliderChange(e) {
@@ -361,7 +340,29 @@ Page({
       }
     })
 
-    this.recordRecommendMusic
+    // 用来保存  首页-“我的舒缓歌单”   获取的推荐音乐显示情况
+    console.log('启动 recordRecommendMusic() 成功')
+
+    var wuyin_hid = {
+      gong_hid: this.data.gong_hid,
+      shang_hid: this.data.shang_hid,
+      jue_hid: this.data.jue_hid,
+      zhi_hid: this.data.zhi_hid,
+      yu_hid: this.data.yu_hid,
+      to_cur: this.data.to_cur,
+    }
+
+    wx.setStorage({
+      key: 'wuyin_hid',
+      data: wuyin_hid,
+      success: res => {
+        console.log('向缓存存储"wuyin_hid"结果成功')
+      },
+      fail: e => {
+        console.log('向缓存存储"wuyin_hid"结果失败')
+      }
+    })
+
   },
 
   /**
@@ -374,20 +375,24 @@ Page({
       //存储从上一页返回的参数
       finalRes: options.finalRes,
       TabCur: options.TabCur,
+
       gong_hid: options.gong_hid,
       shang_hid: options.shang_hid,
       jue_hid: options.jue_hid,
       zhi_hid: options.zhi_hid,
       yu_hid: options.yu_hid,
-
+      to_cur: options.to_cur,
 
       sing_list_hid: options.sing_list_hid,
       time_show_hid: options.time_show_hid,
       singlis_show_hid: options.singlis_show_hid,
-
+    })
+    this.setData({
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
     })
+      
+    
 
     this.setData({
       user_gender: app.globalData.user_gender,
