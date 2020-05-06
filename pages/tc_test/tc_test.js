@@ -48,14 +48,13 @@ Page({
     yu_list: {},
 
     // 下面的hid估计是hidden的意思吧。。。
-    // gong_hid: 0,
-    // shang_hid: 1,
-    // jue_hid: 1,
-    // zhi_hid: 1,
-    // yu_hid: 1,
+    gong_hid: 0,
+    shang_hid: 1,
+    jue_hid: 1,
+    zhi_hid: 1,
+    yu_hid: 1,
 
     to_cur: 1,
-    testtimes: 1,  // 用来记录总共测试的次数
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
     TabCur: 0, //当前页面的Tab值
@@ -320,15 +319,11 @@ Page({
           "Content-Type": "application/x-www-form-urlencoded",
           data: {
             openid: openid,
-            testtimes: this.data.testtimes,
             index: this.data.index,
             convert: this.data.convert,
           },
           success: res => {
             console.log('给服务器发送体质检测结果成功')
-            this.setData({
-              testtimes: this.data.testtimes + 1
-            })
           },
           fail: e => {
             console.log('向服务器发送体质检测结果失败，失败原因为：\n' + e)
@@ -369,13 +364,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     var that = this
     this.setData({
       //存储从上一页返回的参数
       finalRes: options.finalRes,
       TabCur: options.TabCur,
-
       gong_hid: options.gong_hid,
       shang_hid: options.shang_hid,
       jue_hid: options.jue_hid,
@@ -387,13 +380,12 @@ Page({
       time_show_hid: options.time_show_hid,
       singlis_show_hid: options.singlis_show_hid,
     })
+
     this.setData({
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
     })
       
-    
-
     this.setData({
       user_gender: app.globalData.user_gender,
       gong_list: app.globalData.gong_list,
