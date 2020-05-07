@@ -344,13 +344,13 @@ Page({
       console.log('已注册，调往体质测试界面')
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
         console.log('定时关闭')
-        var to_time_path = '../tc_test/tc_test?TabCur=10&sing_list_hid=1&time_show_hid=1&finalRes=' + finalRes1
+        var to_time_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&&songlist_hid=false&time_slider_hid=false&finalRes=' + finalRes1
         wx.navigateTo({
           url: to_time_path,
         })
       } else if (e.changedTouches['0'].pageX >= (curwindowWidth - curwindowWidth3)) {
         console.log('我的舒缓歌单')
-        var to_songlist_path = '../tc_test/tc_test?TabCur=10&sing_list_hid=1&singlis_show_hid=1&finalRes=' + finalRes1
+        var to_songlist_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&songlist_hid=false&time_slider_hid=true&finalRes=' + finalRes1
 
         wx.getStorage({
           key: 'wuyin_hid',
@@ -372,7 +372,7 @@ Page({
       } else {
         console.log('中医体质测试')
         wx.navigateTo({
-          url: '../tc_test/tc_test?singlis_show_hid=1',
+          url: '../tc_test/tc_test?top_item_hid=false&songlist_hid=false&time_slider_hid=true',
         })
       }
     } else {
@@ -433,13 +433,18 @@ Page({
             wx.request({
               url: 'https://www.gricn.top:4000/isRegistered/' + res.data,
               success(res) {
-                if (res.data) {
+                if (res.data.exist) {
                   wx.setStorage({
                     key: 'isRegistered',
                     data: true,
                   })
+                  wx.setData({
+                    key:'gender',
+                    user_gender: res.data.gender
+                  })
 
                   app.globalData.isRegistered = true
+                  app.globalData.user_gender = res.data.gender
                   console.log("用户已注册 从服务器读取用户注册情况成功")
                 } else {
                   console.log("用户未注册 从服务器读取用户注册情况成功")
@@ -452,9 +457,9 @@ Page({
                 if (res.data) {
                   wx.setStorage({
                     key: 'user_gender',
-                    data: res.data,
+                    data: res.data.gender,
                   })
-                  app.globalData.user_gender = res.data
+                  app.globalData.user_gender = res.data.gender
                   console.log("从服务器获取用户性别成功")
                 } else {
                   console.log("从服务器获取用户性别成功，但值不正确")
@@ -468,14 +473,6 @@ Page({
         })
       }
     })
-
-
-    // 使用 wx.createAudioContext 获取 audio 上下文 context
-    this.audioCtx = wx.createAudioContext('a0')           //tu
-    this.audioCtx1 = wx.createAudioContext('a1')          //jin
-    this.audioCtx2 = wx.createAudioContext('a2')          //mu
-    this.audioCtx3 = wx.createAudioContext('a3')          //huo
-    this.audioCtx4 = wx.createAudioContext('a4')          //shui
 
     //获得上一页面传回的参数
     this.setData({
@@ -498,6 +495,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady(e) {
+    // 使用 wx.createAudioContext 获取 audio 上下文 context
+    this.audioCtx = wx.createAudioContext('a0')           //tu
+    this.audioCtx1 = wx.createAudioContext('a1')          //jin
+    this.audioCtx2 = wx.createAudioContext('a2')          //mu
+    this.audioCtx3 = wx.createAudioContext('a3')          //huo
+    this.audioCtx4 = wx.createAudioContext('a4')          //shui
+
     var that = this
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',

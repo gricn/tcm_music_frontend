@@ -18,7 +18,6 @@ Page({
         index:[],
         constitutionContext:[]
      */
-    index0: 0,
 
     //9种体质的转换
     // convert: ['暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无'],
@@ -37,9 +36,9 @@ Page({
     //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
     abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0],
 
-    sing_list_hid: 0,
-    time_show_hid: 0,
-    singlis_show_hid: 0,
+    top_item_hid: false,
+    time_slider_hid: true,
+    songlist_hid: false,
 
     gong_list: {},
     shang_list: {},
@@ -54,10 +53,10 @@ Page({
     zhi_hid: 1,
     yu_hid: 1,
 
-    to_cur: 1,
+    to_cur: 1,  // 测试结束，传递回主页的页面
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
-    TabCur: 0, //当前页面的Tab值
+    curTab: 0, //当前页面的Tab值
     scrollLeft: 0, //Tab向左偏移量
     test_tittle: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '测试结果', '您的推荐舒缓歌单'], //Tab列表
   },
@@ -70,15 +69,24 @@ Page({
     })
   },
 
-  //点击不同Tab时，Tab的反应
-  tabSelect(e) {
-    this.setData({
-      TabCur: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
-    })
+  swiperChange(e) {//切换
+    let {
+      current,
+      source
+    } = e.detail
+    if (source === 'autoplay' || source === 'touch') {
+      const curTab = current
+      this.setData({
+        curTab,
+        scrollLeft: (e.detail.current - 1) * 60
+      })
+    }
+    this.judgeConstitution()
+  },
 
+  judgeConstitution() {
     /*选择“测试结果”页时进行判断*/
-    if (e.currentTarget.dataset.id == 9 || e.currentTarget.dataset.id == 10) {
+    if (this.data.curTab == 9 || this.data.curTab == 10) {
       var locked = false; //判断平和体质数值是否可以修改，true为不可修改
 
       for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
@@ -251,7 +259,17 @@ Page({
         console.log('推荐舒缓歌单：宫')
       }
     }
+  },
 
+
+  //点击不同Tab时，Tab的反应
+  tabSelect(e) {
+    this.setData({
+      curTab: e.currentTarget.dataset.id,
+      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+    })
+
+    this.judgeConstitution()
   },
 
 
@@ -298,7 +316,7 @@ Page({
 
   switchSongPage() {
     this.setData({
-      TabCur: 10
+      curTab: 10
     })
 
     /**
@@ -364,36 +382,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
+    
+    // if (options.top_item_hid != undefined) {
+    //   this.setData({
+    //     top_item_hid: options.top_item_hid,
+    //   })
+    // }
+    if (options.time_slider_hid != undefined) {
+      this.setData({
+        time_slider_hid: options.time_slider_hid,
+      })
+    }
+    if (options.songlist_hid != undefined){
+      this.setData({
+        songlist_hid: options.songlist_hid,
+      })
+    }
+
     this.setData({
       //存储从上一页返回的参数
-      finalRes: options.finalRes,
-      TabCur: options.TabCur,
-      gong_hid: options.gong_hid,
-      shang_hid: options.shang_hid,
-      jue_hid: options.jue_hid,
-      zhi_hid: options.zhi_hid,
-      yu_hid: options.yu_hid,
-      to_cur: options.to_cur,
-
-      sing_list_hid: options.sing_list_hid,
-      time_show_hid: options.time_show_hid,
-      singlis_show_hid: options.singlis_show_hid,
-    })
-
-    this.setData({
+     
+      curTab: options.curTab,
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
     })
-      
-    this.setData({
-      user_gender: app.globalData.user_gender,
-      gong_list: app.globalData.gong_list,
-      shang_list: app.globalData.shang_list,
-      jue_list: app.globalData.jue_list,
-      zhi_list: app.globalData.zhi_list,
-      yu_list: app.globalData.yu_list
-    })
+    // finalRes: options.finalRes,
+
+    if (options.gong_hid != undefined) {
+      this.setData({
+        gong_hid: options.gong_hid,
+        shang_hid: options.shang_hid,
+        jue_hid: options.jue_hid,
+        zhi_hid: options.zhi_hid,
+        yu_hid: options.yu_hid,
+        to_cur: options.to_cur,
+      })
+    }
+
   },
 
 
@@ -402,6 +427,23 @@ Page({
    */
   onReady: function () {
 
+    this.setData({
+      gong_list: app.globalData.gong_list,
+      shang_list: app.globalData.shang_list,
+      jue_list: app.globalData.jue_list,
+      zhi_list: app.globalData.zhi_list,
+      yu_list: app.globalData.yu_list,
+    })
+
+    wx.getStorage({
+      key: "user_gender",
+      success: res=>{
+        console.log('aaaaaaaa')
+        this.setData({
+          user_gender: res.data
+        })
+      }
+    })
   },
 
   /**

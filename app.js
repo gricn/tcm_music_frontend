@@ -104,6 +104,12 @@ App({
       }
     })
   },
+
+  onLoad(){
+    var that = this
+    
+  },
+
   onShow() {
 
   },
