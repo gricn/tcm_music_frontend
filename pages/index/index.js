@@ -320,8 +320,6 @@ Page({
     this.setData({
       modalName: null
     })
-
-
   },
 
   To_tc_test: function (e) {
@@ -439,8 +437,8 @@ Page({
                     data: true,
                   })
                   wx.setData({
-                    key:'gender',
-                    user_gender: res.data.gender
+                    key: 'user_gender',
+                    data: res.data.gender
                   })
 
                   app.globalData.isRegistered = true
@@ -448,21 +446,6 @@ Page({
                   console.log("用户已注册 从服务器读取用户注册情况成功")
                 } else {
                   console.log("用户未注册 从服务器读取用户注册情况成功")
-                }
-              }
-            })
-            wx.request({
-              url: 'https://www.gricn.top:4000/getusergender/' + res.data,
-              success(res) {
-                if (res.data) {
-                  wx.setStorage({
-                    key: 'user_gender',
-                    data: res.data.gender,
-                  })
-                  app.globalData.user_gender = res.data.gender
-                  console.log("从服务器获取用户性别成功")
-                } else {
-                  console.log("从服务器获取用户性别成功，但值不正确")
                 }
               }
             })
@@ -485,10 +468,24 @@ Page({
     var time = util.formatTime(new Date());
     // 再通过setData更改Page()里面的data，动态更新页面的数据
     this.setData({
-      time: time
+      time
     });
   },
 
+  // 用于wx.navigatorBack()返回主界面后，修改数据
+  // 详情参考微信开发文档，页面路由：https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/route.html
+  // 额，这个onShow好像没有被触发 (⊙﹏⊙)
+  onShow(e) {
+    wx.getStorage({
+      key: 'isRegistered',
+      success: res=>{
+        this.setData({
+          isRegistered: res.data
+        })
+      }
+    })
+    
+  },
 
 
   /**

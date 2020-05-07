@@ -39,6 +39,8 @@ Page({
     top_item_hid: false,
     time_slider_hid: true,
     songlist_hid: false,
+    sendDataLocked: false,
+
 
     gong_list: {},
     shang_list: {},
@@ -78,44 +80,61 @@ Page({
       })
     }
     this.judgeConstitution()
+    if (this.data.curTab === 10 && this.data.convert != undefined && this.data.convert.length == 9) {
+      this.switchSongPage()
+    }
+  },
+
+  //点击不同Tab时，Tab的反应
+  tabSelect(e) {
+    let { id } = e.currentTarget.dataset
+    this.setData({
+      curTab: id,
+      scrollLeft: (id - 1) * 60
+    })
+
+    this.judgeConstitution()
   },
 
   judgeConstitution() {
     /*选择“测试结果”页时进行判断*/
     if (this.data.curTab == 9 || this.data.curTab == 10) {
-      var locked = false; //判断平和体质数值是否可以修改，true为不可修改
+      var normalConsLocked = false; //判断平和体质数值是否可以修改，true为不可修改
 
       for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
-        // 确定偏颇体质
-        if (this.data.convert[i] >= 40) {
-          let temp = "abnormalConstitution[" + i + "]"
-          this.setData({
-            [temp]: 2
-          })
-          // this.data.abnormalConstitution[i] = 2
-          if (!locked) {
+
+        if (this.data.convert != undefined && this.data.convert[i] != undefined)
+
+          // 确定偏颇体质
+          if (this.data.convert[i] >= 40) {
+            let temp = "abnormalConstitution[" + i + "]"
             this.setData({
-              normalConstitution: 0
+              [temp]: 2
             })
-            locked = true
-          }
-          //有偏颇质倾向
-        } else if (this.data.convert[i] >= 30) {
-          let temp = "abnormalConstitution[" + i + "]"
-          this.setData({
-            [temp]: 1
-          })
-          if (!locked) {
+            // this.data.abnormalConstitution[i] = 2
+            if (!normalConsLocked) {
+              this.setData({
+                normalConstitution: 0
+              })
+              normalConsLocked = true
+            }
+            //有偏颇质倾向
+          } else if (this.data.convert[i] >= 30) {
+            let temp = "abnormalConstitution[" + i + "]"
             this.setData({
-              normalConstitution: 1
+              [temp]: 1
+            })
+            if (!normalConsLocked) {
+              this.setData({
+                normalConstitution: 1
+              })
+            }
+          } else {
+            let temp = "abnormalConstitution[" + i + "]"
+            this.setData({
+              [temp]: 0
             })
           }
-        } else {
-          let temp = "abnormalConstitution[" + i + "]"
-          this.setData({
-            [temp]: 0
-          })
-        }
       }
 
       // console.log(this.data.normalConstitution == 2)
@@ -288,7 +307,7 @@ Page({
         }
       }
 
-      var temp = "convert[" + e + "]"
+      let temp = "convert[" + e + "]"
       that.setData({
         [temp]: ((sum - length) / (length * 4) * 100).toFixed(2)
       })
@@ -300,66 +319,67 @@ Page({
   },
 
   switchSongPage() {
-    this.setData({
-      curTab: 10
-    })
-
-    /**
-     * 暂时不启用，当然也可以玩玩，服务器会收到和this.data.xxx类似的数据
-     * 正在考虑架构以及搭建新数据库中
-     */
-
-    var openid = ''
-    wx.getStorage({
-      key: 'openid',
-      success: res => {
-        openid = res.data
-        console.log('从本地缓存读取openid成功')
-
-        wx.request({
-          url: 'https://www.gricn.top:4000/test',
-          method: 'POST',
-          "Content-Type": "application/x-www-form-urlencoded",
-          data: {
-            openid: openid,
-            index: this.data.index,
-            convert: this.data.convert,
-          },
-          success: res => {
-            console.log('给服务器发送体质检测结果成功')
-          },
-          fail: e => {
-            console.log('向服务器发送体质检测结果失败，失败原因为：\n' + e)
-          }
-        })
-      },
-      fail: e => {
-        console.log('从本地缓存读取openid失败，失败原因为：\n' + e)
-      }
-    })
-
-    // 用来保存  首页-“我的舒缓歌单”   获取的推荐音乐显示情况
-    console.log('启动 recordRecommendMusic() 成功')
-
-    var wuyin_hid = {
-      gong_hid: this.data.gong_hid,
-      shang_hid: this.data.shang_hid,
-      jue_hid: this.data.jue_hid,
-      zhi_hid: this.data.zhi_hid,
-      yu_hid: this.data.yu_hid,
-      to_cur: this.data.to_cur,
+    if (this.data.curTab !== 10) {
+      this.setData({
+        curTab: 10
+      })
     }
 
-    wx.setStorage({
-      key: 'wuyin_hid',
-      data: wuyin_hid,
-      success: res => {
-        console.log('向缓存存储"wuyin_hid"结果成功')
-      },
-      fail: e => {
-        console.log('向缓存存储"wuyin_hid"结果失败')
+    if (this.data.convert.length == 9 && this.data.sendDataLocked !== true) {
+      var openid = ''
+      wx.getStorage({
+        key: 'openid',
+        success: res => {
+          openid = res.data
+          console.log('从本地缓存读取openid成功')
+
+          wx.request({
+            url: 'https://www.gricn.top:4000/test',
+            method: 'POST',
+            "Content-Type": "application/x-www-form-urlencoded",
+            data: {
+              openid: openid,
+              index: this.data.index,
+              convert: this.data.convert,
+            },
+            success: res => {
+              console.log('给服务器发送体质检测结果成功')
+              this.data.sendDataLocked = true
+            },
+            fail: e => {
+              console.log('向服务器发送体质检测结果失败，失败原因为：\n' + e)
+            }
+          })
+        },
+        fail: e => {
+          console.log('从本地缓存读取openid失败，失败原因为：\n' + e)
+        }
+      })
+
+      // 用来保存  首页-“我的舒缓歌单”   获取的推荐音乐显示情况
+      console.log('启动 recordRecommendMusic() 成功')
+
+      var wuyin_hid = {
+        gong_hid: this.data.gong_hid,
+        shang_hid: this.data.shang_hid,
+        jue_hid: this.data.jue_hid,
+        zhi_hid: this.data.zhi_hid,
+        yu_hid: this.data.yu_hid,
+        to_cur: this.data.to_cur,
       }
-    })
+
+      wx.setStorage({
+        key: 'wuyin_hid',
+        data: wuyin_hid,
+        success: res => {
+          console.log('向缓存存储"wuyin_hid"结果成功')
+        },
+        fail: e => {
+          console.log('向缓存存储"wuyin_hid"结果失败')
+        }
+      })
+    }
+
 
   },
 

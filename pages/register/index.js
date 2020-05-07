@@ -38,11 +38,8 @@ Page({
 
   switch_gender: function (e) {
     console.log(e.detail.value)
-    //true为男性
-    //false为女性
-    // this.setData({
-    //   gender: e.detail.value
-    // })
+    // true为男性, false为女性  
+    
     wx.setStorageSync('user_gender', e.detail.value)
   },
 
@@ -74,7 +71,7 @@ Page({
           },
           success: res => {
             console.log('给服务器发送注册信息成功')
-            wx.setStorageSync('isRegistered', res.data)
+            wx.setStorageSync('isRegistered', true)
             app.globalData.isRegistered = true
             // var pages = getCurrentPages() //获取加载的页面( 页面栈 )
             // var prevPage = pages[pages.length - 2] //获取上一个页面

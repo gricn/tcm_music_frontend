@@ -1,29 +1,7 @@
 <cu-custom bgColor="bg-white1" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">填写相关信息</view>
+  <view slot="backText">返回</view>
+  <view slot="content">填写相关信息</view>
 </cu-custom>
-<!-- 开头一段文字（也可加一张图片） -->
-<!-- <view>
-  我们在完成学校课题的同时，关注用户的隐私，但为了用户数据记录，我们在此需要收集用户的年龄、性别、所在地区以及用户在本小程序下的openid。
-</view> -->
-
-<!-- 用户输入年龄
-<view class="container" style="flex-direction:row;">
-  <view >年龄：</view>
-  <view><input type="number" value="请输入您的年龄" focus="false"></input></view>
-</view> -->
-
-
-<!-- 用户选择性别
-<view class="section" >
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker">
-      性别：{{array[index]}}
-    </view>
-  </picker>
-</view> -->
-
-
 <view class="cu-card dynamic iscard" style="display:flex;align-item:center;">
   <view class="cu-item shadow">
     <view class="cu-list menu-avatar">
@@ -35,81 +13,73 @@
       </view>
     </view>
     <view class="text-content">
-    嗨(｡･∀･)ﾉﾞ，我是可爱的小芍药，我们在完成学校课题体质测试的同时，需要收集您的的年龄、性别、所在地区数据来支持来中医体质测试，我们承诺这些信息不会用于非法用途哦~
+      嗨(｡･∀･)ﾉﾞ，我是可爱的小芍药，我们在完成学校课题体质测试的同时，需要收集您的的年龄、性别、所在地区数据来支持来中医体质测试，我们承诺这些信息不会用于非法用途哦~
     </view>
     <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
-      <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://hbimg.huabanimg.com/5c7d1c0c24707dc80480b5d36bee3daf75384167156e5-0vndiJ_fw658)" wx:for="{{isCard?9:1}}" wx:key="{{index}}">
-      </view>
+      <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://hbimg.huabanimg.com/5c7d1c0c24707dc80480b5d36bee3daf75384167156e5-0vndiJ_fw658)" wx:for="{{isCard?9:1}}" wx:key="{{index}}"></view>
     </view>
     <view class="text-gray text-sm text-right padding">
-      <text class="cuIcon-attentionfill margin-lr-xs"></text> 芍药
+      <text class="cuIcon-attentionfill margin-lr-xs"></text>
+      芍药
     </view>
-
     <view class="cu-list menu-avatar comment solids-top">
-
-    <form>
-
-    <view class="cu-form-group">
-      <view class="title">您的性别：</view>
-      <switch class="switch-sex" checked bindchange="switch_gender"></switch>
-    </view>
-
-    <view class="cu-form-group">
-      <view class="title">您的年龄:</view>
-      <input placeholder="请输入您的年龄" type="number" bindblur="input_age"></input>
-      <view class="cu-capsule radius">
-        <view class="cu-tag bg-blue">
-          2020
+      <form>
+        <view class="cu-form-group">
+          <view class="title">您的性别：</view>
+          <switch class="switch-sex" checked bindchange="switch_gender"></switch>
         </view>
-        <view class="cu-tag line-blue">
-          公历
+        <view class="cu-form-group">
+          <view class="title">您的年龄:</view>
+          <input placeholder="请输入您的年龄" type="number" bindblur="input_age"></input>
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-blue">2020</view>
+            <view class="cu-tag line-blue">公历</view>
+          </view>
         </view>
-      </view>
-    </view>
-
-    <!-- 省市三级联动，祖传代码，请勿随意改动~~ -->
-  <view class="address-item" style="background-color:white" bindtap="pickAddress" data-ptpid="6a75-10f3-aaad-329c">
-    <view class="item-title">所在地区:</view>
-    <view class="item-content arrow {{region ? '' : 'item-content_shadow'  }}">{{region||"请选择您所在的地区"}}</view>
-  </view>
-  <pop-up visible="{{visible}}" onClose="closePopUp">
-    <view slot="content">
-      <view class="picker-view">
-        <view class="picker-view__pane">
-          <text catchtap="cityCancel" data-ptpid="fa67-12ea-9918-cdf8">取消</text>
-          <text catchtap="citySure" data-ptpid="0cbd-188c-b3e5-cd10">确定</text>
+        <!-- 省市三级联动，祖传代码，请勿随意改动~~ -->
+        <view class="address-item" style="background-color:white" bindtap="pickAddress" data-ptpid="6a75-10f3-aaad-329c">
+          <view class="item-title">所在地区:</view>
+          <view class="item-content arrow {{region ? '' : 'item-content_shadow'  }}">
+            {{region||"请选择您所在的地区"}}
+          </view>
         </view>
-        <picker-view class="pick-view__group" bindchange="cityChange" value="{{value}}" wx:key="">
-          <picker-view-column indicator-class="item_active">
-            <view wx:for="{{provinces}}" class="picker-item" wx:key="index">{{item.name}}</view>
-          </picker-view-column>
-          <picker-view-column>
-            <view wx:for="{{citys}}" class="picker-item" wx:key="index">{{item.name}}</view>
-          </picker-view-column>
-          <picker-view-column>
-            <view wx:for="{{areas}}" class="picker-item" wx:key="index">{{item.name}}</view>
-          </picker-view-column>
-        </picker-view> 
-      </view>
-    </view>
-  </pop-up>
-
-  <view style="width:100%;height:40%;display:flex;justify-content:space-round;align-items:center;background:white">
-    <button class="cu-btn line-blue round shadow" style="text-align: center; margin: 0 auto;" bindtap="To_index" form-type="submit"> 欢迎使用</button>
-  </view>
-  
-  </form>
-
-    <view class="content margin">
-      <view class="margin-top-sm flex justify-between">
-        <view class="text-gray text-xs">欢迎给我们给更多反馈</view>
-        <!-- <view>
+        <pop-up visible="{{visible}}" onClose="closePopUp">
+          <view slot="content">
+            <view class="picker-view">
+              <view class="picker-view__pane">
+                <text catchtap="cityCancel" data-ptpid="fa67-12ea-9918-cdf8">取消</text>
+                <text catchtap="citySure" data-ptpid="0cbd-188c-b3e5-cd10">确定</text>
+              </view>
+              <picker-view class="pick-view__group" bindchange="cityChange" value="{{value}}" wx:key="">
+                <picker-view-column indicator-class="item_active">
+                  <view wx:for="{{provinces}}" class="picker-item" wx:key="index">
+                    {{item.name}}
+                  </view>
+                </picker-view-column>
+                <picker-view-column>
+                  <view wx:for="{{citys}}" class="picker-item" wx:key="index">{{item.name}}</view>
+                </picker-view-column>
+                <picker-view-column>
+                  <view wx:for="{{areas}}" class="picker-item" wx:key="index">{{item.name}}</view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+          </view>
+        </pop-up>
+        <view style="width:100%;height:40%;display:flex;justify-content:space-round;align-items:center;background:white">
+          <button class="cu-btn line-blue round shadow" style="text-align: center; margin: 0 auto;" bindtap="To_index" form-type="submit">
+            欢迎使用
+          </button>
+        </view>
+      </form>
+      <view class="content margin">
+        <view class="margin-top-sm flex justify-between">
+          <view class="text-gray text-xs">欢迎给我们给更多反馈</view>
+          <!-- <view>
           <text class="cuIcon-appreciate text-gray"></text>
         </view> -->
+        </view>
       </view>
-    </view>
-
-
     </view>
   </view>
 </view>
