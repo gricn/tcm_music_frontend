@@ -84,6 +84,16 @@ Page({
     this.judgeConstitution()
   },
 
+  //点击不同Tab时，Tab的反应
+  tabSelect(e) {
+    this.setData({
+      curTab: e.currentTarget.dataset.id,
+      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+    })
+
+    this.judgeConstitution()
+  },
+
   judgeConstitution() {
     /*选择“测试结果”页时进行判断*/
     if (this.data.curTab == 9 || this.data.curTab == 10) {
@@ -259,17 +269,6 @@ Page({
         console.log('推荐舒缓歌单：宫')
       }
     }
-  },
-
-
-  //点击不同Tab时，Tab的反应
-  tabSelect(e) {
-    this.setData({
-      curTab: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
-    })
-
-    this.judgeConstitution()
   },
 
 

@@ -20,7 +20,7 @@
     </view>
   </scroll-view>
 
-  <swiper style="width: 100%;  height: 2100rpx;" bindchange='swiperChange' current='{{curTab}}'>
+  <swiper style="width: 100%;  height: 2100rpx;" bindchange='swiperChange' easing-function="easeInOutCubic" duration="1000" circular="false" current='{{curTab}}'>
     <block wx:for="{{test_tittle}}" wx:key="*this" wx:for-index="swiperIndex" wx:for-item="swiperItem">
       <swiper-item>
         <!-- 除【Tab4：湿热质】有些特殊（题目应涉及性别会改变），其他体质页面都可通过这种形式展示 -->
