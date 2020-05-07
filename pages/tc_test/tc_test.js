@@ -70,27 +70,13 @@ Page({
   },
 
   swiperChange(e) {//切换
-    let {
-      current,
-      source
-    } = e.detail
+    let { current, source } = e.detail
     if (source === 'autoplay' || source === 'touch') {
-      const curTab = current
       this.setData({
-        curTab,
-        scrollLeft: (e.detail.current - 1) * 60
+        curTab: current,
+        scrollLeft: (current - 1) * 60
       })
     }
-    this.judgeConstitution()
-  },
-
-  //点击不同Tab时，Tab的反应
-  tabSelect(e) {
-    this.setData({
-      curTab: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
-    })
-
     this.judgeConstitution()
   },
 
@@ -381,7 +367,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
     // if (options.top_item_hid != undefined) {
     //   this.setData({
     //     top_item_hid: options.top_item_hid,
@@ -392,7 +378,7 @@ Page({
         time_slider_hid: options.time_slider_hid,
       })
     }
-    if (options.songlist_hid != undefined){
+    if (options.songlist_hid != undefined) {
       this.setData({
         songlist_hid: options.songlist_hid,
       })
@@ -400,7 +386,7 @@ Page({
 
     this.setData({
       //存储从上一页返回的参数
-     
+
       curTab: options.curTab,
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,
@@ -436,7 +422,7 @@ Page({
 
     wx.getStorage({
       key: "user_gender",
-      success: res=>{
+      success: res => {
         console.log('aaaaaaaa')
         this.setData({
           user_gender: res.data
