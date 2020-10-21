@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/tc_test/tc_test",
-    "pages/register/index"
+    "pages/register/index",
+    "pages/tcmMusic_intro/intro"
   ],
   "window": {
     "backgroundTextStyle": "light",
