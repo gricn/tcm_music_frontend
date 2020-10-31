@@ -1628,7 +1628,7 @@ button.icon.lg {
 }
 
 .cu-bar .action:last-child {
-	/* margin-right: 30rpx; */
+	margin-right: 30rpx;
 }
 
 .cu-bar .action>text[class*="cuIcon-"],
@@ -2481,6 +2481,7 @@ button.icon.lg {
 	overflow-x: hidden;
 	overflow-y: auto;
 	pointer-events: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .cu-dialog {

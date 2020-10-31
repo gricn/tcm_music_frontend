@@ -3,7 +3,7 @@
     "pop-up": "/components/pop-up/index"
   },
   "backgroundTextStyle": "light",
-  "navigationBarBackgroundColor": "#fff",
+  "navigationBarBackgroundColor": "#241",
   "backgroundColor": "#fff",
   "navigationBarTitleText": "填写相关信息",
   "navigationStyle": "custom",

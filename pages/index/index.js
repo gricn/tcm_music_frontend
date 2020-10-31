@@ -164,7 +164,7 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx.setSrc(res.data)
+            that.audioCtx.src = res.data
             that.audioCtx.play()
           }
         })
@@ -196,7 +196,7 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx1.setSrc(res.data)
+            that.audioCtx1.src = res.data
             that.audioCtx1.play()
           }
         })
@@ -227,7 +227,7 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx2.setSrc(res.data)
+            that.audioCtx2.src = res.data
             that.audioCtx2.play()
           }
         })
@@ -258,7 +258,7 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx3.setSrc(res.data)
+            that.audioCtx3.src = res.data
             that.audioCtx3.play()
           }
         })
@@ -289,7 +289,7 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx4.setSrc(res.data)
+            that.audioCtx4.src = res.data
             that.audioCtx4.play()
           }
         })
@@ -493,41 +493,41 @@ Page({
    */
   onReady(e) {
     // 使用 wx.createAudioContext 获取 audio 上下文 context
-    this.audioCtx = wx.createAudioContext('a0')           //tu
-    this.audioCtx1 = wx.createAudioContext('a1')          //jin
-    this.audioCtx2 = wx.createAudioContext('a2')          //mu
-    this.audioCtx3 = wx.createAudioContext('a3')          //huo
-    this.audioCtx4 = wx.createAudioContext('a4')          //shui
+    this.audioCtx = wx.createInnerAudioContext('a0')           //tu
+    this.audioCtx1 = wx.createInnerAudioContext('a1')          //jin
+    this.audioCtx2 = wx.createInnerAudioContext('a2')          //mu
+    this.audioCtx3 = wx.createInnerAudioContext('a3')          //huo
+    this.audioCtx4 = wx.createInnerAudioContext('a4')          //shui
 
     var that = this
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',
       success(res) {
-        that.audioCtx.setSrc(res.data)  //tu
+        that.audioCtx.src = res.data  //tu
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167247',
       success(res) {
-        that.audioCtx1.setSrc(res.data)   //jin
+        that.audioCtx1.src = res.data   //jin
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167272',
       success(res) {
-        that.audioCtx2.setSrc(res.data)   //mu
+        that.audioCtx2.src = res.data   //mu
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167260',
       success(res) {
-        that.audioCtx3.setSrc(res.data)    //huo
+        that.audioCtx3.src = res.data    //huo
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167278',
       success(res) {
-        that.audioCtx4.setSrc(res.data)   //shui
+        that.audioCtx4.src = res.data   //shui
       }
     })
   },
