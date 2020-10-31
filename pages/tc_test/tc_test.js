@@ -8,6 +8,10 @@ var jsonData = require('./json.js')
 const app = getApp()
 
 Page({
+  options: {
+    pureDataPattern: /^_/ // 指定所有 _ 开头的数据字段为纯数据字段
+  },
+
   /**
    * 页面的初始数据
    */
@@ -34,7 +38,7 @@ Page({
 
     //8种偏颇。0：否；1：基本是；2：是
     //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
-    abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0],
+    _abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0],
 
     top_item_hid: false,
     time_slider_hid: true,
@@ -55,7 +59,7 @@ Page({
     zhi_hid: 1,
     yu_hid: 1,
 
-    to_cur: 1,  // 测试结束，传递回主页的页面
+    _to_cur: 1, // 测试结束，传递回主页的页面
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
     curTab: 0, //当前页面的Tab值
@@ -65,14 +69,17 @@ Page({
 
 
   goHomePage(e) {
-    var homePagePath = '../index/index?cur=' + this.data.to_cur + '&finalRes=' + this.data.finalRes
+    var homePagePath = '../index/index?cur=' + this.data._to_cur + '&finalRes=' + this.data.finalRes
     wx.navigateTo({
       url: homePagePath,
     })
   },
 
-  swiperChange(e) {//切换
-    let { current, source } = e.detail
+  swiperChange(e) { //切换
+    let {
+      current,
+      source
+    } = e.detail
     if (source === 'autoplay' || source === 'touch') {
       this.setData({
         curTab: current,
@@ -87,7 +94,9 @@ Page({
 
   //点击不同Tab时，Tab的反应
   tabSelect(e) {
-    let { id } = e.currentTarget.dataset
+    let {
+      id
+    } = e.currentTarget.dataset
     this.setData({
       curTab: id,
       scrollLeft: (id - 1) * 60
@@ -101,17 +110,17 @@ Page({
     if (this.data.curTab == 9 || this.data.curTab == 10) {
       var normalConsLocked = false; //判断平和体质数值是否可以修改，true为不可修改
 
-      for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
+      for (var i = 0; i < this.data._abnormalConstitution.length; i++) {
 
         if (this.data.convert != undefined && this.data.convert[i] != undefined)
 
           // 确定偏颇体质
           if (this.data.convert[i] >= 40) {
-            let temp = "abnormalConstitution[" + i + "]"
+            let temp = "_abnormalConstitution[" + i + "]"
             this.setData({
               [temp]: 2
             })
-            // this.data.abnormalConstitution[i] = 2
+            // this.data._abnormalConstitution[i] = 2
             if (!normalConsLocked) {
               this.setData({
                 normalConstitution: 0
@@ -120,21 +129,21 @@ Page({
             }
             //有偏颇质倾向
           } else if (this.data.convert[i] >= 30) {
-            let temp = "abnormalConstitution[" + i + "]"
+          let temp = "_abnormalConstitution[" + i + "]"
+          this.setData({
+            [temp]: 1
+          })
+          if (!normalConsLocked) {
             this.setData({
-              [temp]: 1
-            })
-            if (!normalConsLocked) {
-              this.setData({
-                normalConstitution: 1
-              })
-            }
-          } else {
-            let temp = "abnormalConstitution[" + i + "]"
-            this.setData({
-              [temp]: 0
+              normalConstitution: 1
             })
           }
+        } else {
+          let temp = "_abnormalConstitution[" + i + "]"
+          this.setData({
+            [temp]: 0
+          })
+        }
       }
 
       // console.log(this.data.normalConstitution == 2)
@@ -150,8 +159,8 @@ Page({
         //基本平和质
         temp = "基本是平和体质，有"
 
-        for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
-          if (this.data.abnormalConstitution[i] == 1) {
+        for (var i = 0; i < this.data._abnormalConstitution.length; i++) {
+          if (this.data._abnormalConstitution[i] == 1) {
             temp += this.data.constitutionContext[i] + " "
           }
         }
@@ -162,8 +171,8 @@ Page({
         })
       } else {
         //非平和质
-        for (var i = 0; i < this.data.abnormalConstitution.length; i++) {
-          if (this.data.abnormalConstitution[i] == 2) {
+        for (var i = 0; i < this.data._abnormalConstitution.length; i++) {
+          if (this.data._abnormalConstitution[i] == 2) {
             temp += this.data.constitutionContext[i] + " "
           }
         }
@@ -180,10 +189,10 @@ Page({
           jue_hid: 1,
           zhi_hid: 1,
           yu_hid: 1,
-          to_cur: 1
+          _to_cur: 1
         })
         console.log('推荐舒缓歌单：宫')
-      } else if (this.data.abnormalConstitution[2] > 0) {
+      } else if (this.data._abnormalConstitution[2] > 0) {
         // 气虚质
         this.setData({
           gong_hid: 1,
@@ -191,10 +200,10 @@ Page({
           jue_hid: 1,
           zhi_hid: 1,
           yu_hid: 0,
-          to_cur: 5
+          _to_cur: 5
         })
         console.log('推荐舒缓歌单：徵')
-      } else if (this.data.abnormalConstitution[0] > 0) {
+      } else if (this.data._abnormalConstitution[0] > 0) {
         // 阳虚质  
         this.setData({
           gong_hid: 1,
@@ -202,10 +211,10 @@ Page({
           jue_hid: 1,
           zhi_hid: 0,
           yu_hid: 1,
-          to_cur: 4
+          _to_cur: 4
         })
         console.log('推荐舒缓歌单：徵')
-      } else if (this.data.abnormalConstitution[1] > 0) {
+      } else if (this.data._abnormalConstitution[1] > 0) {
         // 阴虚质
         this.setData({
           gong_hid: 1,
@@ -213,10 +222,10 @@ Page({
           jue_hid: 1,
           zhi_hid: 1,
           yu_hid: 0,
-          to_cur: 5
+          _to_cur: 5
         })
         console.log('推荐舒缓歌单：羽')
-      } else if (this.data.abnormalConstitution[3] > 0) {
+      } else if (this.data._abnormalConstitution[3] > 0) {
         // 痰湿质 
         this.setData({
           gong_hid: 1,
@@ -224,10 +233,10 @@ Page({
           jue_hid: 0,
           zhi_hid: 1,
           yu_hid: 1,
-          to_cur: 3
+          _to_cur: 3
         })
         console.log('推荐舒缓歌单：角')
-      } else if (this.data.abnormalConstitution[4] > 0) {
+      } else if (this.data._abnormalConstitution[4] > 0) {
         // 湿热
         this.setData({
           gong_hid: 1,
@@ -235,10 +244,10 @@ Page({
           jue_hid: 1,
           zhi_hid: 1,
           yu_hid: 0,
-          to_cur: 5
+          _to_cur: 5
         })
         console.log('推荐舒缓歌单：羽')
-      } else if (this.data.abnormalConstitution[5] > 0) {
+      } else if (this.data._abnormalConstitution[5] > 0) {
         // 血瘀质
         this.setData({
           gong_hid: 1,
@@ -246,10 +255,10 @@ Page({
           jue_hid: 0,
           zhi_hid: 1,
           yu_hid: 1,
-          to_cur: 3
+          _to_cur: 3
         })
         console.log('推荐舒缓歌单：角')
-      } else if (this.data.abnormalConstitution[7] > 0) {
+      } else if (this.data._abnormalConstitution[7] > 0) {
         // 气郁质  //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
         this.setData({
           gong_hid: 1,
@@ -257,11 +266,11 @@ Page({
           jue_hid: 1,
           zhi_hid: 1,
           yu_hid: 1,
-          to_cur: 2
+          _to_cur: 2
         })
         console.log('推荐舒缓歌单：商')
 
-      } else if (this.data.abnormalConstitution[6] > 0) {
+      } else if (this.data._abnormalConstitution[6] > 0) {
         // 特禀质
         this.setData({
           gong_hid: 0,
@@ -269,7 +278,7 @@ Page({
           jue_hid: 1,
           zhi_hid: 1,
           yu_hid: 1,
-          to_cur: 1
+          _to_cur: 1
         })
         console.log('推荐舒缓歌单：宫')
       }
@@ -365,7 +374,7 @@ Page({
         jue_hid: this.data.jue_hid,
         zhi_hid: this.data.zhi_hid,
         yu_hid: this.data.yu_hid,
-        to_cur: this.data.to_cur,
+        _to_cur: this.data._to_cur,
       }
 
       wx.setStorage({
@@ -420,7 +429,7 @@ Page({
         jue_hid: options.jue_hid,
         zhi_hid: options.zhi_hid,
         yu_hid: options.yu_hid,
-        to_cur: options.to_cur,
+        _to_cur: options._to_cur,
       })
     }
 

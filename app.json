@@ -14,5 +14,6 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
 }

@@ -16,7 +16,7 @@
       嗨(｡･∀･)ﾉﾞ，我是可爱的小芍药，我们在完成学校课题体质测试的同时，需要收集您的的年龄、性别、所在地区数据来支持来中医体质测试，我们承诺这些信息不会用于非法用途哦~
     </view>
     <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
-      <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://hbimg.huabanimg.com/5c7d1c0c24707dc80480b5d36bee3daf75384167156e5-0vndiJ_fw658)" wx:for="{{isCard?9:1}}" wx:key="{{index}}"></view>
+      <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://hbimg.huabanimg.com/5c7d1c0c24707dc80480b5d36bee3daf75384167156e5-0vndiJ_fw658)" wx:for="{{isCard?9:1}}" wx:key="index"></view>
     </view>
     <view class="text-gray text-sm text-right padding">
       <text class="cuIcon-attentionfill margin-lr-xs"></text>

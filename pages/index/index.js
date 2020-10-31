@@ -478,13 +478,13 @@ Page({
   onShow(e) {
     wx.getStorage({
       key: 'isRegistered',
-      success: res=>{
+      success: res => {
         this.setData({
           isRegistered: res.data
         })
       }
     })
-    
+
   },
 
 
