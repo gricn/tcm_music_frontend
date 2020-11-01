@@ -47,11 +47,7 @@
 
     <view class="cu-modal bottom-modal show">
       <view class="cu-dialog">
-        <!-- 队友用这种一年没有更新过的，没有文档的colorUI，心态有点裂 -->
-        <!-- <view class="musicPlayer">
-          <image src="/images/play.png"> </image>
-          <image src="/images/end.png"></image>
-        </view> -->
+        <!-- 队友用一年未更新+无文档的colorUI，心态有点裂 -->
         <view class="cu-bar bg-white1 justify">
           <view class="action" style="margin-left:15px">
             <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPause" id="{{item.id+'p'}}"></switch>
