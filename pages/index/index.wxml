@@ -3,8 +3,7 @@
 </cu-custom>
 <swiper class="swiper1" circular="true" current="{{cur}}" bindchange="change_singing_page">
   <swiper-item>
-    <view
-      class="homepage-view-style">
+    <view class="homepage-view-style">
       <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
         <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" data-target="bottomModal"
           hidden="{{fan_hidden}}">
@@ -46,19 +45,26 @@
    -->
     <image class="sw_image" src="{{item.url}}" mode="aspectFill" bindtap="showModal" data-target="Modal"></image>
 
-    <view class="musicPlayer">
-      <image src="/images/play.png"> </image>
-      <image src="/images/end.png"></image>
-    </view>
     <view class="cu-modal bottom-modal show">
       <view class="cu-dialog">
-        <view class="cu-bar bg-white1 justify-end">
+        <!-- 队友用这种一年没有更新过的，没有文档的colorUI，心态有点裂 -->
+        <!-- <view class="musicPlayer">
+          <image src="/images/play.png"> </image>
+          <image src="/images/end.png"></image>
+        </view> -->
+        <view class="cu-bar bg-white1 justify">
+          <view class="action" style="margin-left:15px">
+            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPause" id="{{item.id+'p'}}"></switch>
+            暂停
+          </view>
           <view class="content">请欣赏</view>
           <view class="action" style="margin-right:15px">
             随机
             <switch class="tittle sm" style="margin-left:5px" bindchange="random_play" id="{{item.id+'p'}}"></switch>
           </view>
         </view>
+
+
         <view class="padding-xl">
           <button class="cu-btn bg-white1 shadow-blur round border" bindtap="next_music" id="{{item.id+'b'}}"
             data-songid="{{item.music_list.id}}">

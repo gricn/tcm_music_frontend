@@ -94,7 +94,7 @@ Page({
   },
 
   change_singing_page: function (e) {
-    this.audioCtx.pause()     //tu
+    this.audioCtx0.pause()     //tu
     this.audioCtx1.pause()    //jin
     this.audioCtx2.pause()    //mu
     this.audioCtx3.pause()    //huo
@@ -138,7 +138,7 @@ Page({
       case 'a0b':
         var that = this
         var cur_song_index = 0
-        this.audioCtx.pause()
+        this.audioCtx0.pause()
         for (var i = 0; i < gong_len; i++) {
           if (app.globalData.gong_list[i].music_id == e.currentTarget.dataset.songid) {
             cur_song_index = i
@@ -164,8 +164,8 @@ Page({
         wx.request({
           url: next_url,
           success(res) {
-            that.audioCtx.src = res.data
-            that.audioCtx.play()
+            that.audioCtx0.src = res.data
+            that.audioCtx0.play()
           }
         })
 
@@ -403,6 +403,12 @@ Page({
       url: '../logs/logs'
     })
   },
+  musicPause(e){
+    let tmp = "audioCtx" + e.currentTarget.id[1]
+    console.log(tmp)
+    console.log(e)
+    e.detail.value?this[tmp].pause():this[tmp].play()
+  },
 
   /*
    * 生命周期函数--监听页面加载
@@ -493,7 +499,7 @@ Page({
    */
   onReady(e) {
     // 使用 wx.createAudioContext 获取 audio 上下文 context
-    this.audioCtx = wx.createInnerAudioContext('a0')           //tu
+    this.audioCtx0 = wx.createInnerAudioContext('a0')           //tu
     this.audioCtx1 = wx.createInnerAudioContext('a1')          //jin
     this.audioCtx2 = wx.createInnerAudioContext('a2')          //mu
     this.audioCtx3 = wx.createInnerAudioContext('a3')          //huo
@@ -503,7 +509,7 @@ Page({
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',
       success(res) {
-        that.audioCtx.src = res.data  //tu
+        that.audioCtx0.src = res.data  //tu
       }
     })
     wx.request({

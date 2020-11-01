@@ -16,5 +16,6 @@
     "cu-custom": "/colorui/components/cu-custom"
   },
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "requiredBackgroundModes":["audio"]
 }
