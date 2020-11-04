@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/cover/index",
     "pages/index/index",
     "pages/tc_test/tc_test",
     "pages/register/index",

@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view>
+  <image src="/images/1.jpg"></image>
+  <view class="boss">
+    <view class="one">
+      <text space="nbsp"
+        class="one">“五音知律”小程序旨在从多层面和多角度更深入发掘中医音乐治疗的价值，结合当下中医体质测试、热门大数据等技术完整地进行探索和实践。您可以点击中医体质测试按钮进行体质测试，系统会根据您的测试结果为您有针对性的推荐宫、商、角、徵、羽五类音乐、食物以及相关穴位，多方面调节您的状态。希望您能给予使用反馈，从而帮助我们进一步优化功能，提升您的使用体验。
+      </text>
+    </view>
+  </view>
+  <button plain="true" type="defalt" class="two" bindtap="skip" line-height="20rpx" hover-class="hover">开始体验 </button>
+</view>
