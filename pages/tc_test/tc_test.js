@@ -16,35 +16,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    /*
-      onLoad将从"./json.js"导入部分数据：
-        index:[],
-        constitutionContext:[]
-     */
-
-    //9种体质的转换
-    // convert: ['暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无', '暂无'],
-
-
-    /* 测试用例 */
-    // convert: [40, 20, 59, 20,
-    //   20, 29, 10, 10, 30
-    // ],
-    // normalConstitution: 0,
-
     finalRes: '您还未做完测试题',
     normalConstitution: 2, //0：否；1：基本是；2：是
 
-    //8种偏颇。0：否；1：基本是；2：是
-    //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
     _abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0],
 
     top_item_hid: false,
     time_slider_hid: true,
     songlist_hid: false,
     sendDataLocked: false,
-
 
     gong_list: {},
     shang_list: {},
@@ -151,9 +131,7 @@ Page({
         }
       }
 
-      // console.log(this.data.normalConstitution == 2)
       var temp = ""
-
       if (this.data.normalConstitution == 2) {
         //确定平和质
         this.setData({
@@ -370,7 +348,7 @@ Page({
         }
       })
 
-      // 用来保存  首页-“我的舒缓歌单”   获取的推荐音乐显示情况
+      // 用来保存  首页-“我的舒缓歌单” 获取的推荐音乐显示情况
       console.log('启动 recordRecommendMusic() 成功')
 
       var wuyin_hid = {
@@ -401,12 +379,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    // if (options.top_item_hid != undefined) {
-    //   this.setData({
-    //     top_item_hid: options.top_item_hid,
-    //   })
-    // }
     if (options.time_slider_hid != undefined) {
       this.setData({
         time_slider_hid: options.time_slider_hid,
@@ -420,7 +392,6 @@ Page({
 
     this.setData({
       //存储从上一页返回的参数
-
       curTab: options.curTab,
       index: jsonData.dataList,
       constitutionContext: jsonData.dataContext,

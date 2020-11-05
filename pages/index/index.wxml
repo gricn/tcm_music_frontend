@@ -68,9 +68,6 @@
             下一首
           </button>
           <text>{{item.music_list.next_s}}</text>
-          <!-- <slider min="0" max="234" color="rgb(200,200,200,0,6)" value="{{n}}" bindchange="change" step="1" />
-          <view class="{{i==0?'two':'pause'}}" bindtap="{{i==0?'play':'pause'}}"></view>
-          <view class="three" bindtap="stop"></view> -->
         </view>
       </view>
     </view>

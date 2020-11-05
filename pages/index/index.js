@@ -78,7 +78,6 @@ Page({
       }
     },
 
-
     random_playsongs1: 0,
     random_playsongs2: 0,
     random_playsongs3: 0,
@@ -94,7 +93,7 @@ Page({
   },
 
   change_singing_page: function (e) {
-    this.audioCtx0.pause()     //tu
+    this.audioCtx0.pause()    //tu
     this.audioCtx1.pause()    //jin
     this.audioCtx2.pause()    //mu
     this.audioCtx3.pause()    //huo
@@ -127,13 +126,11 @@ Page({
 
   next_music: function (e) {
     console.log(e)
-    // this.change_singing_page
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
     var zhi_len = app.globalData.zhi_list.length
     var yu_len = app.globalData.yu_list.length
-    // console.log(e.currentTarget.dataset.songid)
     switch (e.currentTarget.id) {
       case 'a0b':
         var that = this
@@ -145,7 +142,6 @@ Page({
             break;
           }
         }
-        // console.log(cur_song_index)
         var next_song_index = (cur_song_index + 1) % gong_len
         var next_n_song_index = (next_song_index + 1) % gong_len
         if (this.data.random_playsongs1) {
@@ -159,8 +155,6 @@ Page({
         })
 
         var next_url = 'https://www.gricn.top:4000/api/song/' + app.globalData.gong_list[next_song_index].music_id
-        // var next_poster = `https://www.gricn.top:4000/api/poster/` + app.globalData.gong_list[next_song_index].music_id
-        // var next_poster_url = ''
         wx.request({
           url: next_url,
           success(res) {
@@ -180,7 +174,7 @@ Page({
             break;
           }
         }
-        // console.log(cur_song_index)
+       
         var next_song_index = (cur_song_index + 1) % shang_len
         var next_n_song_index = (next_song_index + 1) % shang_len
         if (this.data.random_playsongs2) {
@@ -211,7 +205,7 @@ Page({
             break;
           }
         }
-        // console.log(cur_song_index)
+        
         var next_song_index = (cur_song_index + 1) % jue_len
         var next_n_song_index = (next_song_index + 1) % jue_len
         if (this.data.random_playsongs3) {
@@ -242,7 +236,7 @@ Page({
             break;
           }
         }
-        // console.log(cur_song_index)
+        
         var next_song_index = (cur_song_index + 1) % zhi_len
         var next_n_song_index = (next_song_index + 1) % zhi_len
         if (this.data.random_playsongs4) {
@@ -273,7 +267,7 @@ Page({
             break;
           }
         }
-        // console.log(cur_song_index)
+        
         var next_song_index = (cur_song_index + 1) % yu_len
         var next_n_song_index = (next_song_index + 1) % yu_len
         if (this.data.random_playsongs5) {
@@ -324,17 +318,13 @@ Page({
 
   To_tc_test: function (e) {
 
-    // console.log(e.changedTouches['0'].pageX)
     var curwindowWidth = 414
     wx.getSystemInfo({
       success(res) {
-        // console.log(res.windowWidth)获取屏幕宽度
         curwindowWidth = res.windowWidth
       }
     })
     var curwindowWidth3 = curwindowWidth / 3
-    // console.log(curwindowWidth3)屏幕宽度的三分之一
-
     var finalRes1 = this.data.finalRes
 
     if (app.globalData.isRegistered) {
@@ -403,11 +393,11 @@ Page({
       url: '../logs/logs'
     })
   },
-  musicPause(e){
+  musicPause(e) {
     let tmp = "audioCtx" + e.currentTarget.id[1]
     console.log(tmp)
     console.log(e)
-    e.detail.value?this[tmp].pause():this[tmp].play()
+    e.detail.value ? this[tmp].pause() : this[tmp].play()
   },
 
   /*
@@ -468,7 +458,6 @@ Page({
       finalRes: options.finalRes,
       cur: options.cur
     })
-
 
     // 调用函数时，传入new Date()参数，I返回值是日期和时间
     var time = util.formatTime(new Date());

@@ -75,9 +75,6 @@
       <view class="content margin">
         <view class="margin-top-sm flex justify-between">
           <view class="text-gray text-xs">欢迎给我们给更多反馈</view>
-          <!-- <view>
-          <text class="cuIcon-appreciate text-gray"></text>
-        </view> -->
         </view>
       </view>
     </view>

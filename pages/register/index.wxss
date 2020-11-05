@@ -1,8 +1,6 @@
 page{
   background-color: #f1f1f1;
   height: 100%;
-  /* display: flex;
-  justify-content: center; */
 }
 
 .address-item {
@@ -15,11 +13,6 @@ page{
 }
 
 .item-title {
-  /* width: 140rpx;
-  color: #4d4c4c;
-  font-size: 28rpx;
-  height: 98rpx;
-  line-height: 98rpx; */
   text-align: justify;
 	padding-right: 30rpx;
 	font-size: 30rpx;
@@ -28,14 +21,6 @@ page{
 	line-height: 60rpx;
 }
 .item-content {
-  /* width: 520rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 28rpx;
-  height: 98rpx;
-  line-height: 98rpx;
-  color: #4d4c4c; */
   flex: 1;
 	font-size: 30rpx;
 	color: #555;

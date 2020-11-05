@@ -12,7 +12,6 @@ App({
     jue_list: {},
     zhi_list: {},
     yu_list: {},
-    server: 'https://treehole2.applinzi.com'
   },
 
   onLaunch: function () {
@@ -91,7 +90,6 @@ App({
       }
     })
 
-
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -106,17 +104,15 @@ App({
       }
     })
   },
-
   onLoad(){
     var that = this
     
   },
-
   onShow() {
 
   },
 
-  /**
+/**
  * 生命周期函数--监听页面初次渲染完成
  */
   onReady(e) {
@@ -128,7 +124,7 @@ App({
         console.log("user_gender:" + res.data)
       },
       fail(e){
-        console.log("fail to get user_gender from local, try to get from server")
+        console.log("Fail to get user_gender from local, try to get from server")
       }
     })
 
@@ -140,10 +136,7 @@ App({
     console.log("获取用户code成功，发送至服务器, code:" + code)
     wx.request({
       url: 'https://www.gricn.top:4000/getopenid/' + code,
-      // timeout: 3000,
       success: (res) => {
-        // var openid = res.data.openid
-        // console.log("openid 服务器存储成功")
         if (res.data != "") {
           console.log("从服务器获取openid成功" + res.data)
           //存储用户信息到本地存储
@@ -156,8 +149,5 @@ App({
         console.log("服务器连接失败 或 服务器未能及时响应")
       }
     })
-
   },
-
-
 })
