@@ -143,8 +143,8 @@
           </view>
           <view class='box bg-white1'>
             <view class="cu-bar btn-group ">
-              <button class="cu-btn bg-white shadow-blur round lg " bindtap="switchSongPage" data-target="viewModal">
-                查看我的推荐歌单
+              <button class="cu-btn bg-white shadow-blur round lg " bindtap="directToCarePage" data-target="viewModal">
+                查看食养护理推荐
               </button>
             </view>
           </view>

@@ -1,0 +1,30 @@
+<cu-custom bgColor="antiquewhite" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">食养护理推荐</view>
+</cu-custom>
+
+  <!-- 滑动器上的小标题：中医体质测试 -->
+  <view class="cu-bar bg-white solid-bottom margin-top" hidden="{{top_item_hid}}">
+    <view class="action">
+      <text class="cuIcon-titles text-cyan"></text>
+      食养护理推荐
+    </view>
+  </view>
+
+  <!-- 滑动选择器 -->
+  <scroll-view scroll-x class="bg-white nav" scroll-left="{{scrollLeft}}" hidden="{{top_item_hid}}">
+    <view class="cu-item {{tabIndex==curTab?'text-cyan cur':''}}" wx:for="{{num}}" wx:key="*this" bindtap="tabSelect" wx:for-index="tabIndex" wx:for-item="tabItem" data-id="{{tabIndex}}">
+      {{tabItem}}
+    </view>
+  </scroll-view>
+
+<view class="a">
+  <swiper bindchange="swiperChange" circular>
+    <swiper-item wx:for="{{text}}" id="{{index}}">
+      <!-- <view class="c">{{item.r}}</view> -->
+      <view class="b">饮食：{{item.a}}</view>
+      <view class="b">生活起居：{{item.b}}</view>
+      <view class="b">体育锻炼：{{item.c}}</view>
+    </swiper-item>
+  </swiper>
+</view>

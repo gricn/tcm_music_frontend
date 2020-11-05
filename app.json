@@ -4,7 +4,7 @@
     "pages/index/index",
     "pages/tc_test/tc_test",
     "pages/register/index",
-    "pages/tcmMusic_intro/intro"
+    "pages/care/care"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,4 +19,5 @@
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
   "requiredBackgroundModes":["audio"]
+  
 }

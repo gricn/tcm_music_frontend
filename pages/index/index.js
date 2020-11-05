@@ -344,7 +344,7 @@ Page({
         console.log('定时关闭')
         var to_time_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&&songlist_hid=false&time_slider_hid=false&finalRes=' + finalRes1
         wx.navigateTo({
-          url: to_time_path,
+          url: '/pages/square/square',
         })
       } else if (e.changedTouches['0'].pageX >= (curwindowWidth - curwindowWidth3)) {
         console.log('我的舒缓歌单')

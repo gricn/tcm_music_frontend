@@ -2,15 +2,17 @@
 App({
 
   globalData: {
-    userInfo: null,
+    userInfo: {},
+    user:{},
     user_gender: false,
-    isRegistered: false,
+    isRegistered: true,
     /* isRegistered, 先看看storage和服务器上有没有，如果没有，就默认为false */
     gong_list: {},
     shang_list: {},
     jue_list: {},
     zhi_list: {},
     yu_list: {},
+    server: 'https://treehole2.applinzi.com'
   },
 
   onLaunch: function () {

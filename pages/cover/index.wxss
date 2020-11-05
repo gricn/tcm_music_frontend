@@ -1,9 +1,6 @@
 /**index.wxss**/
 page {
   background-color: #f6f6f6;
-  /* display: flex;
-   */
-  
 }
 
 .boss {
@@ -14,21 +11,17 @@ page {
 
 .one {
   width: 70%;
-  /* width: fit-content; */
   font-size: 16px;
   color: rgb(150, 35, 45);
-  /* font-family: ""; */
   text-indent: 2em;
   font-weight: bold;
-
-
+  line-height: 1.6rem;
 }
 
 .two {
   margin-top: 100rpx;
   width: 70%;
   font-size: 44rpx;
-
 }
 
 .hover {

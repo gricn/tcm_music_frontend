@@ -68,7 +68,7 @@
         </pop-up>
         <view style="width:100%;height:40%;display:flex;justify-content:space-round;align-items:center;background:white">
           <button class="cu-btn line-blue round shadow" style="text-align: center; margin: 0 auto;" bindtap="To_index" form-type="submit">
-            欢迎使用
+            继续
           </button>
         </view>
       </form>

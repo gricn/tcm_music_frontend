@@ -16,21 +16,22 @@
 
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end" hidden="{{isRegistered}}">
-            <button class='cu-btn round bg-red shadow' bindtap="To_register">登录</button>
+            <button class='cu-btn round bg-red shadow' bindtap="To_register">记录</button>
           </view>
         </view>
       </view>
       <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
         <view class="cu-dialog">
-          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:450px;">
+          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:450px;margin-bottom:10%;">
             <view class="cu-bar justify-end text-white">
               <view class="action" bindtap="hideModal">
                 <text class="cuIcon-close "></text>
               </view>
             </view>
           </view>
-          <view class="cu-bar">
-            <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">关闭</view>
+          <view class="closeFan" bindtap="hideModal">
+            <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">
+              <text space="nbsp">关闭</text></view>
           </view>
         </view>
       </view>

@@ -104,6 +104,11 @@ Page({
 
     this.judgeConstitution()
   },
+  directToCarePage(){
+    wx.navigateTo({
+      url: '/pages/care/care',
+    })
+  },
 
   judgeConstitution() {
     /*选择“测试结果”页时进行判断*/
