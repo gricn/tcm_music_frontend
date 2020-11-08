@@ -4,6 +4,7 @@
 <swiper class="swiper1" circular="true" current="{{cur}}" bindchange="change_singing_page">
   <swiper-item>
     <view class="homepage-view-style">
+
       <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
         <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" data-target="bottomModal"
           hidden="{{fan_hidden}}">
@@ -16,23 +17,29 @@
 
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end" hidden="{{isRegistered}}">
-            <button class='cu-btn round bg-red shadow' bindtap="To_register">记录</button>
+            <button style="position:absolute;top:30rpx;right:30rpx;z-index:99;" class='cu-btn round bg-red shadow'
+              bindtap="To_register">注册</button>
           </view>
         </view>
       </view>
-      <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+
+      <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" style="z-index:2;">
         <view class="cu-dialog">
-          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:450px;margin-bottom:10%;">
+          <view class="bg-img" bindtap="To_tc_test"
+            style="background-image: url({{menu_url}});height:450px;margin-bottom:10%;">
             <view class="cu-bar justify-end text-white">
               <view class="action" bindtap="hideModal">
                 <text class="cuIcon-close "></text>
               </view>
             </view>
           </view>
+
           <view class="closeFan" bindtap="hideModal">
-            <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">
-              <text space="nbsp">关闭</text></view>
+            <view class="action margin-0 flex-sub " style="bottom:20rpx;text-align=center;position:absolute;" bindtap="hideModal">
+              <text class="text-center text-content" space="nbsp">关闭</text>
+            </view>
           </view>
+
         </view>
       </view>
     </view>
@@ -51,8 +58,9 @@
         <!-- 队友用一年未更新+无文档的colorUI，心态有点裂 -->
         <view class="cu-bar bg-white1 justify">
           <view class="action" style="margin-left:15px">
-            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPause" id="{{item.id+'p'}}"></switch>
-            暂停
+            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPlay"
+              id="{{item.id+'p'}}"></switch>
+            播放
           </view>
           <view class="content">请欣赏</view>
           <view class="action" style="margin-right:15px">

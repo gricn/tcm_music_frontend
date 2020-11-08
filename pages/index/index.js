@@ -393,11 +393,11 @@ Page({
       url: '../logs/logs'
     })
   },
-  musicPause(e) {
+  musicPlay(e) {
     let tmp = "audioCtx" + e.currentTarget.id[1]
     console.log(tmp)
     console.log(e)
-    e.detail.value ? this[tmp].pause() : this[tmp].play()
+    e.detail.value ? this[tmp].play() : this[tmp].pause()
   },
 
   /*

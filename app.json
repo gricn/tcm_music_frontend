@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/cover/index",
     "pages/index/index",
+    "pages/cover/index",
     "pages/tc_test/tc_test",
     "pages/register/index",
     "pages/care/care"

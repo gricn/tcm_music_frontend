@@ -6,7 +6,9 @@
   <view class="cu-item shadow">
     <view class="cu-list menu-avatar">
       <view class="cu-item">
-        <view class="cu-avatar round lg" style="background-image:url(https://hbimg.huabanimg.com/8050fd7717ea0b0db6ee84e4ae94414d9233686afbde-Q2cZZt_fw658);"></view>
+        <view class="cu-avatar round lg"
+          style="background-image:url(https://hbimg.huabanimg.com/8050fd7717ea0b0db6ee84e4ae94414d9233686afbde-Q2cZZt_fw658);">
+        </view>
         <view class="content flex-sub">
           <view>可爱的芍药</view>
         </view>
@@ -16,7 +18,9 @@
       嗨(｡･∀･)ﾉﾞ，我是可爱的小芍药，我们在完成学校课题体质测试的同时，需要收集您的的年龄、性别、所在地区数据来支持来中医体质测试，我们承诺这些信息不会用于非法用途哦~
     </view>
     <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
-      <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://hbimg.huabanimg.com/5c7d1c0c24707dc80480b5d36bee3daf75384167156e5-0vndiJ_fw658)" wx:for="{{isCard?9:1}}" wx:key="index"></view>
+      <view class="bg-img {{isCard?'':'only-img'}}"
+        style="background-image:url(https://hbimg.huabanimg.com/5c7d1c0c24707dc80480b5d36bee3daf75384167156e5-0vndiJ_fw658)"
+        wx:for="{{isCard?9:1}}" wx:key="index"></view>
     </view>
     <view class="text-gray text-sm text-right padding">
       <text class="cuIcon-attentionfill margin-lr-xs"></text>
@@ -32,17 +36,21 @@
           <view class="title">您的年龄:</view>
           <input placeholder="请输入您的年龄" type="number" bindblur="input_age"></input>
           <view class="cu-capsule radius">
-            <view class="cu-tag bg-blue">2020</view>
+            <view class="cu-tag bg-blue">{{fullYear}}</view>
             <view class="cu-tag line-blue">公历</view>
           </view>
         </view>
+
+        
         <!-- 省市三级联动，祖传代码，请勿随意改动~~ -->
-        <view class="address-item" style="background-color:white" bindtap="pickAddress" data-ptpid="6a75-10f3-aaad-329c">
+        <view class="address-item" style="background-color:white" bindtap="pickAddress"
+          data-ptpid="6a75-10f3-aaad-329c">
           <view class="item-title">所在地区:</view>
           <view class="item-content arrow {{region ? '' : 'item-content_shadow'  }}">
             {{region||"请选择您所在的地区"}}
           </view>
         </view>
+
         <pop-up visible="{{visible}}" onClose="closePopUp">
           <view slot="content">
             <view class="picker-view">
@@ -66,8 +74,10 @@
             </view>
           </view>
         </pop-up>
-        <view style="width:100%;height:40%;display:flex;justify-content:space-round;align-items:center;background:white">
-          <button class="cu-btn line-blue round shadow" style="text-align: center; margin: 0 auto;" bindtap="To_index" form-type="submit">
+        <view
+          style="width:100%;height:40%;display:flex;justify-content:space-round;align-items:center;background:white">
+          <button class="cu-btn line-blue round shadow" style="text-align: center; margin: 0 auto;" bindtap="To_index"
+            form-type="submit">
             继续
           </button>
         </view>
