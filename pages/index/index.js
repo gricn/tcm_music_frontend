@@ -13,6 +13,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    successRegistered: false,
 
     // 微信小程序swiper命名不规范，swiper和swipe没有关系
     swiperList: {
@@ -93,31 +94,40 @@ Page({
   },
 
   change_singing_page: function (e) {
-    this.audioCtx0.pause()    //tu
-    this.audioCtx1.pause()    //jin
-    this.audioCtx2.pause()    //mu
-    this.audioCtx3.pause()    //huo
-    this.audioCtx4.pause()    //shui
+    this.audioCtx0.pause() //tu
+    this.audioCtx1.pause() //jin
+    this.audioCtx2.pause() //mu
+    this.audioCtx3.pause() //huo
+    this.audioCtx4.pause() //shui
   },
 
   //随机播放
   random_play: function (e) {
-    // console.log(e)
     switch (e.target.id) {
       case 'a0p':
-        this.setData({ random_playsongs1: 1 })
+        this.setData({
+          random_playsongs1: 1
+        })
         break;
       case 'a1p':
-        this.setData({ random_playsongs2: 1 })
+        this.setData({
+          random_playsongs2: 1
+        })
         break;
       case 'a2p':
-        this.setData({ random_playsongs3: 1 })
+        this.setData({
+          random_playsongs3: 1
+        })
         break;
       case 'a3p':
-        this.setData({ random_playsongs4: 1 })
+        this.setData({
+          random_playsongs4: 1
+        })
         break;
       case 'a4p':
-        this.setData({ random_playsongs5: 1 })
+        this.setData({
+          random_playsongs5: 1
+        })
         break;
     }
   },
@@ -125,7 +135,6 @@ Page({
 
 
   next_music: function (e) {
-    console.log(e)
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
@@ -174,7 +183,7 @@ Page({
             break;
           }
         }
-       
+
         var next_song_index = (cur_song_index + 1) % shang_len
         var next_n_song_index = (next_song_index + 1) % shang_len
         if (this.data.random_playsongs2) {
@@ -205,7 +214,7 @@ Page({
             break;
           }
         }
-        
+
         var next_song_index = (cur_song_index + 1) % jue_len
         var next_n_song_index = (next_song_index + 1) % jue_len
         if (this.data.random_playsongs3) {
@@ -236,7 +245,7 @@ Page({
             break;
           }
         }
-        
+
         var next_song_index = (cur_song_index + 1) % zhi_len
         var next_n_song_index = (next_song_index + 1) % zhi_len
         if (this.data.random_playsongs4) {
@@ -267,7 +276,7 @@ Page({
             break;
           }
         }
-        
+
         var next_song_index = (cur_song_index + 1) % yu_len
         var next_n_song_index = (next_song_index + 1) % yu_len
         if (this.data.random_playsongs5) {
@@ -331,13 +340,13 @@ Page({
 
       console.log('已注册，调往体质测试界面')
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
-        console.log('定时关闭')
+        console.log('进入定时关闭页面')
         var to_time_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&&songlist_hid=false&time_slider_hid=false&finalRes=' + finalRes1
         wx.navigateTo({
           url: '/pages/square/square',
         })
       } else if (e.changedTouches['0'].pageX >= (curwindowWidth - curwindowWidth3)) {
-        console.log('我的舒缓歌单')
+        console.log('进入我的舒缓歌单')
         var to_songlist_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&songlist_hid=false&time_slider_hid=true&finalRes=' + finalRes1
 
         wx.getStorage({
@@ -358,7 +367,7 @@ Page({
         })
 
       } else {
-        console.log('中医体质测试')
+        console.log('进入中医体质测试页面')
         wx.navigateTo({
           url: '../tc_test/tc_test?top_item_hid=false&songlist_hid=false&time_slider_hid=true',
         })
@@ -395,8 +404,6 @@ Page({
   },
   musicPlay(e) {
     let tmp = "audioCtx" + e.currentTarget.id[1]
-    console.log(tmp)
-    console.log(e)
     e.detail.value ? this[tmp].play() : this[tmp].pause()
   },
 
@@ -409,7 +416,7 @@ Page({
     // 获取用户注册情况
 
     //大致逻辑是：首先看看缓存有没有isRegistered，如果没，则请求服务器访问，
-    //根据用户openid判断是否注册，如果没有，最后才确定没注册
+    //根据用户openid判断是否注册，如果没有，最后才确定没注册，首页显示注册按钮
     wx.getStorage({
       key: 'isRegistered',
       success: res => {
@@ -432,45 +439,42 @@ Page({
                     key: 'isRegistered',
                     data: true,
                   })
-                  wx.setData({
+                  wx.setStorage({
                     key: 'user_gender',
                     data: res.data.gender
                   })
-
+                  that.setData({
+                    isRegistered: true,
+                  })
                   app.globalData.isRegistered = true
                   app.globalData.user_gender = res.data.gender
+
                   console.log("用户已注册 从服务器读取用户注册情况成功")
                 } else {
-                  console.log("用户未注册 从服务器读取用户注册情况成功")
+                  console.log("用户未注册 从服务器读取用户注册情况失败")
                 }
               }
             })
           },
           fail: e => {
             console.log(e)
+            console.log("用户未注册鸭")
           }
         })
       }
     })
 
-    //获得上一页面传回的参数
-    this.setData({
-      finalRes: options.finalRes,
-      cur: options.cur
-    })
 
-    // 调用函数时，传入new Date()参数，I返回值是日期和时间
-    var time = util.formatTime(new Date());
-    // 再通过setData更改Page()里面的data，动态更新页面的数据
-    this.setData({
-      time
-    });
+    //获得上一页面传回的参数
+    if (options !== null) {
+      this.setData({
+        finalRes: options.finalRes,
+        cur: options.cur
+      })
+    }
   },
 
-  // 用于wx.navigatorBack()返回主界面后，修改数据
-  // 详情参考微信开发文档，页面路由：https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/route.html
-  // 额，这个onShow好像没有被触发 (⊙﹏⊙)
-  onShow(e) {
+  onShow: function (option) {
     wx.getStorage({
       key: 'isRegistered',
       success: res => {
@@ -479,7 +483,6 @@ Page({
         })
       }
     })
-
   },
 
 
@@ -488,48 +491,48 @@ Page({
    */
   onReady(e) {
     // 使用 wx.createAudioContext 获取 audio 上下文 context
-    this.audioCtx0 = wx.createInnerAudioContext('a0')           //tu
-    this.audioCtx1 = wx.createInnerAudioContext('a1')          //jin
-    this.audioCtx2 = wx.createInnerAudioContext('a2')          //mu
-    this.audioCtx3 = wx.createInnerAudioContext('a3')          //huo
-    this.audioCtx4 = wx.createInnerAudioContext('a4')          //shui
+    this.audioCtx0 = wx.createInnerAudioContext('a0') //tu
+    this.audioCtx1 = wx.createInnerAudioContext('a1') //jin
+    this.audioCtx2 = wx.createInnerAudioContext('a2') //mu
+    this.audioCtx3 = wx.createInnerAudioContext('a3') //huo
+    this.audioCtx4 = wx.createInnerAudioContext('a4') //shui
 
     var that = this
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167237',
       success(res) {
-        that.audioCtx0.src = res.data  //tu
+        that.audioCtx0.src = res.data //tu
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167247',
       success(res) {
-        that.audioCtx1.src = res.data   //jin
+        that.audioCtx1.src = res.data //jin
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167272',
       success(res) {
-        that.audioCtx2.src = res.data   //mu
+        that.audioCtx2.src = res.data //mu
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167260',
       success(res) {
-        that.audioCtx3.src = res.data    //huo
+        that.audioCtx3.src = res.data //huo
       }
     })
     wx.request({
       url: 'https://www.gricn.top:4000/api/song/167278',
       success(res) {
-        that.audioCtx4.src = res.data   //shui
+        that.audioCtx4.src = res.data //shui
       }
     })
   },
 
   /**
-  * 生命周期函数--监听页面隐藏
-  */
+   * 生命周期函数--监听页面隐藏
+   */
   onHide: function () {
 
   },

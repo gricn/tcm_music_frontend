@@ -35,9 +35,10 @@ Page({
     visible: false,
 
     fullYear: 0,
+    successRegistered:false,
   },
 
-  onLoad(options) {
+  onLoad: function (options) {
     // 默认联动显示北京
     var id = address.provinces[0].id
     this.setData({
@@ -47,11 +48,15 @@ Page({
     })
   },
 
+  onUnload: function (options) {
+    options.finalRes = '',
+    options.cur = 0
+  },
+
   onShow: function (options) {
     // 获取当前年份
     var d = new Date()
     var fullYear = d.getFullYear()
-    console.log(fullYear)
     this.setData({
       fullYear: fullYear
     })
@@ -59,10 +64,7 @@ Page({
 
 
   switch_gender: function (e) {
-    console.log(e.detail.value)
-    // true为男性, false为女性  
-
-    wx.setStorageSync('user_gender', e.detail.value)
+    wx.setStorageSync('user_gender', e.detail.value) // male -> true; female -> false;
   },
 
   input_age: function (e) {
@@ -72,7 +74,6 @@ Page({
       age: temp
     })
   },
-
 
   To_index: function (e) {
     // 检验数据完整性
@@ -117,12 +118,18 @@ Page({
             }
           })
           wx.showToast({
-            title: '用户注册成功',
-            icon: 'success',
+            title: '注册成功~~',
+            icon: 'none',
             duration: 1000
           })
         }
       })
+      var pageStack = getCurrentPages()
+      var aPage = pageStack[pageStack.length - 2]
+      aPage.setData({
+        isRegistered: true
+      })
+
       wx.navigateBack()
     }
   },

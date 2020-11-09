@@ -3,7 +3,7 @@ App({
 
   globalData: {
     userInfo: {},
-    user:{},
+    user: {},
     user_gender: false,
     isRegistered: true,
     /* isRegistered, 先看看storage和服务器上有没有，如果没有，就默认为false */
@@ -55,12 +55,7 @@ App({
     })
 
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
     var openid = null
-
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     /* 获取用户openid */
     //大致思路是：先从本地缓存读取openid，若值通过检验，则成功；否则调用getOpenid()
     wx.login({
@@ -104,17 +99,14 @@ App({
       }
     })
   },
-  onLoad(){
-    var that = this
-    
+  onLoad() {
   },
   onShow() {
-
   },
 
-/**
- * 生命周期函数--监听页面初次渲染完成
- */
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
   onReady(e) {
     var that = this
     wx.getStorage({
@@ -123,12 +115,12 @@ App({
         that.globalData.user_gender = res.data
         console.log("user_gender:" + res.data)
       },
-      fail(e){
+      fail(e) {
         console.log("Fail to get user_gender from local, try to get from server")
       }
     })
 
-    
+
   },
 
   getOpenid(temp) {
@@ -138,7 +130,7 @@ App({
       url: 'https://www.gricn.top:4000/getopenid/' + code,
       success: (res) => {
         if (res.data != "") {
-          console.log("从服务器获取openid成功" + res.data)
+          console.log("从服务器获取openid成功：" + res.data)
           //存储用户信息到本地存储
           wx.setStorageSync('openid', res.data)
         } else {
