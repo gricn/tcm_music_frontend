@@ -99,7 +99,7 @@ Page({
     this.audioCtx4.pause() //shui
   },
 
-  next_music: function (e) {
+  nextMusic: function (e) {
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
@@ -107,163 +107,25 @@ Page({
     var yu_len = app.globalData.yu_list.length
 
     var that = this
-    switch (e.currentTarget.id) {
-      case 'a0b':
-        var currentSongIndex = 0
 
-        /* 我服了，还有这么写代码的。
-          这段代码一定要被钉进历史的耻辱柱，留2个commit，等他毕业后发给他。
-          主要是促进学习，同伴玩笑玩笑~~~ */
-        // for (var i = 0; i < gong_len; i++) {
-        //   if (app.globalData.gong_list[i].music_id == e.currentTarget.dataset.songid) {
-        //     cur_song_index = i
-        //     break;
-        //   }
-        // }
+    var itemNum = parseInt(e.currentTarget.id[1])
+    console.log(itemNum)
+    var currentSongIndex = 0
 
-        var next_song_index = this.data.randomSwitchChecked ?
-          Math.floor(Math.random() * gong_len) :
-          (currentSongIndex + 1) % gong_len
+    var nextSongIndex = this.data.randomSwitchChecked ?
+      Math.floor(Math.random() * gong_len) :
+      (currentSongIndex + 1) % gong_len
 
-        this.setData({
-          'swiperList.swiper1.music_list.name': app.globalData.gong_list[next_song_index].music_name,
-          'swiperList.swiper1.music_list.author': app.globalData.gong_list[next_song_index].music_authors,
-          'swiperList.swiper1.music_list.id': app.globalData.gong_list[next_song_index].music_id,
-          'swiperList.swiper1.music_list.next_s': app.globalData.gong_list[next_n_song_index].music_name
-        })
+    this.bam.title = app.globalData.gong_list[nextSongIndex].music_name
+    this.bam.singer = app.globalData.gong_list[nextSongIndex].music_authors
 
-        var next_url = 'https://www.gricn.top:4000/api/song/' + app.globalData.gong_list[next_song_index].music_id
-        wx.request({
-          url: next_url,
-          success(res) {
-            that.audioCtx0.src = res.data
-            that.audioCtx0.play()
-          }
-        })
-        break;
-      case 'a1b':
-        var cur_song_index = 0
-        this.audioCtx1.pause()
-        for (var i = 0; i < shang_len; i++) {
-          if (app.globalData.shang_list[i].music_id == e.currentTarget.dataset.songid) {
-            cur_song_index = i
-            break;
-          }
-        }
-
-        var next_song_index = (cur_song_index + 1) % shang_len
-        var next_n_song_index = (next_song_index + 1) % shang_len
-        if (this.data.randomSwitchChecked) {
-          next_n_song_index = Math.floor(Math.random() * shang_len);
-        }
-        this.setData({
-          'swiperList.swiper2.music_list.name': app.globalData.shang_list[next_song_index].music_name,
-          'swiperList.swiper2.music_list.author': app.globalData.shang_list[next_song_index].music_authors,
-          'swiperList.swiper2.music_list.id': app.globalData.shang_list[next_song_index].music_id,
-          'swiperList.swiper2.music_list.next_s': app.globalData.shang_list[next_n_song_index].music_name
-        })
-        var next_url = 'https://www.gricn.top:4000/api/song/' + app.globalData.shang_list[next_song_index].music_id
-        wx.request({
-          url: next_url,
-          success(res) {
-            that.audioCtx1.src = res.data
-            that.audioCtx1.play()
-          }
-        })
-        break;
-      case 'a2b':
-        var cur_song_index = 0
-        this.audioCtx2.pause()
-        for (var i = 0; i < jue_len; i++) {
-          if (app.globalData.jue_list[i].music_id == e.currentTarget.dataset.songid) {
-            cur_song_index = i
-            break;
-          }
-        }
-
-        var next_song_index = (cur_song_index + 1) % jue_len
-        var next_n_song_index = (next_song_index + 1) % jue_len
-        if (this.data.randomSwitchChecked) {
-          next_n_song_index = Math.floor(Math.random() * jue_len);
-        }
-        this.setData({
-          'swiperList.swiper3.music_list.name': app.globalData.jue_list[next_song_index].music_name,
-          'swiperList.swiper3.music_list.author': app.globalData.jue_list[next_song_index].music_authors,
-          'swiperList.swiper3.music_list.id': app.globalData.jue_list[next_song_index].music_id,
-          'swiperList.swiper3.music_list.next_s': app.globalData.jue_list[next_n_song_index].music_name
-        })
-        var next_url = 'https://www.gricn.top:4000/api/song/' + app.globalData.jue_list[next_song_index].music_id
-        wx.request({
-          url: next_url,
-          success(res) {
-            that.audioCtx2.src = res.data
-            that.audioCtx2.play()
-          }
-        })
-        break;
-      case 'a3b':
-        var cur_song_index = 0
-        that.audioCtx3.pause()
-        for (var i = 0; i < zhi_len; i++) {
-          if (app.globalData.zhi_list[i].music_id == e.currentTarget.dataset.songid) {
-            cur_song_index = i
-            break;
-          }
-        }
-
-        var next_song_index = (cur_song_index + 1) % zhi_len
-        var next_n_song_index = (next_song_index + 1) % zhi_len
-        if (this.data.randomSwitchChecked) {
-          next_n_song_index = Math.floor(Math.random() * zhi_len);
-        }
-        this.setData({
-          'swiperList.swiper4.music_list.name': app.globalData.zhi_list[next_song_index].music_name,
-          'swiperList.swiper4.music_list.author': app.globalData.zhi_list[next_song_index].music_authors,
-          'swiperList.swiper4.music_list.id': app.globalData.zhi_list[next_song_index].music_id,
-          'swiperList.swiper4.music_list.next_s': app.globalData.zhi_list[next_n_song_index].music_name
-        })
-        var next_url = 'https://www.gricn.top:4000/api/song/' + app.globalData.zhi_list[next_song_index].music_id
-        wx.request({
-          url: next_url,
-          success(res) {
-            that.audioCtx3.src = res.data
-            that.audioCtx3.play()
-          }
-        })
-        break;
-      case 'a4b':
-        var cur_song_index = 0
-        that.audioCtx4.pause()
-        for (var i = 0; i < yu_len; i++) {
-          if (app.globalData.yu_list[i].music_id == e.currentTarget.dataset.songid) {
-            cur_song_index = i
-            break;
-          }
-        }
-
-        var next_song_index = (cur_song_index + 1) % yu_len
-        var next_n_song_index = (next_song_index + 1) % yu_len
-        if (this.data.randomSwitchChecked) {
-          next_n_song_index = Math.floor(Math.random() * yu_len);
-        }
-        this.setData({
-          'swiperList.swiper5.music_list.name': app.globalData.yu_list[next_song_index].music_name,
-          'swiperList.swiper5.music_list.author': app.globalData.yu_list[next_song_index].music_authors,
-          'swiperList.swiper5.music_list.id': app.globalData.yu_list[next_song_index].music_id,
-          'swiperList.swiper5.music_list.next_s': app.globalData.yu_list[next_n_song_index].music_name
-        })
-        var next_url = 'https://www.gricn.top:4000/api/song/' + app.globalData.yu_list[next_song_index].music_id
-        wx.request({
-          url: next_url,
-          success(res) {
-            that.audioCtx4.src = res.data
-            that.audioCtx4.play()
-          }
-        })
-        break;
-
-
-    }
+    var nextURL = 'https://www.gricn.top:4000/api/song/' + app.globalData.gong_list[nextSongIndex].music_id
+    wx.request({
+      url: nextURL,
+      success(res) {
+        that.bam.src = res.data
+      }
+    })
   },
 
   showModal(e) {
@@ -289,7 +151,6 @@ Page({
   },
 
   To_tc_test: function (e) {
-
     var curwindowWidth = 414
     wx.getSystemInfo({
       success(res) {
@@ -341,7 +202,6 @@ Page({
         url: '../register/index',
       })
     }
-
   },
 
   To_register: function () {
@@ -367,13 +227,18 @@ Page({
   },
   musicPlay(e) {
     console.log(e)
-    const bam = wx.getBackgroundAudioManager()
-    bam.title = ''
+    this.bam.title = ''
 
-
-
+    // var that = this
+    // wx.request({
+    //   url: 'https://www.gricn.top:4000/api/song/167237',
+    //   success(res) {
+    //     that.audioCtx0.src = res.data //tu
+    //   }
+    // })
 
     let tmp = "audioCtx" + e.currentTarget.id[1]
+    console.log(tmp)
     if (e.detail.value) {
       this[tmp].play()
       this.setData({
@@ -483,6 +348,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady(e) {
+    this.bam = wx.getBackgroundAudioManager(),
     // 使用 wx.createAudioContext 获取 audio 上下文 context
     this.audioCtx0 = wx.createInnerAudioContext('a0') //tu
     this.audioCtx1 = wx.createInnerAudioContext('a1') //jin
