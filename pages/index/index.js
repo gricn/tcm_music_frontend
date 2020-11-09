@@ -15,7 +15,9 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     successRegistered: false,
     playSwitchChecked: false,
-    randomSwitchChecked:false,
+    randomSwitchChecked: false,
+    currentSongIndex: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐地址
+    nextSongIndex: [1, 1, 1, 1, 1],
 
     // 微信小程序swiper命名不规范，swiper和swipe没有关系
     swiperList: {
@@ -81,12 +83,6 @@ Page({
       }
     },
 
-    random_playsongs1: 0,
-    random_playsongs2: 0,
-    random_playsongs3: 0,
-    random_playsongs4: 0,
-    random_playsongs5: 0,
-
     fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y",
     fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ",
     menu_url: "https://hbimg.huabanimg.com/9a02a800ce8af13b836d81422550dc03dec918d469792-sfKjeY",
@@ -103,61 +99,32 @@ Page({
     this.audioCtx4.pause() //shui
   },
 
-  //随机播放
-  random_play: function (e) {
-    switch (e.target.id) {
-      case 'a0p':
-        this.setData({
-          random_playsongs1: 1
-        })
-        break;
-      case 'a1p':
-        this.setData({
-          random_playsongs2: 1
-        })
-        break;
-      case 'a2p':
-        this.setData({
-          random_playsongs3: 1
-        })
-        break;
-      case 'a3p':
-        this.setData({
-          random_playsongs4: 1
-        })
-        break;
-      case 'a4p':
-        this.setData({
-          random_playsongs5: 1
-        })
-        break;
-    }
-  },
-
-
-
   next_music: function (e) {
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
     var zhi_len = app.globalData.zhi_list.length
     var yu_len = app.globalData.yu_list.length
+
+    var that = this
     switch (e.currentTarget.id) {
       case 'a0b':
-        var that = this
-        var cur_song_index = 0
-        this.audioCtx0.pause()
-        for (var i = 0; i < gong_len; i++) {
-          if (app.globalData.gong_list[i].music_id == e.currentTarget.dataset.songid) {
-            cur_song_index = i
-            break;
-          }
-        }
-        var next_song_index = (cur_song_index + 1) % gong_len
-        var next_n_song_index = (next_song_index + 1) % gong_len
-        if (this.data.random_playsongs1) {
-          next_n_song_index = Math.floor(Math.random() * gong_len);
-        }
+        var currentSongIndex = 0
+
+        /* 我服了，还有这么写代码的。
+          这段代码一定要被钉进历史的耻辱柱，留2个commit，等他毕业后发给他。
+          主要是促进学习，同伴玩笑玩笑~~~ */
+        // for (var i = 0; i < gong_len; i++) {
+        //   if (app.globalData.gong_list[i].music_id == e.currentTarget.dataset.songid) {
+        //     cur_song_index = i
+        //     break;
+        //   }
+        // }
+
+        var next_song_index = this.data.randomSwitchChecked ?
+          Math.floor(Math.random() * gong_len) :
+          (currentSongIndex + 1) % gong_len
+
         this.setData({
           'swiperList.swiper1.music_list.name': app.globalData.gong_list[next_song_index].music_name,
           'swiperList.swiper1.music_list.author': app.globalData.gong_list[next_song_index].music_authors,
@@ -173,10 +140,8 @@ Page({
             that.audioCtx0.play()
           }
         })
-
         break;
       case 'a1b':
-        var that = this
         var cur_song_index = 0
         this.audioCtx1.pause()
         for (var i = 0; i < shang_len; i++) {
@@ -188,7 +153,7 @@ Page({
 
         var next_song_index = (cur_song_index + 1) % shang_len
         var next_n_song_index = (next_song_index + 1) % shang_len
-        if (this.data.random_playsongs2) {
+        if (this.data.randomSwitchChecked) {
           next_n_song_index = Math.floor(Math.random() * shang_len);
         }
         this.setData({
@@ -207,7 +172,6 @@ Page({
         })
         break;
       case 'a2b':
-        var that = this
         var cur_song_index = 0
         this.audioCtx2.pause()
         for (var i = 0; i < jue_len; i++) {
@@ -219,7 +183,7 @@ Page({
 
         var next_song_index = (cur_song_index + 1) % jue_len
         var next_n_song_index = (next_song_index + 1) % jue_len
-        if (this.data.random_playsongs3) {
+        if (this.data.randomSwitchChecked) {
           next_n_song_index = Math.floor(Math.random() * jue_len);
         }
         this.setData({
@@ -238,7 +202,6 @@ Page({
         })
         break;
       case 'a3b':
-        var that = this
         var cur_song_index = 0
         that.audioCtx3.pause()
         for (var i = 0; i < zhi_len; i++) {
@@ -250,7 +213,7 @@ Page({
 
         var next_song_index = (cur_song_index + 1) % zhi_len
         var next_n_song_index = (next_song_index + 1) % zhi_len
-        if (this.data.random_playsongs4) {
+        if (this.data.randomSwitchChecked) {
           next_n_song_index = Math.floor(Math.random() * zhi_len);
         }
         this.setData({
@@ -269,7 +232,6 @@ Page({
         })
         break;
       case 'a4b':
-        var that = this
         var cur_song_index = 0
         that.audioCtx4.pause()
         for (var i = 0; i < yu_len; i++) {
@@ -281,7 +243,7 @@ Page({
 
         var next_song_index = (cur_song_index + 1) % yu_len
         var next_n_song_index = (next_song_index + 1) % yu_len
-        if (this.data.random_playsongs5) {
+        if (this.data.randomSwitchChecked) {
           next_n_song_index = Math.floor(Math.random() * yu_len);
         }
         this.setData({
@@ -313,7 +275,6 @@ Page({
         fan_hidden: 1
       })
     }
-
   },
 
   hideModal(e) {
@@ -405,8 +366,38 @@ Page({
     })
   },
   musicPlay(e) {
+    console.log(e)
+    const bam = wx.getBackgroundAudioManager()
+    bam.title = ''
+
+
+
+
     let tmp = "audioCtx" + e.currentTarget.id[1]
-    e.detail.value ? this[tmp].play() : this[tmp].pause()
+    if (e.detail.value) {
+      this[tmp].play()
+      this.setData({
+        playSwitchChecked: true
+      })
+    } else {
+      this[tmp].pause()
+      this.setData({
+        playSwitchChecked: false
+      })
+    }
+  },
+
+  //随机播放
+  randomPlay(e) {
+    if (!this.data.randomSwitchChecked) {
+      this.setData({
+        randomSwitchChecked: true
+      })
+    } else {
+      this.setData({
+        randomSwitchChecked: false
+      })
+    }
   },
 
   /*
