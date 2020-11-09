@@ -58,14 +58,14 @@
         <!-- 队友用一年未更新+无文档的colorUI，心态有点裂 -->
         <view class="cu-bar bg-white1 justify">
           <view class="action" style="margin-left:15px">
-            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPlay"
+            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPlay" checked="{{playSwitchChecked}}"
               id="{{item.id+'p'}}"></switch>
             播放
           </view>
           <view class="content">请欣赏</view>
           <view class="action" style="margin-right:15px">
             随机
-            <switch class="tittle sm" style="margin-left:5px" bindchange="random_play" id="{{item.id+'p'}}"></switch>
+            <switch class="tittle sm" style="margin-left:5px" bindchange="random_play" id="{{item.id+'p'}} checked={{randomSwitchChecked}}"></switch>
           </view>
         </view>
 

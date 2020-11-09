@@ -14,6 +14,8 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     successRegistered: false,
+    playSwitchChecked: false,
+    randomSwitchChecked:false,
 
     // 微信小程序swiper命名不规范，swiper和swipe没有关系
     swiperList: {
