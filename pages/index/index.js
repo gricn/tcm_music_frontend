@@ -16,7 +16,7 @@ Page({
 
     playSwitchChecked: false,
     randomSwitchChecked: false,
-    currentSongIndexList: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐地址
+    currentSongIndexList: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐index
     nextSongIndexList: [1, 1, 1, 1, 1],
 
     // 微信小程序swiper命名不规范，swiper和swipe没有关系
@@ -53,10 +53,97 @@ Page({
 
     modalName: null,
     fan_hidden: 0,
-    finalRes: ''
+  },
+  /*
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.bam = wx.getBackgroundAudioManager()
+    var that = this
+
+    // 获取用户注册情况
+
+    //大致逻辑是：首先看看缓存有没有isRegistered，如果没，则请求服务器访问，
+    //根据用户openid判断是否注册，如果没有，最后才确定没注册，首页显示注册按钮
+    wx.getStorage({
+      key: 'isRegistered',
+      success: res => {
+        console.log("从缓存读取用户注册情况成功，值为:" + res.data)
+        app.globalData.isRegistered = res.data
+        that.setData({
+          isRegistered: res.data
+        })
+      },
+      fail: e => {
+        console.log("未能从缓存读取用户注册情况，请求服务器中……")
+        wx.getStorage({
+          key: 'openid',
+          success: res => {
+            wx.request({
+              url: 'https://www.gricn.top:4000/isRegistered/' + res.data,
+              success(res) {
+                if (res.data.exist) {
+                  wx.setStorage({
+                    key: 'isRegistered',
+                    data: true,
+                  })
+                  wx.setStorage({
+                    key: 'user_gender',
+                    data: res.data.gender
+                  })
+                  that.setData({
+                    isRegistered: true,
+                  })
+                  app.globalData.isRegistered = true
+                  app.globalData.user_gender = res.data.gender
+
+                  console.log("用户已注册 从服务器读取用户注册情况成功")
+                } else {
+                  console.log("用户未注册 从服务器读取用户注册情况失败")
+                }
+              }
+            })
+          },
+          fail: e => {
+            console.log("用户未注册鸭")
+          }
+        })
+      }
+    })
+
+    //获得上一页面传回的参数
+    if (options !== null) {
+      this.setData({
+        cur: options.cur
+      })
+    }
+  },
+
+  onShow: function (option) {
+    wx.getStorage({
+      key: 'isRegistered',
+      success: res => {
+        this.setData({
+          isRegistered: res.data
+        })
+      }
+    })
+  },
+
+  listenerBAM: function () {
+    // var that = this
+
+    // this.bam.onTimeUpdate(() => { //监听音频播放进度
+    //   console.log(bam.currentTime)
+    // })
+    // this.bam.onEnded(() => { //监听音乐自然播放结束
+    //   console.log("音乐播放结束");
+    //   // that.listenerButtonPlay(src)     //r如果需要音乐结束后继续循环播放，解除注释
+    // })
   },
 
   playNextMusic: function (e) {
+    this.listenerBAM()
     /* 大致思路：先进行音乐播放，然后更新下一首歌曲的信息 */
     var that = this
     let itemNum = parseInt(e.currentTarget.id[1])
@@ -93,7 +180,7 @@ Page({
         break
     }
 
-    
+
     // 音乐播放
     let item = app.globalData[musicListName][nextSongIndex]
     var nextSongPicURL = 'https://www.gricn.top:4000/api/poster/' + item.music_id
@@ -137,6 +224,7 @@ Page({
   },
 
   musicPlay(e) {
+    this.listenerBAM()
     var itemNum = parseInt(e.currentTarget.id[1])
     let currentSongIndex = this.data.currentSongIndexList[itemNum]
     var that = this
@@ -210,20 +298,18 @@ Page({
       }
     })
     var curwindowWidth3 = curwindowWidth / 3
-    var finalRes1 = this.data.finalRes
 
     if (app.globalData.isRegistered) {
 
       console.log('已注册，调往体质测试界面')
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
         console.log('进入定时关闭页面')
-        var to_time_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&&songlist_hid=false&time_slider_hid=false&finalRes=' + finalRes1
         wx.navigateTo({
           url: '/pages/square/square',
         })
       } else if (e.changedTouches['0'].pageX >= (curwindowWidth - curwindowWidth3)) {
         console.log('进入我的舒缓歌单')
-        var to_songlist_path = '../tc_test/tc_test?curTab=10&top_item_hid=true&songlist_hid=false&time_slider_hid=true&finalRes=' + finalRes1
+        var to_songlist_path = '../tc_test/tc_test?curTab=10&top_item_hid=true'
 
         wx.getStorage({
           key: 'wuyin_hid',
@@ -245,7 +331,7 @@ Page({
       } else {
         console.log('进入中医体质测试页面')
         wx.navigateTo({
-          url: '../tc_test/tc_test?top_item_hid=false&songlist_hid=false&time_slider_hid=true',
+          url: '../tc_test/tc_test?top_item_hid=false',
         })
       }
     } else {
@@ -288,125 +374,6 @@ Page({
         randomSwitchChecked: false
       })
     }
-  },
-
-  /*
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    var that = this
-
-    // 获取用户注册情况
-
-    //大致逻辑是：首先看看缓存有没有isRegistered，如果没，则请求服务器访问，
-    //根据用户openid判断是否注册，如果没有，最后才确定没注册，首页显示注册按钮
-    wx.getStorage({
-      key: 'isRegistered',
-      success: res => {
-        console.log("从缓存读取用户注册情况成功，值为:" + res.data)
-        app.globalData.isRegistered = res.data
-        that.setData({
-          isRegistered: res.data
-        })
-      },
-      fail: e => {
-        console.log("未能从缓存读取用户注册情况，请求服务器中……")
-        wx.getStorage({
-          key: 'openid',
-          success: res => {
-            wx.request({
-              url: 'https://www.gricn.top:4000/isRegistered/' + res.data,
-              success(res) {
-                if (res.data.exist) {
-                  wx.setStorage({
-                    key: 'isRegistered',
-                    data: true,
-                  })
-                  wx.setStorage({
-                    key: 'user_gender',
-                    data: res.data.gender
-                  })
-                  that.setData({
-                    isRegistered: true,
-                  })
-                  app.globalData.isRegistered = true
-                  app.globalData.user_gender = res.data.gender
-
-                  console.log("用户已注册 从服务器读取用户注册情况成功")
-                } else {
-                  console.log("用户未注册 从服务器读取用户注册情况失败")
-                }
-              }
-            })
-          },
-          fail: e => {
-            console.log("用户未注册鸭")
-          }
-        })
-      }
-    })
-
-    //获得上一页面传回的参数
-    if (options !== null) {
-      this.setData({
-        finalRes: options.finalRes,
-        cur: options.cur
-      })
-    }
-  },
-
-  onShow: function (option) {
-    wx.getStorage({
-      key: 'isRegistered',
-      success: res => {
-        this.setData({
-          isRegistered: res.data
-        })
-      }
-    })
-  },
-
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady(e) {
-    this.bam = wx.getBackgroundAudioManager()
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 
 })

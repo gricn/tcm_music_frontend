@@ -4,63 +4,55 @@
 <swiper class="swiper1" circular="true" current="{{cur}}">
   <swiper-item>
     <view class="homepage-view-style">
-
       <view class="flex justify-between" style="bottom:0px; flex-direction:column-reverse; height:100%">
-        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" data-target="bottomModal"
-          hidden="{{fan_hidden}}">
+        <view class="padding-0 radius shadow shadow-lg text-center" bindtap="showModal" data-target="bottomModal" hidden="{{fan_hidden}}">
           <image class="fan_image2" src="{{fan_url2}}" mode="aspectFill"></image>
         </view>
-
         <view class="padding-0 radius shadow shadow-lg text-center" hidden="{{1-fan_hidden}}">
           <image class="fan_image" src="{{fan_url}}" mode="aspectFit"></image>
         </view>
-
         <view class="margin-0 padding-xl radius shadow shadow-lg justify-end">
           <view class="flex justify-end" hidden="{{isRegistered}}">
-            <button style="position:absolute;top:30rpx;right:30rpx;z-index:99;" class='cu-btn round bg-red shadow'
-              bindtap="To_register">注册</button>
+            <button style="position:absolute;top:30rpx;right:30rpx;z-index:99;" class='cu-btn round bg-red shadow' bindtap="To_register">
+              注册
+            </button>
           </view>
         </view>
       </view>
-
       <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" style="z-index:2;">
         <view class="cu-dialog">
-          <view class="bg-img" bindtap="To_tc_test"
-            style="background-image: url({{menu_url}});height:450px;margin-bottom:10%;">
+          <view class="bg-img" bindtap="To_tc_test" style="background-image: url({{menu_url}});height:450px;margin-bottom:10%;">
             <view class="cu-bar justify-end text-white">
+              <!-- 扇子图片下滑 -->
               <view class="action" bindtap="hideModal">
                 <text class="cuIcon-close "></text>
               </view>
             </view>
           </view>
-
+          <!-- 扇子图片下滑 -->
           <view class="closeFan" bindtap="hideModal">
             <view class="action margin-0 flex-sub " style="bottom:20rpx;text-align=center;position:absolute;" bindtap="hideModal">
               <text class="text-center text-content" space="nbsp">关闭</text>
             </view>
           </view>
-
         </view>
       </view>
     </view>
   </swiper-item>
-
+  
   <!-- 宫商角徵羽各页面 -->
   <swiper-item wx:for="{{swiperList}}" wx:key="this">
     <!-- “我要不要把前人的modal这个拼写改为正确的model呢，纠结了大半年的问题，还是改了，毕竟这个项目以后是我维护，有点强迫症”
           是我错了，半年前我就发现是自己理解错了，但是没有及时备注，就忘了。
-          有wx.showModal这么一个组件，当时我还纳闷腾讯怎么创了一个这个词，要是删改了，所有模块全都不起作用了
-   -->
+          有wx.showModal这么一个组件，当时我还纳闷腾讯怎么创了一个这个词，要是删改了，所有模块全都不起作用了 -->
     <image class="sw_image" src="{{item.url}}" mode="aspectFill" bindtap="showModal" data-target="Modal"></image>
-
     <view class="cu-modal bottom-modal show">
       <view class="cu-dialog">
         <!-- 队友用一年未更新+无文档的colorUI，心态有点裂 -->
         <view class="cu-bar bg-white1 justify">
           <view class="action" style="margin-left:15px">
-            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPlay" checked="{{playSwitchChecked}}"
-              id="{{item.id+'p'}}"></switch>
-            <text class="text-bold df" style="color:purple" >播放</text>
+            <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPlay" checked="{{playSwitchChecked}}" id="{{item.id+'p'}}"></switch>
+            <text class="text-bold df" style="color:purple">播放</text>
           </view>
           <view class="content">请欣赏</view>
           <view class="action" style="margin-right:15px">
@@ -68,10 +60,8 @@
             <switch class="tittle sm" style="margin-left:5px" bindchange="randomPlay" id="{{item.id+'p'}}" checked="{{randomSwitchChecked}}"></switch>
           </view>
         </view>
-
         <view class="padding-xl">
-          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="playNextMusic" id="{{item.id+'b'}}"
-            data-songid="{{item.music_list.id}}">
+          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="playNextMusic" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">
             下一首
           </button>
           <text>{{item.nextSongName}}</text>
