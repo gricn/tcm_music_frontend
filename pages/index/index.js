@@ -13,7 +13,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    successRegistered: false,
+
     playSwitchChecked: false,
     randomSwitchChecked: false,
     currentSongIndexList: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐地址
@@ -47,21 +47,13 @@ Page({
         "nextSongName": "水音2"
       }
     },
-
     fan_url: "https://hbimg.huabanimg.com/9e0ac627e3055a688d0113d9bf039f44f0bc5d0f13674-wOWv3Y",
     fan_url2: "https://hbimg.huabanimg.com/83ae78fc6d25ee7bfd1903951918c57d109ecd7b5772f-3tVDLQ",
     menu_url: "https://hbimg.huabanimg.com/9a02a800ce8af13b836d81422550dc03dec918d469792-sfKjeY",
+
     modalName: null,
     fan_hidden: 0,
     finalRes: ''
-  },
-
-  change_singing_page: function (e) {
-    // this.audioCtx0.pause() //tu
-    // this.audioCtx1.pause() //jin
-    // this.audioCtx2.pause() //mu
-    // this.audioCtx3.pause() //huo
-    // this.audioCtx4.pause() //shui
   },
 
   playNextMusic: function (e) {
@@ -70,6 +62,7 @@ Page({
     let itemNum = parseInt(e.currentTarget.id[1])
     let nextSongIndex = this.data.nextSongIndexList[itemNum]
     var musicListName = ""
+
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
@@ -125,22 +118,18 @@ Page({
     })
 
     //更新下一首歌曲的index
-
     let currentSongIndex = nextSongIndex
-    console.log("current:" + currentSongIndex)
 
     nextSongIndex = this.data.randomSwitchChecked ?
       Math.floor(Math.random() * tempLen) :
       (currentSongIndex + 1) % tempLen
     this.data.nextSongIndexList[itemNum] = nextSongIndex
 
-    console.log(nextSongIndex)
-
     // 最后更新WXML下一首的内容
     let temp = "swiper" + (itemNum + 1)
     let tempJSON = this.data.swiperList
     tempJSON[temp].nextSongName = app.globalData[musicListName][nextSongIndex].music_name
-    console.log(tempJSON)
+
     this.setData({
       swiperList: tempJSON,
       playSwitchChecked: true
@@ -171,7 +160,6 @@ Page({
         break
     }
 
-    console.log("currentSongIndex:" + app.globalData[musicListName][currentSongIndex].music_name)
     this.bam.title = String(app.globalData[musicListName][currentSongIndex].music_name)
 
     if (e.detail.value) {
@@ -275,7 +263,6 @@ Page({
   },
 
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -353,7 +340,6 @@ Page({
             })
           },
           fail: e => {
-            console.log(e)
             console.log("用户未注册鸭")
           }
         })

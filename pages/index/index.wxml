@@ -1,7 +1,7 @@
 <cu-custom bgColor="bg-white1">
   <view slot="content">中医音乐</view>
 </cu-custom>
-<swiper class="swiper1" circular="true" current="{{cur}}" bindchange="change_singing_page">
+<swiper class="swiper1" circular="true" current="{{cur}}">
   <swiper-item>
     <view class="homepage-view-style">
 

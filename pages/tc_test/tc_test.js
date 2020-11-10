@@ -55,6 +55,10 @@ Page({
     })
   },
 
+  forbid(e){
+    // 不能删，用来阻止用户在页面滑动swiper-item
+  },
+
   swiperChange(e) { //切换
     let {
       current,
@@ -416,6 +420,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    var that = this
 
     this.setData({
       gong_list: app.globalData.gong_list,
@@ -428,8 +433,7 @@ Page({
     wx.getStorage({
       key: "user_gender",
       success: res => {
-        console.log('aaaaaaaa')
-        this.setData({
+        that.setData({
           user_gender: res.data
         })
       }

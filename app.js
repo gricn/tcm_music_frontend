@@ -17,43 +17,6 @@ App({
   onLaunch: function () {
     var that = this
 
-    /*用来获得角徵宫商羽的歌单，效率很低，但先这样吧 */
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/jue.json',
-      success(res) {
-        that.globalData.jue_list = res.data
-        console.log('jue')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/zhi.json',
-      success(res) {
-        that.globalData.zhi_list = res.data
-        console.log('zhi')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/gong.json',
-      success(res) {
-        that.globalData.gong_list = res.data
-        console.log('gong')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/shang.json',
-      success(res) {
-        that.globalData.shang_list = res.data
-        console.log('shang')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/yu.json',
-      success(res) {
-        that.globalData.yu_list = res.data
-        console.log('yu')
-      }
-    })
-
     // 展示本地存储能力
     var openid = null
     /* 获取用户openid */
@@ -85,6 +48,38 @@ App({
       }
     })
 
+    /*用来获得角徵宫商羽的歌单，效率很低，但先这样吧 */
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/jue.json',
+      success(res) {
+        that.globalData.jue_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/zhi.json',
+      success(res) {
+        that.globalData.zhi_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/gong.json',
+      success(res) {
+        that.globalData.gong_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/shang.json',
+      success(res) {
+        that.globalData.shang_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/yu.json',
+      success(res) {
+        that.globalData.yu_list = res.data
+      }
+    })
+
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -99,9 +94,11 @@ App({
       }
     })
   },
-  onLoad() {
+
+  onLoad(e) {
   },
-  onShow() {
+
+  onShow(e) {
   },
 
   /**
@@ -119,8 +116,7 @@ App({
         console.log("Fail to get user_gender from local, try to get from server")
       }
     })
-
-
+    
   },
 
   getOpenid(temp) {
