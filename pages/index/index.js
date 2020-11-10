@@ -100,8 +100,10 @@ Page({
         break
     }
 
+    
     // 音乐播放
-    var nextSongPicURL = 'https://www.gricn.top:4000/api/poster/' + app.globalData[musicListName][nextSongIndex].music_id
+    let item = app.globalData[musicListName][nextSongIndex]
+    var nextSongPicURL = 'https://www.gricn.top:4000/api/poster/' + item.music_id
     wx.request({
       url: nextSongPicURL,
       success(res) {
@@ -110,11 +112,10 @@ Page({
     })
 
     // 获取下一首歌曲的音乐名、歌手和MP3地址
-    console.log("bam_name:" + app.globalData[musicListName][nextSongIndex].music_name)
-    this.bam.title = String(app.globalData[musicListName][nextSongIndex].music_name)
-    this.bam.singer = app.globalData[musicListName][nextSongIndex].music_authors
-    let nextSongMP3URL = 'https://www.gricn.top:4000/api/song/' + app.globalData[musicListName][nextSongIndex].music_id
+    this.bam.title = String(item.music_name)
+    this.bam.singer = item.music_authors
 
+    let nextSongMP3URL = 'https://www.gricn.top:4000/api/song/' + item.music_id
     wx.request({
       url: nextSongMP3URL,
       success(res) {
@@ -141,7 +142,8 @@ Page({
     tempJSON[temp].nextSongName = app.globalData[musicListName][nextSongIndex].music_name
     console.log(tempJSON)
     this.setData({
-      swiperList: tempJSON
+      swiperList: tempJSON,
+      playSwitchChecked: true
     })
   },
 
@@ -169,7 +171,9 @@ Page({
         break
     }
 
-    this.bam.title = app.globalData[musicListName][currentSongIndex].music_name
+    console.log("currentSongIndex:" + app.globalData[musicListName][currentSongIndex].music_name)
+    this.bam.title = String(app.globalData[musicListName][currentSongIndex].music_name)
+
     if (e.detail.value) {
       wx.request({
         url: 'https://www.gricn.top:4000/api/song/' + app.globalData[musicListName][currentSongIndex].music_id,
