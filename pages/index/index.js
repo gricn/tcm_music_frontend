@@ -16,70 +16,35 @@ Page({
     successRegistered: false,
     playSwitchChecked: false,
     randomSwitchChecked: false,
-    currentSongIndex: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐地址
-    nextSongIndex: [1, 1, 1, 1, 1],
+    currentSongIndexList: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐地址
+    nextSongIndexList: [1, 1, 1, 1, 1],
 
     // 微信小程序swiper命名不规范，swiper和swipe没有关系
     swiperList: {
       swiper1: {
-        id: 'a0',
-        url: "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK",
-        music_list: {
-          poster: 'https://p2.music.126.net/QVg1vX7lvFdbHrnn0hrPNQ==/23089744195372.jpg',
-          name: '土音',
-          author: '吴慎',
-          src: '',
-          id: '167237',
-          next_s: '渔舟唱晚'
-        },
+        "id": "a0",
+        "url": "https://hbimg.huabanimg.com/cc7483bb7e9f7bd168d00e9aba2941e5dc0cf5d33c68f-YN9GOK",
+        "nextSongName": "渔舟唱晚"
       },
       swiper2: {
-        id: 'a1',
-        url: "https://hbimg.huabanimg.com/3ddffad15246fa4a7b847e747b1773edfd2a591544d6b-uB8l6M",
-        music_list: {
-          poster: 'https://p1.music.126.net/TlKUiqvj1batGJJtBPQwZA==/116548232557408.jpg',
-          name: '金音1',
-          author: '吴慎',
-          src: '',
-          id: '167247',
-          next_s: '金音2'
-        },
+        "id": "a1",
+        "url": "https://hbimg.huabanimg.com/3ddffad15246fa4a7b847e747b1773edfd2a591544d6b-uB8l6M",
+        "nextSongName": "金音2"
       },
       swiper3: {
-        id: 'a2',
-        url: "https://hbimg.huabanimg.com/297ffaa48cdb3a9756b45d207e21e490f5d92b193daa1-HCQJps",
-        music_list: {
-          poster: 'https://p2.music.126.net/6XHo66x8Dm-0Sx27OA8NCA==/68169720934902.jpg',
-          name: '木音(角声)',
-          author: '吴慎',
-          src: '',
-          id: '167272',
-          next_s: '木'
-        },
+        "id": "a2",
+        "url": "https://hbimg.huabanimg.com/297ffaa48cdb3a9756b45d207e21e490f5d92b193daa1-HCQJps",
+        "nextSongName": "木"
       },
       swiper4: {
-        id: 'a3',
-        url: "https://hbimg.huabanimg.com/68765fb5aef5ed89d57a397248f4eaf3a6a4ec3a52ef0-xcNqIJ",
-        music_list: {
-          poster: 'https://p1.music.126.net/AFJ6f-3LC37wjvChfNBAsw==/24189255823157.jpg',
-          name: '火音1',
-          author: '吴慎',
-          src: '',
-          id: '167260',
-          next_s: '火音2'
-        },
+        "id": "a3",
+        "url": "https://hbimg.huabanimg.com/68765fb5aef5ed89d57a397248f4eaf3a6a4ec3a52ef0-xcNqIJ",
+        "nextSongName": "火音2"
       },
       swiper5: {
-        id: 'a4',
-        url: "https://hbimg.huabanimg.com/ecdd77fcbeaf108501166bb2d028260acb5132b443891-eC8WXw",
-        music_list: {
-          poster: 'https://p2.music.126.net/So0DylHDizPpf6SFD36lWg==/74766790701523.jpg',
-          name: '水音1',
-          author: '吴慎',
-          src: '',
-          id: '167278',
-          next_s: '水音2'
-        },
+        "id": "a4",
+        "url": "https://hbimg.huabanimg.com/ecdd77fcbeaf108501166bb2d028260acb5132b443891-eC8WXw",
+        "nextSongName": "水音2"
       }
     },
 
@@ -92,40 +57,135 @@ Page({
   },
 
   change_singing_page: function (e) {
-    this.audioCtx0.pause() //tu
-    this.audioCtx1.pause() //jin
-    this.audioCtx2.pause() //mu
-    this.audioCtx3.pause() //huo
-    this.audioCtx4.pause() //shui
+    // this.audioCtx0.pause() //tu
+    // this.audioCtx1.pause() //jin
+    // this.audioCtx2.pause() //mu
+    // this.audioCtx3.pause() //huo
+    // this.audioCtx4.pause() //shui
   },
 
-  nextMusic: function (e) {
+  playNextMusic: function (e) {
+    /* 大致思路：先进行音乐播放，然后更新下一首歌曲的信息 */
+    var that = this
+    let itemNum = parseInt(e.currentTarget.id[1])
+    let nextSongIndex = this.data.nextSongIndexList[itemNum]
+    var musicListName = ""
     var gong_len = app.globalData.gong_list.length
     var shang_len = app.globalData.shang_list.length
     var jue_len = app.globalData.jue_list.length
     var zhi_len = app.globalData.zhi_list.length
     var yu_len = app.globalData.yu_list.length
+    var tempLen = 0
 
-    var that = this
+    switch (itemNum) {
+      case 0:
+        musicListName = "gong_list"
+        tempLen = gong_len
+        break
+      case 1:
+        musicListName = "shang_list"
+        tempLen = shang_len
+        break
+      case 2:
+        musicListName = "jue_list"
+        tempLen = jue_len
+        break
+      case 3:
+        musicListName = "zhi_list"
+        tempLen = zhi_len
+        break
+      case 4:
+        musicListName = "yu_list"
+        tempLen = yu_len
+        break
+    }
 
-    var itemNum = parseInt(e.currentTarget.id[1])
-    console.log(itemNum)
-    var currentSongIndex = 0
-
-    var nextSongIndex = this.data.randomSwitchChecked ?
-      Math.floor(Math.random() * gong_len) :
-      (currentSongIndex + 1) % gong_len
-
-    this.bam.title = app.globalData.gong_list[nextSongIndex].music_name
-    this.bam.singer = app.globalData.gong_list[nextSongIndex].music_authors
-
-    var nextURL = 'https://www.gricn.top:4000/api/song/' + app.globalData.gong_list[nextSongIndex].music_id
+    // 音乐播放
+    var nextSongPicURL = 'https://www.gricn.top:4000/api/poster/' + app.globalData[musicListName][nextSongIndex].music_id
     wx.request({
-      url: nextURL,
+      url: nextSongPicURL,
       success(res) {
-        that.bam.src = res.data
+        that.bam.coverImgUrl = res.data
       }
     })
+
+    // 获取下一首歌曲的音乐名、歌手和MP3地址
+    console.log("bam_name:" + app.globalData[musicListName][nextSongIndex].music_name)
+    this.bam.title = String(app.globalData[musicListName][nextSongIndex].music_name)
+    this.bam.singer = app.globalData[musicListName][nextSongIndex].music_authors
+    let nextSongMP3URL = 'https://www.gricn.top:4000/api/song/' + app.globalData[musicListName][nextSongIndex].music_id
+
+    wx.request({
+      url: nextSongMP3URL,
+      success(res) {
+        that.bam.src = res.data
+        that.data.currentSongIndexList[itemNum] = nextSongIndex
+      }
+    })
+
+    //更新下一首歌曲的index
+
+    let currentSongIndex = nextSongIndex
+    console.log("current:" + currentSongIndex)
+
+    nextSongIndex = this.data.randomSwitchChecked ?
+      Math.floor(Math.random() * tempLen) :
+      (currentSongIndex + 1) % tempLen
+    this.data.nextSongIndexList[itemNum] = nextSongIndex
+
+    console.log(nextSongIndex)
+
+    // 最后更新WXML下一首的内容
+    let temp = "swiper" + (itemNum + 1)
+    let tempJSON = this.data.swiperList
+    tempJSON[temp].nextSongName = app.globalData[musicListName][nextSongIndex].music_name
+    console.log(tempJSON)
+    this.setData({
+      swiperList: tempJSON
+    })
+  },
+
+  musicPlay(e) {
+    var itemNum = parseInt(e.currentTarget.id[1])
+    let currentSongIndex = this.data.currentSongIndexList[itemNum]
+    var that = this
+    var musicListName = ""
+
+    switch (itemNum) {
+      case 0:
+        musicListName = "gong_list"
+        break
+      case 1:
+        musicListName = "shang_list"
+        break
+      case 2:
+        musicListName = "jue_list"
+        break
+      case 3:
+        musicListName = "zhi_list"
+        break
+      case 4:
+        musicListName = "yu_list"
+        break
+    }
+
+    this.bam.title = app.globalData[musicListName][currentSongIndex].music_name
+    if (e.detail.value) {
+      wx.request({
+        url: 'https://www.gricn.top:4000/api/song/' + app.globalData[musicListName][currentSongIndex].music_id,
+        success(res) {
+          that.bam.src = res.data //tu
+        }
+      })
+      this.setData({
+        playSwitchChecked: true
+      })
+    } else {
+      this.bam.pause()
+      this.setData({
+        playSwitchChecked: false
+      })
+    }
   },
 
   showModal(e) {
@@ -225,32 +285,6 @@ Page({
       url: '../logs/logs'
     })
   },
-  musicPlay(e) {
-    console.log(e)
-    this.bam.title = ''
-
-    // var that = this
-    // wx.request({
-    //   url: 'https://www.gricn.top:4000/api/song/167237',
-    //   success(res) {
-    //     that.audioCtx0.src = res.data //tu
-    //   }
-    // })
-
-    let tmp = "audioCtx" + e.currentTarget.id[1]
-    console.log(tmp)
-    if (e.detail.value) {
-      this[tmp].play()
-      this.setData({
-        playSwitchChecked: true
-      })
-    } else {
-      this[tmp].pause()
-      this.setData({
-        playSwitchChecked: false
-      })
-    }
-  },
 
   //随机播放
   randomPlay(e) {
@@ -322,7 +356,6 @@ Page({
       }
     })
 
-
     //获得上一页面传回的参数
     if (options !== null) {
       this.setData({
@@ -348,45 +381,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady(e) {
-    this.bam = wx.getBackgroundAudioManager(),
-    // 使用 wx.createAudioContext 获取 audio 上下文 context
-    this.audioCtx0 = wx.createInnerAudioContext('a0') //tu
-    this.audioCtx1 = wx.createInnerAudioContext('a1') //jin
-    this.audioCtx2 = wx.createInnerAudioContext('a2') //mu
-    this.audioCtx3 = wx.createInnerAudioContext('a3') //huo
-    this.audioCtx4 = wx.createInnerAudioContext('a4') //shui
-
-    var that = this
-    wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167237',
-      success(res) {
-        that.audioCtx0.src = res.data //tu
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167247',
-      success(res) {
-        that.audioCtx1.src = res.data //jin
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167272',
-      success(res) {
-        that.audioCtx2.src = res.data //mu
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167260',
-      success(res) {
-        that.audioCtx3.src = res.data //huo
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/api/song/167278',
-      success(res) {
-        that.audioCtx4.src = res.data //shui
-      }
-    })
+    this.bam = wx.getBackgroundAudioManager()
   },
 
   /**
