@@ -4,6 +4,9 @@ const app = getApp()
 var util = require('../../utils/util.js')
 
 Page({
+  options: {
+    pureDataPattern: /^_/   // 指定所有 _ 开头的数据字段为纯数据字段
+  },
   data: {
     cur: 0,
     StatusBar: app.globalData.StatusBar,
@@ -16,6 +19,7 @@ Page({
 
     playSwitchChecked: false,
     randomSwitchChecked: false,
+    _itemNum: 0, // 用来存放当前播放的音乐类型，0 ~ 4分别对应 宫商角徵羽
     currentSongIndexList: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐index
     nextSongIndexList: [1, 1, 1, 1, 1],
 
@@ -120,6 +124,7 @@ Page({
   },
 
   onShow: function (option) {
+    var that = this
     wx.getStorage({
       key: 'isRegistered',
       success: res => {
@@ -128,33 +133,96 @@ Page({
         })
       }
     })
+    wx.setStorage({
+      key: "skipCoverPage",
+      data: "true"
+    })
   },
 
   listenerBAM: function () {
-    // var that = this
+    var that = this
 
-    // this.bam.onTimeUpdate(() => { //监听音频播放进度
-    //   console.log(bam.currentTime)
-    // })
-    // this.bam.onEnded(() => { //监听音乐自然播放结束
-    //   console.log("音乐播放结束");
-    //   // that.listenerButtonPlay(src)     //r如果需要音乐结束后继续循环播放，解除注释
-    // })
+    this.bam.onWaiting(() => {
+      wx.showLoading({
+        title: '加载中',
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 300)
+    })
+
+    this.bam.onTimeUpdate(() => { //监听音频播放进度
+      // console.log(that.bam.currentTime)
+    })
+
+    this.bam.onError(() => {
+      wx.showModal({
+        title: '错误',
+        content: '音频播放错误，请检测网络情况',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    })
+
+    /* 尝试解决onEnded不生效bug
+   https://developers.weixin.qq.com/community/develop/doc/00040cef5d87d8ceeb7744afd5b000 */
+    this.bam.onEnded(() => { //监听音乐自然播放结束
+      that.playNextMusic()
+      wx.showToast({
+        title: '下一首',
+        icon: 'none',
+        duration: 1000
+      })
+    })
+
+    this.bam.onNext(() => {
+      that.playNextMusic()
+    })
+
+    this.bam.onPrev(() => {
+      that.playNextMusic()
+    })
+
+    this.bam.onPlay(() => {
+      that.setData({
+        playSwitchChecked: true
+      })
+    })
+
+    this.bam.onPause(() => {
+      that.setData({
+        playSwitchChecked: false
+      })
+    })
+
+    this.bam.onStop(() => {
+      that.setData({
+        playSwitchChecked: false
+      })
+    })
+
+
   },
 
   playNextMusic: function (e) {
     this.listenerBAM()
     /* 大致思路：先进行音乐播放，然后更新下一首歌曲的信息 */
     var that = this
-    let itemNum = parseInt(e.currentTarget.id[1])
+    let itemNum = !isNaN(e) ? parseInt(e.currentTarget.id[1]) : this.data._itemNum
     let nextSongIndex = this.data.nextSongIndexList[itemNum]
     var musicListName = ""
 
-    var gong_len = app.globalData.gong_list.length
-    var shang_len = app.globalData.shang_list.length
-    var jue_len = app.globalData.jue_list.length
-    var zhi_len = app.globalData.zhi_list.length
-    var yu_len = app.globalData.yu_list.length
+    var appData = app.globalData
+    var gong_len = appData.gong_list.length
+    var shang_len = appData.shang_list.length
+    var jue_len = appData.jue_list.length
+    var zhi_len = appData.zhi_list.length
+    var yu_len = appData.yu_list.length
     var tempLen = 0
 
     switch (itemNum) {
@@ -182,7 +250,7 @@ Page({
 
 
     // 音乐播放
-    let item = app.globalData[musicListName][nextSongIndex]
+    let item = appData[musicListName][nextSongIndex]
     var nextSongPicURL = 'https://www.gricn.top:4000/api/poster/' + item.music_id
     wx.request({
       url: nextSongPicURL,
@@ -215,7 +283,7 @@ Page({
     // 最后更新WXML下一首的内容
     let temp = "swiper" + (itemNum + 1)
     let tempJSON = this.data.swiperList
-    tempJSON[temp].nextSongName = app.globalData[musicListName][nextSongIndex].music_name
+    tempJSON[temp].nextSongName = appData[musicListName][nextSongIndex].music_name
 
     this.setData({
       swiperList: tempJSON,
@@ -223,9 +291,11 @@ Page({
     })
   },
 
+  // 音乐播放暂停switch
   musicPlay(e) {
     this.listenerBAM()
-    var itemNum = parseInt(e.currentTarget.id[1])
+    let itemNum = !isNaN(e) ? parseInt(e.currentTarget.id[1]) : this.data._itemNum
+    this.data._itemNum = itemNum
     let currentSongIndex = this.data.currentSongIndexList[itemNum]
     var that = this
     var musicListName = ""

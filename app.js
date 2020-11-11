@@ -80,6 +80,15 @@ App({
       }
     })
 
+    wx.getStorage({
+      key: 'skipCoverPage',
+      success(res) {
+        wx.reLaunch({
+          url: '/pages/index/index'
+        })
+      }
+    })
+
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -96,6 +105,9 @@ App({
   },
 
   onLoad(e) {
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
   },
 
   onShow(e) {
@@ -116,7 +128,7 @@ App({
         console.log("Fail to get user_gender from local, try to get from server")
       }
     })
-    
+
   },
 
   getOpenid(temp) {
