@@ -233,6 +233,7 @@ Page({
   //滑动问题下的滑钮时，收集用户答案
   sliderChange(e) {
     var pickID = e.currentTarget.id
+    console.log("pickID:" + pickID)
 
     //及时修改对应项sliderValue的数值
 

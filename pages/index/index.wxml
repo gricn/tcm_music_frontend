@@ -48,7 +48,6 @@
     <image class="sw_image" src="{{item.url}}" mode="aspectFill" bindtap="showModal" data-target="Modal"></image>
     <view class="cu-modal bottom-modal show">
       <view class="cu-dialog">
-        <!-- 队友用一年未更新+无文档的colorUI，心态有点裂 -->
         <view class="cu-bar bg-white1 justify">
           <view class="action" style="margin-left:15px">
             <switch class="tittle sm" style="margin-left:5px;margin-right:5px" bindchange="musicPlay" checked="{{playSwitchChecked}}" id="{{item.id+'p'}}"></switch>
@@ -61,7 +60,7 @@
           </view>
         </view>
         <view class="padding-xl">
-          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="nextMusicPlay" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">
+          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="nextMusicPlay" id="{{item.id+'b'}}">
             下一首
           </button>
           <text>{{item.nextSongName}}</text>
