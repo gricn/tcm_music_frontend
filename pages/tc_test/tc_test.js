@@ -342,8 +342,9 @@ Page({
    */
   onLoad: function (options) {
     if (options.top_item_hid != undefined) {
+      let tmp = options.top_item_hid == "false" ? false : true
       this.setData({
-        top_item_hid: options.top_item_hid,
+        top_item_hid: tmp,
       })
     }
 

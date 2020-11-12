@@ -19,7 +19,7 @@ Page({
 
     playSwitchChecked: false,
     randomSwitchChecked: false,
-    _itemNum: 0, // 用来存放当前播放的音乐类型，0 ~ 4分别对应 宫商角徵羽
+    _itemNum: 0, // 用来存放当前播放的音乐种类数字，0~4分别对应 宫商角徵羽。当其他函数调用 playMusic
     currentSongIndexList: [0, 0, 0, 0, 0], // 用来存放5播放页面音乐index
     nextSongIndexList: [1, 1, 1, 1, 1],
 
@@ -137,7 +137,7 @@ Page({
       data: "true"
     })
     this.bam = wx.getBackgroundAudioManager()
-    this.bam.title = "请欣赏"
+    // this.bam.title = "请欣赏"
   },
 
   listenerBAM: function () {
@@ -152,9 +152,10 @@ Page({
       }, 300)
     })
 
-    this.bam.onTimeUpdate(() => { //监听音频播放进度
-      // console.log(that.bam.currentTime)
-    })
+    // //监听音频播放进度
+    // this.bam.onTimeUpdate(() => { 
+    //   // console.log(that.bam.currentTime)
+    // })
 
     this.bam.onError(() => {
       wx.showModal({
@@ -173,20 +174,20 @@ Page({
     /* 尝试解决onEnded不生效bug
    https://developers.weixin.qq.com/community/develop/doc/00040cef5d87d8ceeb7744afd5b000 */
     this.bam.onEnded(() => { //监听音乐自然播放结束
-      that.playNextMusic()
+      that.nextMusicPlay()
       wx.showToast({
-        title: '下一首',
+        title: '正在切换下一首音乐',
         icon: 'none',
         duration: 1000
       })
     })
 
     this.bam.onNext(() => {
-      that.playNextMusic()
+      that.nextMusicPlay()
     })
 
     this.bam.onPrev(() => {
-      that.playNextMusic()
+      that.nextMusicPlay()
     })
 
     this.bam.onPlay(() => {
@@ -208,21 +209,23 @@ Page({
     })
   },
 
-  playNextMusic: function (e) {
+  nextMusicPlay: function (e) {
     this.listenerBAM()
     /* 大致思路：先进行音乐播放，然后更新下一首歌曲的信息 */
     var that = this
     let itemNum = !isNaN(e) ? parseInt(e.currentTarget.id[1]) : this.data._itemNum
+    console.log("目前所在页面为：" + itemNum)
     let nextSongIndex = this.data.nextSongIndexList[itemNum]
     var musicListName = ""
 
-    var appData = app.globalData
-    var gong_len = appData.gong_list.length
-    var shang_len = appData.shang_list.length
-    var jue_len = appData.jue_list.length
-    var zhi_len = appData.zhi_list.length
-    var yu_len = appData.yu_list.length
-    var tempLen = 0
+    // 这部分很浪费资源，要修改
+    let appData = app.globalData
+    let gong_len = appData.gong_list.length
+    let shang_len = appData.shang_list.length
+    let jue_len = appData.jue_list.length
+    let zhi_len = appData.zhi_list.length
+    let yu_len = appData.yu_list.length
+    let tempLen = 0
 
     switch (itemNum) {
       case 0:
@@ -248,18 +251,23 @@ Page({
     }
 
 
-    // 音乐播放
+    // 获取音乐海报
     let item = appData[musicListName][nextSongIndex]
     var nextSongPicURL = 'https://www.gricn.top:4000/api/poster/' + item.music_id
     wx.request({
       url: nextSongPicURL,
       success(res) {
         that.bam.coverImgUrl = res.data
+      },
+      fail(res) {
+        console.log("加载音乐海报失败：" + res)
       }
     })
 
+
     // 获取下一首歌曲的音乐名、歌手和MP3地址
-    this.bam.title = String(item.music_name)
+    this.bam.title = item.music_name
+    console.log("下一首歌曲的音乐名为：" + item.music_name)
     this.bam.singer = item.music_authors
 
     let nextSongMP3URL = 'https://www.gricn.top:4000/api/song/' + item.music_id
@@ -267,10 +275,12 @@ Page({
       url: nextSongMP3URL,
       success(res) {
         that.bam.src = res.data
+        console.log("切换下一首歌曲成功")
         that.data.currentSongIndexList[itemNum] = nextSongIndex
       }
     })
-
+    
+    /* ------------------------------------------- */
     //更新下一首歌曲的index
     let currentSongIndex = nextSongIndex
 
@@ -279,10 +289,11 @@ Page({
       (currentSongIndex + 1) % tempLen
     this.data.nextSongIndexList[itemNum] = nextSongIndex
 
-    // 最后更新WXML下一首的内容
+    // 最后更新首页显示下一首的内容
     let temp = "swiper" + (itemNum + 1)
     let tempJSON = this.data.swiperList
     tempJSON[temp].nextSongName = appData[musicListName][nextSongIndex].music_name
+    console.log("下一首内容存储成功：" + appData[musicListName][nextSongIndex].music_name)
 
     this.setData({
       swiperList: tempJSON,
@@ -294,7 +305,7 @@ Page({
   musicPlay(e) {
     this.listenerBAM()
     let itemNum = !isNaN(e) ? parseInt(e.currentTarget.id[1]) : this.data._itemNum
-    this.data._itemNum = itemNum
+    itemNum = this.data._itemNum
     let currentSongIndex = this.data.currentSongIndexList[itemNum]
     var that = this
     var musicListName = ""
@@ -316,12 +327,14 @@ Page({
         musicListName = "yu_list"
         break
     }
+    let currentSong = app.globalData[musicListName][currentSongIndex]
 
-    this.bam.title = String(app.globalData[musicListName][currentSongIndex].music_name)
+    console.log("currentSong:" + currentSong.music_name)
+    this.bam.title = currentSong.music_name
 
     if (e.detail.value) {
       wx.request({
-        url: 'https://www.gricn.top:4000/api/song/' + app.globalData[musicListName][currentSongIndex].music_id,
+        url: 'https://www.gricn.top:4000/api/song/' + currentSong.music_id,
         success(res) {
           that.bam.src = res.data //tu
         }

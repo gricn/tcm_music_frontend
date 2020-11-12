@@ -61,7 +61,7 @@
           </view>
         </view>
         <view class="padding-xl">
-          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="playNextMusic" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">
+          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="nextMusicPlay" id="{{item.id+'b'}}" data-songid="{{item.music_list.id}}">
             下一首
           </button>
           <text>{{item.nextSongName}}</text>
