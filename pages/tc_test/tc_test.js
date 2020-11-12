@@ -57,7 +57,7 @@ Page({
       current,
       source
     } = e.detail
-    if (source === 'autoplay' || source === 'touch') {
+    if (source === 'touch') {
       this.setData({
         curTab: current,
         scrollLeft: (current - 1) * 60
@@ -435,5 +435,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 不要删不要删
+  noneFunction(){
+    //  不要删不要删，用来防止用户误触
   }
 })

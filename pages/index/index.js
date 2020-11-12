@@ -171,8 +171,6 @@ Page({
       })
     })
 
-    /* 尝试解决onEnded不生效bug
-   https://developers.weixin.qq.com/community/develop/doc/00040cef5d87d8ceeb7744afd5b000 */
     this.bam.onEnded(() => { //监听音乐自然播放结束
       that.nextMusicPlay()
       wx.showToast({

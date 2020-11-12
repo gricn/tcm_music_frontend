@@ -77,11 +77,11 @@ Page({
 
   countDown(e) {
     var that = this
-    if(this.data.countInterval != null){
+    if (this.data.countInterval != null) {
       clearInterval(this.data.countInterval)
       console.log('已清除其他倒计时')
     }
-    
+
     const minuteGiven = e.currentTarget.dataset.timeselected
     let secondGiven = minuteGiven * 60
 
@@ -99,7 +99,7 @@ Page({
 
       const s1 = hour * 3600;
       const s2 = minute * 60;
-      second = this.numAddZero(Math.floor(secondGiven- s1 - s2));
+      second = this.numAddZero(Math.floor(secondGiven - s1 - s2));
 
       this.setData({
         countDown: {

@@ -24,7 +24,7 @@
       <view wx:key="*this" wx:if="{{(curTab>=0&&curTab<4)||(curTab>=5&&curTab<=8)}}">
         <view class="cu-timeline margin-top">
           <view class="cu-item" wx:for="{{index[curTab]}}" wx:for-index="quesNum" wx:for-item="quesItem">
-            <view class="content shadow-blur" style="padding:25rpx;">
+            <view class="content shadow-blur" style="padding:25rpx;" catchtouchmove="noneFunction">
               <!-- 题序号和内容 -->
               <view class="cu-capsule radius">
                 <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
@@ -53,7 +53,7 @@
         <view class="cu-timeline margin-top">
           <!-- 1至5题 -->
           <view class="cu-item" wx:for="{{index[4]}}" wx:for-index="quesNum" wx:for-item="quesItem" wx:if="{{quesNum<=4}}">
-            <view class="content shadow-blur" style="padding:25rpx;">
+            <view class="content shadow-blur" style="padding:25rpx;" catchtouchmove="noneFunction">
               <!-- 题序号和内容 -->
               <view class=" cu-capsule radius">
                 <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
@@ -107,7 +107,7 @@
         </view>
       </view>
       <!-- Tab9:测验结果 -->
-      <view wx:key="*this" wx:if="{{curTab==9}}">
+      <view style="margin:30rpx 0;" wx:key="*this" wx:if="{{curTab==9}}">
         <view class="cu-bar bg-white solid-bottom ">
           <view class='action text-bold'>
             <text class='cuIcon-edit text-yellow'></text>
