@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-const app = getApp()
+var app = getApp()
 var util = require('../../utils/util.js')
 
 Page({
@@ -62,7 +62,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.bam = wx.getBackgroundAudioManager()
     var that = this
 
     // 获取用户注册情况
@@ -137,6 +136,8 @@ Page({
       key: "skipCoverPage",
       data: "true"
     })
+    this.bam = wx.getBackgroundAudioManager()
+    this.bam.title = "请欣赏"
   },
 
   listenerBAM: function () {
@@ -205,8 +206,6 @@ Page({
         playSwitchChecked: false
       })
     })
-
-
   },
 
   playNextMusic: function (e) {
@@ -375,7 +374,7 @@ Page({
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
         console.log('进入定时关闭页面')
         wx.navigateTo({
-          url: '/pages/square/square',
+          url: '/pages/timeoff/index',
         })
       } else if (e.changedTouches['0'].pageX >= (curwindowWidth - curwindowWidth3)) {
         console.log('进入我的舒缓歌单')
@@ -444,6 +443,10 @@ Page({
         randomSwitchChecked: false
       })
     }
-  }
+  },
+  // 音乐暂停
+  musicPause: function musicPause() {
+    this.bam.pause()
+  },
 
 })

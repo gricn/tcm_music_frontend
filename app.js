@@ -80,6 +80,7 @@ App({
       }
     })
 
+    // 老用户直接跳转到首页
     wx.getStorage({
       key: 'skipCoverPage',
       success(res) {
@@ -100,6 +101,26 @@ App({
         } else {
           this.globalData.CustomBar = e.statusBarHeight + 50;
         }
+      }
+    })
+  },
+
+  getOpenid(temp) {
+    var code = temp.code
+    console.log("获取用户code成功，发送至服务器, code:" + code)
+    wx.request({
+      url: 'https://www.gricn.top:4000/getopenid/' + code,
+      success: (res) => {
+        if (res.data != "") {
+          console.log("从服务器获取openid成功：" + res.data)
+          //存储用户信息到本地存储
+          wx.setStorageSync('openid', res.data)
+        } else {
+          console.log("从服务器获取openid成功，但返回值未空")
+        }
+      },
+      fail: () => {
+        console.log("服务器连接失败 或 服务器未能及时响应")
       }
     })
   },
@@ -126,27 +147,6 @@ App({
       },
       fail(e) {
         console.log("Fail to get user_gender from local, try to get from server")
-      }
-    })
-
-  },
-
-  getOpenid(temp) {
-    var code = temp.code
-    console.log("获取用户code成功，发送至服务器, code:" + code)
-    wx.request({
-      url: 'https://www.gricn.top:4000/getopenid/' + code,
-      success: (res) => {
-        if (res.data != "") {
-          console.log("从服务器获取openid成功：" + res.data)
-          //存储用户信息到本地存储
-          wx.setStorageSync('openid', res.data)
-        } else {
-          console.log("从服务器获取openid成功，但返回值未空")
-        }
-      },
-      fail: () => {
-        console.log("服务器连接失败 或 服务器未能及时响应")
       }
     })
   },

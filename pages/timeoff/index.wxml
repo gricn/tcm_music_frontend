@@ -1,0 +1,34 @@
+<cu-custom bgColor="bg-white1" isBack="{{true}}">
+    <view slot="content">定时关闭</view>
+    <view slot="backText">返回</view>
+</cu-custom>
+<!-- 滑动器上的小标题：中医体质测试 -->
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="cuIcon-titles text-blue"></text>
+        当前倒计时时间
+    </view>
+</view>
+<view class="countDown-container">
+    <view class="countDown">
+        <view class="cd-num">{{countDown.hour}}</view>
+        <view class="cd-text">小时</view>
+        <view class="cd-num">{{ countDown.minute }}</view>
+        <view class="cd-text">分</view>
+        <view class="cd-num">{{ countDown.second }}</view>
+        <view class="cd-text">秒</view>
+    </view>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="cuIcon-titles text-blue"></text>
+        请选择倒计时时间（分钟）
+    </view>
+</view>
+<view class="flex-container">
+    <view wx:for="{{timeAmount}}" class="flex-item">
+        <button class="cu-btn lg bg-blue" data-timeSelected="{{item}}" bindtap="countDown">
+            {{item}}
+        </button>
+    </view>
+</view>
