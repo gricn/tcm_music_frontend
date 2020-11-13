@@ -39,7 +39,6 @@
       </view>
     </view>
   </swiper-item>
-  
   <!-- 宫商角徵羽各页面 -->
   <swiper-item wx:for="{{swiperList}}" wx:key="this">
     <!-- “我要不要把前人的modal这个拼写改为正确的model呢，纠结了大半年的问题，还是改了，毕竟这个项目以后是我维护，有点强迫症”
@@ -60,7 +59,7 @@
           </view>
         </view>
         <view class="padding-xl">
-          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="nextMusicPlay" id="{{item.id+'b'}}">
+          <button class="cu-btn bg-olive shadow-blur radius border margin-right" bindtap="nextMusicPlay" data-typenum="{{parseInt(item.id[1])}}" id="{{item.id+'b'}}">
             下一首
           </button>
           <text>{{item.nextSongName}}</text>

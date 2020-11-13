@@ -32,7 +32,7 @@ Page({
     yu_list: {},
     testShowMusicList: {},
 
-    _to_cur: 1, // 测试结束，传递回主页的页面
+    _to_cur: 1, // 测试结束，传递回主页的哪个页面（“宫”、“商” 之类？）
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
     curTab: 0, //当前页面的Tab值
@@ -64,8 +64,8 @@ Page({
       })
     }
     this.judgeConstitution()
-    if (this.data.curTab === 10 && this.data.convert != undefined && this.data.convert.length == 9) {
-      this.switchSongPage() // switchSongPage() 跳转页面 + 向服务器发送数据 
+    if (this.data.top_item_hid == false && this.data.curTab === 10 && this.data.convert != undefined && this.data.convert.length == 9) {
+      this.switchSongPage() // switchSongPage()函数作用： 跳转页面 + 向服务器发送数据 
     }
   },
 
@@ -346,16 +346,11 @@ Page({
       let tmp = options.top_item_hid == "false" ? false : true
       this.setData({
         top_item_hid: tmp,
+        curTab: options.curTab,
+        index: jsonData.dataList,
+        constitutionContext: jsonData.dataContext
       })
     }
-
-    this.setData({
-      //存储从上一页返回的参数
-      curTab: options.curTab,
-      index: jsonData.dataList,
-      constitutionContext: jsonData.dataContext,
-    })
-    // finalRes: options.finalRes,
 
     if (options.gong_hid != undefined) {
       this.setData({
@@ -367,7 +362,13 @@ Page({
         _to_cur: options._to_cur,
       })
     }
-
+    this.setData({
+      gong_list: app.globalData.gong_list,
+      shang_list: app.globalData.shang_list,
+      jue_list: app.globalData.jue_list,
+      zhi_list: app.globalData.zhi_list,
+      yu_list: app.globalData.yu_list,
+    })
   },
 
 
@@ -376,16 +377,7 @@ Page({
    */
   onReady: function () {
     var that = this
-
-    this.setData({
-      gong_list: app.globalData.gong_list,
-      shang_list: app.globalData.shang_list,
-      jue_list: app.globalData.jue_list,
-      zhi_list: app.globalData.zhi_list,
-      yu_list: app.globalData.yu_list,
-    })
-
-    wx.getStorage({
+    wx.getStorageSync({
       key: "user_gender",
       success: res => {
         that.setData({

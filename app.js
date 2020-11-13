@@ -51,6 +51,10 @@ App({
       }
     })
 
+    if(isNaN(this.globalData.jue_list)){
+      console.log("this.globalData.jue_list !== isNaN :" + this.globalData.jue_list)
+    }
+
     /*用来获得角徵宫商羽的歌单，效率很低，但先这样吧 */
     wx.request({
       url: 'https://www.gricn.top:4000/public/jue.json',
@@ -149,7 +153,7 @@ App({
         console.log("user_gender:" + res.data)
       },
       fail(e) {
-        console.log("Fail to get user_gender from local, try to get from server")
+        console.log("Fail to get user_gender at local, try to get data from server")
       }
     })
   },

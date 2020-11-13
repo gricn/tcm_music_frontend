@@ -114,8 +114,8 @@ Page({
       }
     })
 
-    //获得上一页面传回的参数
-    if (options !== null) {
+    // 如果存在参数，则获得上一页面传回的参数
+    if (options.cur != null) {
       this.setData({
         cur: options.cur
       })
@@ -136,8 +136,8 @@ Page({
       key: "skipCoverPage",
       data: "true"
     })
-    app.globalData.bam = wx.getBackgroundAudioManager()
     // app.globalData.bam.title = "请欣赏"
+    console.log("isNaN(e): " + isNaN(option))
   },
 
   listenerBAM: function () {
@@ -207,11 +207,14 @@ Page({
     })
   },
 
-  nextMusicPlay: function (e) {
+  nextMusicPlay(e) {
     this.listenerBAM()
+
     /* 大致思路：先进行音乐播放，然后更新下一首歌曲的信息 */
     var that = this
-    let itemNum = !isNaN(e) ? parseInt(e.currentTarget.id[1]) : this.data._itemNum
+
+    // isNaN()这个函数要好好研究，写了个卡在这里的bug
+    let itemNum = isNaN(e.currentTarget.id[1]) ? this.data._itemNum : parseInt(e.currentTarget.id[1])
     console.log("目前所在页面为：" + itemNum)
     let nextSongIndex = this.data.nextSongIndexList[itemNum]
     var musicListName = ""
@@ -277,7 +280,7 @@ Page({
         that.data.currentSongIndexList[itemNum] = nextSongIndex
       }
     })
-    
+
     /* ------------------------------------------- */
     //更新下一首歌曲的index
     let currentSongIndex = nextSongIndex
@@ -378,9 +381,7 @@ Page({
       }
     })
     var curwindowWidth3 = curwindowWidth / 3
-
     if (app.globalData.isRegistered) {
-
       console.log('已注册，调往体质测试界面')
       if (e.changedTouches['0'].pageX <= curwindowWidth3) {
         console.log('进入定时关闭页面')
