@@ -13,9 +13,9 @@
     <view class="countDown">
         <view class="cd-num">{{countDown.hour}}</view>
         <view class="cd-text">小时</view>
-        <view class="cd-num">{{ countDown.minute }}</view>
+        <view class="cd-num">{{countDown.minute}}</view>
         <view class="cd-text">分</view>
-        <view class="cd-num">{{ countDown.second }}</view>
+        <view class="cd-num">{{countDown.second}}</view>
         <view class="cd-text">秒</view>
     </view>
 </view>

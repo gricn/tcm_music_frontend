@@ -136,14 +136,14 @@ Page({
       key: "skipCoverPage",
       data: "true"
     })
-    this.bam = wx.getBackgroundAudioManager()
-    // this.bam.title = "请欣赏"
+    app.globalData.bam = wx.getBackgroundAudioManager()
+    // app.globalData.bam.title = "请欣赏"
   },
 
   listenerBAM: function () {
     var that = this
 
-    this.bam.onWaiting(() => {
+    app.globalData.bam.onWaiting(() => {
       wx.showLoading({
         title: '加载中',
       })
@@ -153,11 +153,11 @@ Page({
     })
 
     // //监听音频播放进度
-    // this.bam.onTimeUpdate(() => { 
-    //   // console.log(that.bam.currentTime)
+    // app.globalData.bam.onTimeUpdate(() => { 
+    //   // console.log(app.globalData.bam.currentTime)
     // })
 
-    this.bam.onError(() => {
+    app.globalData.bam.onError(() => {
       wx.showModal({
         title: '错误',
         content: '音频播放错误，请检测网络情况',
@@ -171,7 +171,7 @@ Page({
       })
     })
 
-    this.bam.onEnded(() => { //监听音乐自然播放结束
+    app.globalData.bam.onEnded(() => { //监听音乐自然播放结束
       that.nextMusicPlay()
       wx.showToast({
         title: '正在切换下一首音乐',
@@ -180,27 +180,27 @@ Page({
       })
     })
 
-    this.bam.onNext(() => {
+    app.globalData.bam.onNext(() => {
       that.nextMusicPlay()
     })
 
-    this.bam.onPrev(() => {
+    app.globalData.bam.onPrev(() => {
       that.nextMusicPlay()
     })
 
-    this.bam.onPlay(() => {
+    app.globalData.bam.onPlay(() => {
       that.setData({
         playSwitchChecked: true
       })
     })
 
-    this.bam.onPause(() => {
+    app.globalData.bam.onPause(() => {
       that.setData({
         playSwitchChecked: false
       })
     })
 
-    this.bam.onStop(() => {
+    app.globalData.bam.onStop(() => {
       that.setData({
         playSwitchChecked: false
       })
@@ -255,7 +255,7 @@ Page({
     wx.request({
       url: nextSongPicURL,
       success(res) {
-        that.bam.coverImgUrl = res.data
+        app.globalData.bam.coverImgUrl = res.data
       },
       fail(res) {
         console.log("加载音乐海报失败：" + res)
@@ -264,15 +264,15 @@ Page({
 
 
     // 获取下一首歌曲的音乐名、歌手和MP3地址
-    this.bam.title = item.music_name
+    app.globalData.bam.title = item.music_name
     console.log("下一首歌曲的音乐名为：" + item.music_name)
-    this.bam.singer = item.music_authors
+    app.globalData.bam.singer = item.music_authors
 
     let nextSongMP3URL = 'https://www.gricn.top:4000/api/song/' + item.music_id
     wx.request({
       url: nextSongMP3URL,
       success(res) {
-        that.bam.src = res.data
+        app.globalData.bam.src = res.data
         console.log("切换下一首歌曲成功")
         that.data.currentSongIndexList[itemNum] = nextSongIndex
       }
@@ -328,20 +328,20 @@ Page({
     let currentSong = app.globalData[musicListName][currentSongIndex]
 
     console.log("currentSong:" + currentSong.music_name)
-    this.bam.title = currentSong.music_name
+    app.globalData.bam.title = currentSong.music_name
 
     if (e.detail.value) {
       wx.request({
         url: 'https://www.gricn.top:4000/api/song/' + currentSong.music_id,
         success(res) {
-          that.bam.src = res.data //tu
+          app.globalData.bam.src = res.data //tu
         }
       })
       this.setData({
         playSwitchChecked: true
       })
     } else {
-      this.bam.pause()
+      app.globalData.bam.pause()
       this.setData({
         playSwitchChecked: false
       })
@@ -457,7 +457,7 @@ Page({
   },
   // 音乐暂停
   musicPause: function musicPause() {
-    this.bam.pause()
+    app.globalData.bam.pause()
   },
 
 })

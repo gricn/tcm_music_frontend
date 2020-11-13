@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    timeAmount: [0, 10, 20, 30, 60, 120],
+    timeAmount: [5, 10, 20, 30, 60, 120],
     activityTime: 0,
     countInterval: null,
     countDown: {
@@ -23,21 +23,12 @@ Page({
    */
   onLoad: function (options) {
     console.log("页面onLoad")
-    let temp = app.globalData.countDown.hour
-    if (app.globalData.countDown.hour != null) {
-      console.log("执行执行")
-      let countDown = app.globalData.countDown
-      let hour = countDown.hour
-      let minute = countDown.minute
-      let second = countDown.second
-      let tmp = hour * 3600 + minute * 60 + second
-
-      if (app.globalData.storedTime === 0) {
-        let storedTime = app.globalData.storedTime
-        // var time = util.formatTime(new Date()).getHours
-        console.log("时间： " + Date().now())
-      }
-      clearInterval(this.data.countInterval)
+    if (app.globalData.storedFormatTime !== 0) {
+      let storedFormatTime = app.globalData.storedFormatTime
+      console.log("storedFormatTime:" + storedFormatTime)
+      let nowFormatTime = Date.parse(new Date())
+      let tmp = (storedFormatTime - nowFormatTime) / 1000
+      this.data.countInterval = null
       this.countDown(tmp)
     }
   },
@@ -47,11 +38,6 @@ Page({
    */
   onReady: function () {
     console.log("onReady")
-    var time = util.formatTime(new Date())
-    this.setData({
-      time: time
-    })
-    console.log(time)
   },
 
   /**
@@ -74,15 +60,6 @@ Page({
    */
   onUnload: function () {
     console.log("页面onUnload")
-
-    let countDown = this.data.countDown
-    countDown.hour = parseInt(countDown.hour)
-    countDown.minute = parseInt(countDown.minute)
-    countDown.second = parseInt(countDown.second)
-
-    app.globalData.countDown = countDown
-    app.globalData.storedTime = this.data.time
-    console.log("app已存储时间:" + this.data.time)
   },
 
   /**
@@ -112,6 +89,7 @@ Page({
 
   countDown(e) {
     var that = this
+    // 当用户重复点击倒计时按钮时
     if (this.data.countInterval != null) {
       clearInterval(this.data.countInterval)
       console.log('已清除其他倒计时')
@@ -125,24 +103,23 @@ Page({
     }
     console.log("secondGiven: " + secondGiven)
 
-
     this.data.countInterval = setInterval(() => {
       let hour = 0;
       let minute = 0;
       let second = 0;
       // 小时
       const MS = 60 * 60;
-      hour = this.numAddZero(Math.floor(secondGiven / MS));
+      hour = that.numAddZero(Math.floor(secondGiven / MS));
       // 分钟
       const m1 = secondGiven / 60;
       const m2 = hour * 60;
-      minute = this.numAddZero(Math.floor(m1 - m2));
+      minute = that.numAddZero(Math.floor(m1 - m2));
       // 秒
       const s1 = hour * 3600;
       const s2 = minute * 60;
-      second = this.numAddZero(Math.floor(secondGiven - s1 - s2));
+      second = that.numAddZero(Math.floor(secondGiven - s1 - s2));
 
-      this.setData({
+      that.setData({
         countDown: {
           hour,
           minute,
@@ -153,8 +130,8 @@ Page({
       secondGiven -= 1;
 
       if (secondGiven < 0) {
-        clearInterval(this.data.countInterval);
-        this.setData({
+        clearInterval(that.data.countInterval);
+        that.setData({
           countInterval: null,
           countDown: {
             hour: '00',
@@ -163,9 +140,16 @@ Page({
           }
         });
         // 需要修改
-        app.bam.pause()
-        console.log("音乐执行已执行")
+        app.globalData.bam.pause()
+        app.globalData.storedFormatTime = 0
       }
     }, 1000);
+
+    // 计算倒计时截止时间
+    let nowFormatTime = Date.parse(new Date())
+    app.globalData.storedFormatTime = nowFormatTime + secondGiven * 1000
   },
+
+
+
 })

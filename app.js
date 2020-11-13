@@ -12,8 +12,9 @@ App({
     jue_list: {},
     zhi_list: {},
     yu_list: {},
-    countDown: {},
-    storedTime: 0,
+    
+    storedFormatTime: 0,
+    bam: wx.getBackgroundAudioManager()
   },
 
   onLaunch: function () {
