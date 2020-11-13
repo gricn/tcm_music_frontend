@@ -1,4 +1,6 @@
 var app = getApp()
+// var util = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -12,21 +14,44 @@ Page({
       hour: '00',
       minute: '00',
       second: '00',
-    }
+    },
+    time: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("页面onLoad")
+    let temp = app.globalData.countDown.hour
+    if (app.globalData.countDown.hour != null) {
+      console.log("执行执行")
+      let countDown = app.globalData.countDown
+      let hour = countDown.hour
+      let minute = countDown.minute
+      let second = countDown.second
+      let tmp = hour * 3600 + minute * 60 + second
 
+      if (app.globalData.storedTime === 0) {
+        let storedTime = app.globalData.storedTime
+        // var time = util.formatTime(new Date()).getHours
+        console.log("时间： " + Date().now())
+      }
+      clearInterval(this.data.countInterval)
+      this.countDown(tmp)
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    console.log("onReady")
+    var time = util.formatTime(new Date())
+    this.setData({
+      time: time
+    })
+    console.log(time)
   },
 
   /**
@@ -40,6 +65,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    console.log("页面onHide")
 
   },
 
@@ -47,7 +73,16 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log("页面onUnload")
 
+    let countDown = this.data.countDown
+    countDown.hour = parseInt(countDown.hour)
+    countDown.minute = parseInt(countDown.minute)
+    countDown.second = parseInt(countDown.second)
+
+    app.globalData.countDown = countDown
+    app.globalData.storedTime = this.data.time
+    console.log("app已存储时间:" + this.data.time)
   },
 
   /**
@@ -82,21 +117,27 @@ Page({
       console.log('已清除其他倒计时')
     }
 
-    const minuteGiven = e.currentTarget.dataset.timeselected
-    let secondGiven = minuteGiven * 60
+    if (e.currentTarget != null && e.currentTarget.dataset.timeselected != null) {
+      const minuteGiven = e.currentTarget.dataset.timeselected
+      var secondGiven = minuteGiven * 60
+    } else {
+      var secondGiven = e
+    }
+    console.log("secondGiven: " + secondGiven)
+
 
     this.data.countInterval = setInterval(() => {
       let hour = 0;
       let minute = 0;
       let second = 0;
-
+      // 小时
       const MS = 60 * 60;
       hour = this.numAddZero(Math.floor(secondGiven / MS));
-
+      // 分钟
       const m1 = secondGiven / 60;
       const m2 = hour * 60;
       minute = this.numAddZero(Math.floor(m1 - m2));
-
+      // 秒
       const s1 = hour * 3600;
       const s2 = minute * 60;
       second = this.numAddZero(Math.floor(secondGiven - s1 - s2));
@@ -121,8 +162,9 @@ Page({
             second: '00',
           }
         });
+        // 需要修改
         app.bam.pause()
-        console.log("执行成功")
+        console.log("音乐执行已执行")
       }
     }, 1000);
   },
