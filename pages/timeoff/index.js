@@ -150,6 +150,17 @@ Page({
     app.globalData.storedFormatTime = nowFormatTime + secondGiven * 1000
   },
 
+  cancelCountDown(){
+    clearInterval(this.data.countInterval)
+    this.setData({
+      countInterval: null,
+      countDown: {
+        hour: '00',
+        minute: '00',
+        second: '00',
+      }
+    });
+  }
 
 
 })

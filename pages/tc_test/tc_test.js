@@ -430,7 +430,8 @@ Page({
   },
 
   // 不要删不要删
-  noneFunction(){
+  noneFunction(e){
     //  不要删不要删，用来防止用户误触
+    // console.log(e)
   }
 })

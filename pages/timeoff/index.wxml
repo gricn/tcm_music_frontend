@@ -26,9 +26,12 @@
     </view>
 </view>
 <view class="flex-container">
-    <view wx:for="{{timeAmount}}" wx:key="timeAmount" class="flex-item">
+    <view wx:for="{{timeAmount}}" wx:key="timeAmount">
         <button class="cu-btn lg bg-blue" data-timeSelected="{{item}}" bindtap="countDown">
             {{item}}
         </button>
+    </view>
+    <view class="flex-item">
+        <button class="cu-btn lg bg-red" style="width:675rpx;" bindtap="cancelCountDown">取消定时</button>
     </view>
 </view>
