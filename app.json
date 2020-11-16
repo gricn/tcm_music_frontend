@@ -5,7 +5,8 @@
     "pages/tc_test/tc_test",
     "pages/register/index",
     "pages/care/care",
-    "pages/timeoff/index"
+    "pages/timeoff/index",
+    "pages/wuyin_intro/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

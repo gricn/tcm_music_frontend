@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#241",
+  "backgroundColor": "#fff",
+  "navigationBarTitleText": "五音疗法介绍",
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black"
+}

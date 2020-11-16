@@ -87,6 +87,11 @@ Page({
       url: '/pages/care/care',
     })
   },
+  directToIntroPage(){
+    wx.navigateTo({
+      url: '/pages/wuyin_intro/index',
+    })
+  },
 
   judgeConstitution() {
     /*选择“测试结果”页时进行判断*/

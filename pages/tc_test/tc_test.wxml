@@ -134,6 +134,13 @@
             </button>
           </view>
         </view>
+        <view class='box bg-white1'>
+          <view class="cu-bar btn-group ">
+            <button class="cu-btn bg-white shadow-blur round lg " bindtap="directToIntroPage">
+              五音疗法更多介绍
+            </button>
+          </view>
+        </view>
       </view>
       <!-- Tab10:推荐歌单 -->
       <view wx:if="{{curTab==10}}">

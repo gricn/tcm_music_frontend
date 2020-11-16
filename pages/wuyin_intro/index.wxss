@@ -1,0 +1,43 @@
+page {
+  background-color: #f6f6f6;
+}
+
+.boss {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100rpx;
+}
+
+.one {
+  width: 70%;
+  font-size: 16px;
+  color: rgb(150, 35, 45);
+  text-indent: 2em;
+  font-weight: bold;
+  line-height: 1.6rem;
+}
+
+.two {
+  margin-top: 70rpx;
+  width: 70%;
+  font-size: 44rpx;
+}
+
+button{
+  margin: 50rpx;
+}
+
+.two text{
+  word-break: break-all;
+  font-weight: lighter;
+  font-size: small;
+}
+
+.two view{
+  font-size: medium;
+}
+
+.two .last{
+  margin-top: 20rpx;
+}

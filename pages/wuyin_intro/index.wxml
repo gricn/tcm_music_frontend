@@ -1,0 +1,17 @@
+<cu-custom bgColor="bg-white1" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">表单</view>
+</cu-custom>
+<view class="boss">
+  <view class="one">
+    <text space="nbsp">
+      五音疗法作为音乐疗法的一种，是治疗心身疾病的非药物疗法之一。五音疗法来源于中医传统的五行和五音理论，植根于中医的整体观。五音疗法是依据中医五行相生相克的原理，通过五音与五脏的联系来调节身心，具有调神、悦心、舒肝、解郁之诸多功能。在心身疾病和情志病的预防、治疗和保健中，使用五音疗法具有积极意义。
+    </text>
+  </view>
+  <view class="two">
+    <view>更多介绍请参考：</view>
+    <text user-select>http://www.360doc35.net/wxarticlenew/855998873.html\n</text>
+    <text user-select>http://www.360doc35.net/wxarticlenew/754021478.html\n</text>
+    <view class="last">（受小程序权限限制，请手动复制链接，对您造成的不便请谅解）</view>
+  </view>
+</view>
