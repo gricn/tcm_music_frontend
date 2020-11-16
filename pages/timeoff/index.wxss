@@ -1,0 +1,40 @@
+/* pages/timeoff/index.wxss */
+
+.flex-container {
+    width: 750rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.countDown-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50rpx 0;
+}
+
+.countDown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 80rpx;
+}
+
+.countDown .cd-num {
+    background-color: cce6ff;
+    margin:0 10rpx;
+}
+
+.countDown .cd-text {
+    font-size: 44rpx;
+}
+
+button {
+    width: 300rpx;
+    height: 250rpx;
+    margin: 30rpx 50rpx;
+    border-radius: 20rpx;
+}

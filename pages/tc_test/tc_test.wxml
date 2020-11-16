@@ -12,207 +12,152 @@
       中医体质测试
     </view>
   </view>
-
   <!-- 滑动选择器 -->
   <scroll-view scroll-x class="bg-white nav" scroll-left="{{scrollLeft}}" hidden="{{top_item_hid}}">
     <view class="cu-item {{tabIndex==curTab?'text-cyan cur':''}}" wx:for="{{test_tittle}}" wx:key="*this" bindtap="tabSelect" wx:for-index="tabIndex" wx:for-item="tabItem" data-id="{{tabIndex}}">
       {{tabItem}}
     </view>
   </scroll-view>
-
-  <swiper style="width: 100%; height: 2100rpx;" bindchange="swiperChange" easing-function="easeInOutCubic" duration="1500" skip-hidden-item-layout="true" current='{{curTab}}'>
-      <swiper-item wx:for="{{test_tittle}}" wx:key="*this" wx:for-index="swiperIndex" wx:for-item="swiperItem">
-        <!-- 除【Tab4：湿热质】有些特殊（题目应涉及性别会改变），其他体质页面都可通过这种形式展示 -->
-        <view wx:key="*this" wx:if="{{(curTab>=0&&curTab<4)||(curTab>=5&&curTab<=8)}}">
-          <view class="cu-timeline margin-top">
-            <view class="cu-item" wx:for="{{index[curTab]}}" wx:for-index="quesNum" wx:for-item="quesItem">
-              <view class="content shadow-blur" style="padding:25rpx;">
-                <!-- 题序号和内容 -->
-                <view class="cu-capsule radius">
-                  <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
-                  <view class="cu-tag line-cyan">{{quesItem.content}}</view>
+  <swiper style="width: 100%; height: 2100rpx;" bindchange="swiperChange" easing-function="easeInOutCubic" skip-hidden-item-layout="true" current='{{curTab}}'>
+    <swiper-item wx:for="{{test_tittle}}" wx:key="*this" wx:for-index="swiperIndex" wx:for-item="swiperItem">
+      <!-- 除【Tab4：湿热质】有些特殊（题目应涉及性别会改变），其他体质页面都可通过这种形式展示 -->
+      <view wx:key="*this" wx:if="{{(curTab>=0&&curTab<4)||(curTab>=5&&curTab<=8)}}">
+        <view class="cu-timeline margin-top">
+          <view class="cu-item" wx:for="{{index[curTab]}}" wx:for-index="quesNum" wx:for-item="quesItem">
+            <view class="content shadow-blur" style="padding:25rpx;">
+              <!-- 题序号和内容 -->
+              <view class="cu-capsule radius">
+                <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
+                <view class="cu-tag line-cyan">{{quesItem.content}}</view>
+              </view>
+              <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
+                <!-- 滑杆 -->
+                <view style="width:80%;height:48px;">
+                  <slider style="height:48px;margin:20px" step="25" activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[{{[curTab]}}][{{quesNum}}]" value="{{item.sliderValue*25}}" />
                 </view>
-                <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
-                  <!-- 滑杆 -->
-                  <view style="width:80%;height:48px;">
-                    <slider style="height:48px;margin:20px" step="25" activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[{{[curTab]}}][{{quesNum}}]" value="{{item.sliderValue*25}}" />
+                <!-- 文字选择标识 -->
+                <view style="height:48px;width:20%">
+                  <view class="text-center">
+                    <view class="cu-tag line-cyan margin-top text-center">
+                      {{picker[quesItem.sliderValue]}}
+                    </view>
                   </view>
-                  <!-- 文字选择标识 -->
-                  <swiper style="height:48px;width:20%" current="{{quesItem.sliderValue}}">
-                    <swiper-item class="text-center" wx:for="{{picker}}" wx:for-item="pickerIndex">
-                      <view class="cu-tag line-cyan margin-top text-center">{{pickerIndex}}</view>
-                    </swiper-item>
-                  </swiper>
                 </view>
               </view>
             </view>
           </view>
         </view>
-
-        <!-- Tab4：湿热质 -->
-        <view wx:key="*this" wx:if="{{curTab==4}}">
-          <view class="cu-timeline margin-top">
-            <!-- 1至5题 -->
-            <view class="cu-item" wx:for="{{index[4]}}" wx:for-index="quesNum" wx:for-item="quesItem" wx:if="{{quesNum<=4}}">
-              <view class="content shadow-blur" style="padding:25rpx;">
-                <!-- 题序号和内容 -->
-                <view class=" cu-capsule radius">
-                  <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
-                  <view class="cu-tag line-cyan">{{quesItem.content}}</view>
+      </view>
+      <!-- Tab4：湿热质 -->
+      <view wx:if="{{curTab==4}}">
+        <view class="cu-timeline margin-top">
+          <!-- 1至5题 -->
+          <view class="cu-item" wx:for="{{index[4]}}" wx:for-index="quesNum" wx:for-item="quesItem" wx:if="{{quesNum<=4}}">
+            <view class="content shadow-blur" style="padding:25rpx;">
+              <!-- 题序号和内容 -->
+              <view class=" cu-capsule radius">
+                <view class="cu-tag bg-cyan">{{quesNum+1}}</view>
+                <view class="cu-tag line-cyan">{{quesItem.content}}</view>
+              </view>
+              <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
+                <!-- 滑杆 -->
+                <view style="width:80%;height:48px;">
+                  <slider style="height:48px;margin:20px" step="25" activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[4][{{quesNum}}]" value="{{item.sliderValue*25}}" />
                 </view>
-                <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
-                  <!-- 滑杆 -->
-                  <view style="width:80%;height:48px;">
-                    <slider style="height:48px;margin:20px" step="25 " activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="index[4][{{quesNum}}]" value="{{item.sliderValue*25}}" />
+                <!-- 文字选择标识 -->
+                <view style="height:48px;width:20%">
+                  <view class="text-center">
+                    <view class="cu-tag line-cyan margin-top text-center">
+                      {{picker[quesItem.sliderValue]}}
+                    </view>
                   </view>
-                  <!-- 文字选择标识 -->
-                  <swiper style="height:48px;width:20% " current="{{quesItem.sliderValue}}">
-                    <swiper-item class="text-center" wx:for="{{picker}}" wx:for-item="pickerIndex">
-                      <view class="cu-tag line-cyan margin-top text-center">{{pickerIndex}}</view>
-                    </swiper-item>
-                  </swiper>
                 </view>
               </view>
             </view>
-            <!-- 6题：男性 -->
-            <view class="cu-item" wx:if="{{user_gender}}">
-              <view class="content shadow-blur" style="padding:25rpx;">
-                <!-- 题序号和内容 -->
-                <view class=" cu-capsule radius ">
-                  <view class="cu-tag bg-cyan">6</view>
-                  <view class="cu-tag line-cyan">{{index[4][5].content}}</view>
+          </view>
+          <!-- 6题：男性/女性 -->
+          <view class="cu-item">
+            <view class="content shadow-blur" style="padding:25rpx;">
+              <!-- 题序号和内容 -->
+              <view class=" cu-capsule radius ">
+                <view class="cu-tag bg-cyan">6</view>
+                <view class="cu-tag line-cyan" wx:if="{{user_gender}}">
+                  {{index[4][5].content}}
                 </view>
-                <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
-                  <!-- 滑杆 -->
-                  <view style="width:80%;height:48px; ">
-                    <slider style="height:48px;margin:20px " step="25 " activeColor="#1cbbb4" block-size="22 " bindchange="sliderChange" id="index[4][5]" value="{{index[4][5].sliderValue*25}}" />
-                  </view>
-                  <!-- 文字选择标识 -->
-                  <swiper style="height:48px;width:20% " current="{{index[4][5].sliderValue}}">
-                    <swiper-item class="text-center" wx:for="{{picker}}" wx:for-item="pickerIndex" >
-                      <view class="cu-tag line-cyan margin-top text-center ">{{pickerIndex}}</view>
-                    </swiper-item>
-                  </swiper>
+                <view class="cu-tag line-cyan" wx:if="{{!user_gender}}">
+                  {{index[4][6].content}}
                 </view>
               </view>
-            </view>
-            <!-- 6题：女性 -->
-            <view class="cu-item" wx:if="{{!user_gender}}">
-              <view class="content shadow-blur" style="padding:25rpx;">
-                <!-- 题序号和内容 -->
-                <view class=" cu-capsule radius">
-                  <view class="cu-tag bg-cyan">6</view>
-                  <view class="cu-tag line-cyan">{{index[4][6].content}}</view>
+              <view style="height:48px;display:flex;justify-content:space-round;align-items:center ">
+                <!-- 滑杆 -->
+                <view style="width:80%;height:48px;">
+                  <slider style="height:48px;margin:20px " step="25" activeColor="#1cbbb4" block-size="22" bindchange="sliderChange" id="{{user_gender?'index[4][5]':'index[4][6]'}}" value="{{user_gender?index[4][5].sliderValue*25:index[4][6].sliderValue*25}}" />
                 </view>
-                <view style="height:48px;display:flex;justify-content:space-round;align-items:center">
-                  <!-- 滑杆 -->
-                  <view style="width:80%;height:48px; ">
-                    <slider style="height:48px;margin:20px " step="25 " activeColor="#1cbbb4 " block-size="22 " bindchange="sliderChange" id="index[4][6]" value="{{index[4][6].sliderValue*25}}" />
+                <!-- 文字选择标识 -->
+                <view style="height:48px;width:20%">
+                  <view class="text-center">
+                    <view class="cu-tag line-cyan margin-top text-center">
+                      {{user_gender?picker[index[4][5].sliderValue]:picker[index[4][6].sliderValue]}}
+                    </view>
                   </view>
-                  <!-- 文字选择标识 -->
-                  <swiper style="height:48px;width:20% " current="{{index[4][6].sliderValue}}">
-                    <swiper-item class="text-center" wx:for="{{picker}}" wx:for-item="pickerIndex">
-                      <view class="cu-tag line-cyan margin-top text-center">{{pickerIndex}}</view>
-                    </swiper-item>
-                  </swiper>
                 </view>
               </view>
             </view>
           </view>
         </view>
-        <!-- Tab9:测验结果 -->
-        <view wx:key="*this" wx:if="{{curTab==9}}">
-          <view class="cu-bar bg-white solid-bottom ">
-            <view class='action text-bold'>
-              <text class='cuIcon-edit text-yellow'></text>
-              您的体质测试结果为
-            </view>
+      </view>
+      <!-- Tab9:测验结果 -->
+      <view style="margin:30rpx 0;" wx:if="{{curTab==9}}">
+        <view class="cu-bar bg-white solid-bottom ">
+          <view class='action text-bold'>
+            <text class='cuIcon-edit text-yellow'></text>
+            您的体质测试结果为
           </view>
-          <!-- 各体质转换分情况 -->
-          <view class="cu-card case ">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context" wx:for="{{convert}}">
-                {{constitutionContext[index]}}得分: {{convert[index]}}
-              </view>
-            </view>
-          </view>
-          <view class="cu-card case ">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context ">您的体质: {{finalRes}}</view>
-            </view>
-          </view>
-          <view class='box bg-white1'>
-            <view class="cu-bar btn-group ">
-              <button class="cu-btn bg-white shadow-blur round lg " bindtap="directToCarePage" data-target="viewModal">
-                查看食养护理推荐
-              </button>
+        </view>
+        <!-- 各体质转换分情况 -->
+        <view class="cu-card case ">
+          <view class="cu-item shadow ">
+            <view class="padding-sm text-context" wx:for="{{convert}}">
+              {{constitutionContext[index]}}得分: {{convert[index]}}
             </view>
           </view>
         </view>
-        <!-- Tab10:推荐歌单 -->
-        <view wx:key="*this" wx:if="{{curTab==10}}">
-          <view class="cu-bar bg-white solid-bottom " hidden="{{time_slider_hid}}">
-            <view class='action text-bold'>
-              <text class='cuIcon-time text-green'></text>
-              定时关闭
-            </view>
+        <view class="cu-card case ">
+          <view class="cu-item shadow ">
+            <view class="padding-sm text-context ">您的体质: {{finalRes}}</view>
           </view>
-          <view class="cu-card case" hidden="{{time_slider_hid}}">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context ">
-                <slider step="25" activeColor="#1cbbb4 " block-size="22"></slider>
-              </view>
-            </view>
+        </view>
+        <view class='box bg-white1'>
+          <view class="cu-bar btn-group ">
+            <button class="cu-btn bg-white shadow-blur round lg " bindtap="directToCarePage" data-target="viewModal">
+              查看食养护理推荐
+            </button>
           </view>
-          <view class="cu-bar bg-white solid-bottom " hidden="{{songlist_hid}}">
-            <view class='action text-bold'>
-              <text class='cuIcon-edit text-yellow'></text>
-              您的推荐歌单列表为
-            </view>
+        </view>
+      </view>
+      <!-- Tab10:推荐歌单 -->
+      <view wx:if="{{curTab==10}}">
+        <view class="cu-bar bg-white solid-bottom">
+          <view class='action text-bold'>
+            <text class='cuIcon-edit text-yellow'></text>
+            您的推荐歌单列表为
           </view>
-          <view class="cu-card case " hidden="{{gong_hid}}">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context " wx:for="{{gong_list}}" id="{{item.music_id}}" bindtap="playmusic">
-                {{item.music_name}} - {{item.music_authors}}
-              </view>
-            </view>
-          </view>
-          <view class="cu-card case " hidden="{{shang_hid}}">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context " wx:for="{{shang_list}}" id="{{item.music_id}}" bindtap="playmusic">
-                {{item.music_name}} - {{item.music_authors}}
-              </view>
-            </view>
-          </view>
-          <view class="cu-card case " hidden="{{jue_hid}}">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context " wx:for="{{jue_list}}" id="{{item.music_id}}" bindtap="playmusic">
-                {{item.music_name}} - {{item.music_authors}}
-              </view>
-            </view>
-          </view>
-          <view class="cu-card case " hidden="{{zhi_hid}}">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context " wx:for="{{zhi_list}}" id="{{item.music_id}}" bindtap="playmusic">
-                {{item.music_name}} - {{item.music_authors}}
-              </view>
-            </view>
-          </view>
-          <view class="cu-card case " hidden="{{yu_hid}}">
-            <view class="cu-item shadow ">
-              <view class="padding-sm text-context " wx:for="{{yu_list}}" id="{{item.music_id}}" bindtap="playmusic">
-                {{item.music_name}} - {{item.music_authors}}
-              </view>
-            </view>
-          </view>
-          <view class='box bg-white1'>
-            <view class="cu-bar btn-group ">
-              <button class="cu-btn bg-white shadow-blur round lg" bindtap="goHomePage" data-target="viewModal ">
-                开始放松
-              </button>
+        </view>
+        <view class="cu-card case ">
+          <view class="cu-item shadow ">
+            <view class="padding-sm text-context " wx:for="{{testShowMusicList}}" wx:if="{{index<=15}}" id="{{item.music_id}}">
+              {{item.music_name}} - {{item.music_authors}}
             </view>
           </view>
         </view>
-      </swiper-item>
+        <view class='box bg-white1'>
+          <view class="cu-bar btn-group ">
+            <button class="cu-btn bg-white shadow-blur round lg" bindtap="goHomePage" data-target="viewModal ">
+              开始放松
+            </button>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
   </swiper>
 </form>

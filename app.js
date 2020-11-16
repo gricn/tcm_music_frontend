@@ -3,7 +3,7 @@ App({
 
   globalData: {
     userInfo: {},
-    user:{},
+    user: {},
     user_gender: false,
     isRegistered: true,
     /* isRegistered, 先看看storage和服务器上有没有，如果没有，就默认为false */
@@ -12,55 +12,16 @@ App({
     jue_list: {},
     zhi_list: {},
     yu_list: {},
+    
+    storedFormatTime: 0,
+    bam: wx.getBackgroundAudioManager()
   },
 
   onLaunch: function () {
     var that = this
 
-    /*用来获得角徵宫商羽的歌单，效率很低，但先这样吧 */
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/jue.json',
-      success(res) {
-        that.globalData.jue_list = res.data
-        console.log('jue')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/zhi.json',
-      success(res) {
-        that.globalData.zhi_list = res.data
-        console.log('zhi')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/gong.json',
-      success(res) {
-        that.globalData.gong_list = res.data
-        console.log('gong')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/shang.json',
-      success(res) {
-        that.globalData.shang_list = res.data
-        console.log('shang')
-      }
-    })
-    wx.request({
-      url: 'https://www.gricn.top:4000/public/yu.json',
-      success(res) {
-        that.globalData.yu_list = res.data
-        console.log('yu')
-      }
-    })
-
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
     var openid = null
-
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     /* 获取用户openid */
     //大致思路是：先从本地缓存读取openid，若值通过检验，则成功；否则调用getOpenid()
     wx.login({
@@ -90,6 +51,52 @@ App({
       }
     })
 
+    if(isNaN(this.globalData.jue_list)){
+      console.log("this.globalData.jue_list !== isNaN :" + this.globalData.jue_list)
+    }
+
+    /*用来获得角徵宫商羽的歌单，效率很低，但先这样吧 */
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/jue.json',
+      success(res) {
+        that.globalData.jue_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/zhi.json',
+      success(res) {
+        that.globalData.zhi_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/gong.json',
+      success(res) {
+        that.globalData.gong_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/shang.json',
+      success(res) {
+        that.globalData.shang_list = res.data
+      }
+    })
+    wx.request({
+      url: 'https://www.gricn.top:4000/public/yu.json',
+      success(res) {
+        that.globalData.yu_list = res.data
+      }
+    })
+
+    // 老用户直接跳转到首页
+    wx.getStorage({
+      key: 'skipCoverPage',
+      success(res) {
+        wx.reLaunch({
+          url: '/pages/index/index'
+        })
+      }
+    })
+
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -104,32 +111,6 @@ App({
       }
     })
   },
-  onLoad(){
-    var that = this
-    
-  },
-  onShow() {
-
-  },
-
-/**
- * 生命周期函数--监听页面初次渲染完成
- */
-  onReady(e) {
-    var that = this
-    wx.getStorage({
-      key: 'user_gender',
-      success(res) {
-        that.globalData.user_gender = res.data
-        console.log("user_gender:" + res.data)
-      },
-      fail(e){
-        console.log("Fail to get user_gender from local, try to get from server")
-      }
-    })
-
-    
-  },
 
   getOpenid(temp) {
     var code = temp.code
@@ -138,7 +119,7 @@ App({
       url: 'https://www.gricn.top:4000/getopenid/' + code,
       success: (res) => {
         if (res.data != "") {
-          console.log("从服务器获取openid成功" + res.data)
+          console.log("从服务器获取openid成功：" + res.data)
           //存储用户信息到本地存储
           wx.setStorageSync('openid', res.data)
         } else {
@@ -147,6 +128,32 @@ App({
       },
       fail: () => {
         console.log("服务器连接失败 或 服务器未能及时响应")
+      }
+    })
+  },
+
+  onLoad(e) {
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
+  },
+
+  onShow(e) {
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady(e) {
+    var that = this
+    wx.getStorage({
+      key: 'user_gender',
+      success(res) {
+        that.globalData.user_gender = res.data
+        console.log("user_gender:" + res.data)
+      },
+      fail(e) {
+        console.log("Fail to get user_gender at local, try to get data from server")
       }
     })
   },

@@ -20,10 +20,9 @@ Page({
     normalConstitution: 2, //0：否；1：基本是；2：是
 
     _abnormalConstitution: [0, 0, 0, 0, 0, 0, 0, 0],
+    convert: [], // 留着，虽然下面会自动添加内容，且WXML页面要用
 
     top_item_hid: false,
-    time_slider_hid: true,
-    songlist_hid: false,
     sendDataLocked: false,
 
     gong_list: {},
@@ -31,15 +30,9 @@ Page({
     jue_list: {},
     zhi_list: {},
     yu_list: {},
+    testShowMusicList: {},
 
-    // 下面的hid估计是hidden的意思吧。。。
-    gong_hid: 0,
-    shang_hid: 1,
-    jue_hid: 1,
-    zhi_hid: 1,
-    yu_hid: 1,
-
-    _to_cur: 1, // 测试结束，传递回主页的页面
+    _to_cur: 1, // 测试结束，传递回主页的哪个页面（“宫”、“商” 之类？）
 
     picker: ['没有', '很少', '有时', '经常', '总是'],
     curTab: 0, //当前页面的Tab值
@@ -55,20 +48,24 @@ Page({
     })
   },
 
+  forbid(e) {
+    // 不能删，用来阻止用户在页面滑动swiper-item
+  },
+
   swiperChange(e) { //切换
     let {
       current,
       source
     } = e.detail
-    if (source === 'autoplay' || source === 'touch') {
+    if (source === 'touch') {
       this.setData({
         curTab: current,
         scrollLeft: (current - 1) * 60
       })
     }
     this.judgeConstitution()
-    if (this.data.curTab === 10 && this.data.convert != undefined && this.data.convert.length == 9) {
-      this.switchSongPage()
+    if (this.data.top_item_hid == false && this.data.curTab === 10 && this.data.convert != undefined && this.data.convert.length == 9) {
+      this.switchSongPage() // switchSongPage()函数作用： 跳转页面 + 向服务器发送数据 
     }
   },
 
@@ -84,7 +81,8 @@ Page({
 
     this.judgeConstitution()
   },
-  directToCarePage(){
+
+  directToCarePage() {
     wx.navigateTo({
       url: '/pages/care/care',
     })
@@ -96,9 +94,7 @@ Page({
       var normalConsLocked = false; //判断平和体质数值是否可以修改，true为不可修改
 
       for (var i = 0; i < this.data._abnormalConstitution.length; i++) {
-
         if (this.data.convert != undefined && this.data.convert[i] != undefined)
-
           // 确定偏颇体质
           if (this.data.convert[i] >= 40) {
             let temp = "_abnormalConstitution[" + i + "]"
@@ -114,21 +110,22 @@ Page({
             }
             //有偏颇质倾向
           } else if (this.data.convert[i] >= 30) {
-          let temp = "_abnormalConstitution[" + i + "]"
-          this.setData({
-            [temp]: 1
-          })
-          if (!normalConsLocked) {
+            let temp = "_abnormalConstitution[" + i + "]"
             this.setData({
-              normalConstitution: 1
+              [temp]: 1
+            })
+
+            if (!normalConsLocked) {
+              this.setData({
+                normalConstitution: 1
+              })
+            }
+          } else {
+            let temp = "_abnormalConstitution[" + i + "]"
+            this.setData({
+              [temp]: 0
             })
           }
-        } else {
-          let temp = "_abnormalConstitution[" + i + "]"
-          this.setData({
-            [temp]: 0
-          })
-        }
       }
 
       var temp = ""
@@ -167,88 +164,56 @@ Page({
       if (this.data.normalConstitution == 2) {
         // 平和质
         this.setData({
-          gong_hid: 0,
-          shang_hid: 1,
-          jue_hid: 1,
-          zhi_hid: 1,
-          yu_hid: 1,
+          testShowMusicList: this.data.gong_list,
           _to_cur: 1
         })
         console.log('推荐舒缓歌单：宫')
       } else if (this.data._abnormalConstitution[2] > 0) {
         // 气虚质
         this.setData({
-          gong_hid: 1,
-          shang_hid: 1,
-          jue_hid: 1,
-          zhi_hid: 1,
-          yu_hid: 0,
+          testShowMusicList: this.data.zhi_list,
           _to_cur: 5
         })
         console.log('推荐舒缓歌单：徵')
       } else if (this.data._abnormalConstitution[0] > 0) {
         // 阳虚质  
         this.setData({
-          gong_hid: 1,
-          shang_hid: 1,
-          jue_hid: 1,
-          zhi_hid: 0,
-          yu_hid: 1,
+          testShowMusicList: this.data.zhi_list,
           _to_cur: 4
         })
         console.log('推荐舒缓歌单：徵')
       } else if (this.data._abnormalConstitution[1] > 0) {
         // 阴虚质
         this.setData({
-          gong_hid: 1,
-          shang_hid: 1,
-          jue_hid: 1,
-          zhi_hid: 1,
-          yu_hid: 0,
+          testShowMusicList: this.data.yu_list,
           _to_cur: 5
         })
         console.log('推荐舒缓歌单：羽')
       } else if (this.data._abnormalConstitution[3] > 0) {
         // 痰湿质 
         this.setData({
-          gong_hid: 1,
-          shang_hid: 1,
-          jue_hid: 0,
-          zhi_hid: 1,
-          yu_hid: 1,
+          testShowMusicList: this.data.jue_list,
           _to_cur: 3
         })
         console.log('推荐舒缓歌单：角')
       } else if (this.data._abnormalConstitution[4] > 0) {
         // 湿热
         this.setData({
-          gong_hid: 1,
-          shang_hid: 1,
-          jue_hid: 1,
-          zhi_hid: 1,
-          yu_hid: 0,
+          testShowMusicList: this.data.yu_list,
           _to_cur: 5
         })
         console.log('推荐舒缓歌单：羽')
       } else if (this.data._abnormalConstitution[5] > 0) {
         // 血瘀质
         this.setData({
-          gong_hid: 1,
-          shang_hid: 1,
-          jue_hid: 0,
-          zhi_hid: 1,
-          yu_hid: 1,
+          testShowMusicList: this.data.jue_list,
           _to_cur: 3
         })
         console.log('推荐舒缓歌单：角')
       } else if (this.data._abnormalConstitution[7] > 0) {
         // 气郁质  //分别对应：阳虚、阴虚、气虚、痰湿、湿热、血瘀、特禀、气郁
         this.setData({
-          gong_hid: 1,
-          shang_hid: 0,
-          jue_hid: 1,
-          zhi_hid: 1,
-          yu_hid: 1,
+          testShowMusicList: this.data.shang_list,
           _to_cur: 2
         })
         console.log('推荐舒缓歌单：商')
@@ -256,11 +221,7 @@ Page({
       } else if (this.data._abnormalConstitution[6] > 0) {
         // 特禀质
         this.setData({
-          gong_hid: 0,
-          shang_hid: 1,
-          jue_hid: 1,
-          zhi_hid: 1,
-          yu_hid: 1,
+          testShowMusicList: this.data.gong_list,
           _to_cur: 1
         })
         console.log('推荐舒缓歌单：宫')
@@ -272,6 +233,7 @@ Page({
   //滑动问题下的滑钮时，收集用户答案
   sliderChange(e) {
     var pickID = e.currentTarget.id
+    console.log("pickID:" + pickID)
 
     //及时修改对应项sliderValue的数值
 
@@ -311,6 +273,7 @@ Page({
   },
 
   switchSongPage() {
+    // 除跳转页面外，还会向服务器发送数据
     if (this.data.curTab !== 10) {
       this.setData({
         curTab: 10
@@ -379,24 +342,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.time_slider_hid != undefined) {
+    if (options.top_item_hid != undefined) {
+      let tmp = options.top_item_hid == "false" ? false : true
       this.setData({
-        time_slider_hid: options.time_slider_hid,
+        top_item_hid: tmp,
+        curTab: options.curTab,
+        index: jsonData.dataList,
+        constitutionContext: jsonData.dataContext
       })
     }
-    if (options.songlist_hid != undefined) {
-      this.setData({
-        songlist_hid: options.songlist_hid,
-      })
-    }
-
-    this.setData({
-      //存储从上一页返回的参数
-      curTab: options.curTab,
-      index: jsonData.dataList,
-      constitutionContext: jsonData.dataContext,
-    })
-    // finalRes: options.finalRes,
 
     if (options.gong_hid != undefined) {
       this.setData({
@@ -408,15 +362,6 @@ Page({
         _to_cur: options._to_cur,
       })
     }
-
-  },
-
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
     this.setData({
       gong_list: app.globalData.gong_list,
       shang_list: app.globalData.shang_list,
@@ -424,12 +369,18 @@ Page({
       zhi_list: app.globalData.zhi_list,
       yu_list: app.globalData.yu_list,
     })
+  },
 
-    wx.getStorage({
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    var that = this
+    wx.getStorageSync({
       key: "user_gender",
       success: res => {
-        console.log('aaaaaaaa')
-        this.setData({
+        that.setData({
           user_gender: res.data
         })
       }
@@ -476,5 +427,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 不要删不要删
+  noneFunction(e){
+    //  不要删不要删，用来防止用户误触
+    // console.log(e)
   }
 })
